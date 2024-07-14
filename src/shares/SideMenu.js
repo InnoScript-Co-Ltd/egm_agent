@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom"
+import { paths } from "../constants/paths";
 
 export const SideMenu = () => {
     const navigate = useNavigate();
@@ -7,7 +8,7 @@ export const SideMenu = () => {
         {
             icon: "",
             label: "Dashboard",
-            url: ""
+            url: paths.dashboard
         },
         {
             icon: "",
@@ -17,7 +18,7 @@ export const SideMenu = () => {
         {
             icon: "",
             label: "Packages",
-            url: ""
+            url: paths.package
         },
         {
             icon: "",
@@ -32,7 +33,7 @@ export const SideMenu = () => {
         {
             icon: "",
             label: "Bank Account",
-            url: ""
+            url: paths.bankAccount
         },
         {
             icon: "",

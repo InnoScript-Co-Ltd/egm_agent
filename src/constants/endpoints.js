@@ -5,5 +5,7 @@ export const endpoints = {
     register: "register",
     resendCode: "verification-code",
     verification: "verification",
-    profile: "auth/profile"
+    profile: "auth/profile",
+    package: "package",
+    bankAccount: "bank-account"
 }

@@ -57,7 +57,7 @@ export const httpErrorHandler = (error) => {
     removeData(keys.API_TOKEN);
     removeData(keys.ID);
     removeData(keys.USER);
-    window.location.reload("/auth/login");
+   // window.location.reload("/auth/login");
     return {
       status: status,
       error: data.message,

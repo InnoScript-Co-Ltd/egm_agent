@@ -2,6 +2,7 @@ import { useSelector } from "react-redux"
 import { Header } from "../../../shares/Header";
 import { AlertMessage } from "../../../shares/AlertMessage";
 import { SideMenu } from "../../../shares/SideMenu";
+import { AccountBalance } from "../../../shares/AccountBalance";
 
 export const Dashboard = () => {
     const { user } = useSelector(state => state.account);
@@ -20,6 +21,8 @@ export const Dashboard = () => {
 
                     <div className="col-sm-12 col-md-10 col-lg-10">
                         <AlertMessage />
+                        
+                        <AccountBalance />
                     </div>
                 </div>
             </div>

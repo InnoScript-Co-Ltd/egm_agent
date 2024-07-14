@@ -4,5 +4,8 @@ export const paths = {
     verification: "/account/verification",
     resendCode: "/account/resend",
     forget_password: "/auth/forget-password",
-    dashboard: "/dashboard"
+    dashboard: "/dashboard",
+    package: "/package",
+    packageBuy: "/package/buy",
+    bankAccount: "/bank-account"
 }
