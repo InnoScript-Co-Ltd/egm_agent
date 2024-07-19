@@ -13,7 +13,7 @@ export const SideMenu = () => {
         {
             icon: "",
             label: "Investor",
-            url: ""
+            url: paths.investor
         },
         {
             icon: "",

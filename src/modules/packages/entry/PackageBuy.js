@@ -95,44 +95,44 @@ export const PackageBuy = () => {
                                                     <Accordion.Header> <b> Repayment Schedule  </b> </Accordion.Header>
                                                     <Accordion.Body>
                                                         <Table striped bordered hover>
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Month</th>
-                                                            <th> ROI Rate </th>
-                                                            <th> ROI Amount </th>
-                                                        </tr>
-                                                    </thead>
-
-                                                    <tbody>
-                                                        {repayment && repayment.map((value, index) => {
-                                                            return (
-                                                                <tr key={`repayment_id_${index}`}>
-                                                                    <td> {value.month} </td>
-                                                                    <td> {value.roi_rate}% </td>
-                                                                    <td> ${numeral(value.roi_amount).format('0,0')} </td>
-                                                                </tr>
-                                                            )
-                                                        })}
-
-                                                        { repayment && repayment.length > 0 && (
-                                                            <>
+                                                            <thead>
                                                                 <tr>
-                                                                    <td colspan='2'> <b> Total ROI Amount </b></td>
-                                                                    <td> <b> ${numeral(repayment[0].roi_amount * 12).format('0,0')} </b> </td>
+                                                                    <th>Month</th>
+                                                                    <th> ROI Rate </th>
+                                                                    <th> ROI Amount </th>
                                                                 </tr>
+                                                            </thead>
 
-                                                                <tr>
-                                                                    <td colspan='2'> <b> Disposit Amount </b></td>
-                                                                    <td> <b> ${numeral(packageDetail.deposit_rate).format('0,0')} </b> </td>
-                                                                </tr>
+                                                            <tbody>
+                                                                {repayment && repayment.map((value, index) => {
+                                                                    return (
+                                                                        <tr key={`repayment_id_${index}`}>
+                                                                            <td> {value.month} </td>
+                                                                            <td> {value.roi_rate}% </td>
+                                                                            <td> ${numeral(value.roi_amount).format('0,0')} </td>
+                                                                        </tr>
+                                                                    )
+                                                                })}
 
-                                                                <tr> 
-                                                                    <td colspan='2'> <b> Total ROI Amount + Disposit Amount </b></td>
-                                                                    <td> <b> ${numeral((repayment[0].roi_amount * 12) + Number(packageDetail.deposit_rate)).format('0,0')} </b> </td>
-                                                                </tr>
-                                                            </>
-                                                        )}
-                                                    </tbody>
+                                                                {repayment && repayment.length > 0 && (
+                                                                    <>
+                                                                        <tr>
+                                                                            <td colspan='2'> <b> Total ROI Amount </b></td>
+                                                                            <td> <b> ${numeral(repayment[0].roi_amount * 12).format('0,0')} </b> </td>
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                            <td colspan='2'> <b> Disposit Amount </b></td>
+                                                                            <td> <b> ${numeral(packageDetail.deposit_rate).format('0,0')} </b> </td>
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                            <td colspan='2'> <b> Total ROI Amount + Disposit Amount </b></td>
+                                                                            <td> <b> ${numeral((repayment[0].roi_amount * 12) + Number(packageDetail.deposit_rate)).format('0,0')} </b> </td>
+                                                                        </tr>
+                                                                    </>
+                                                                )}
+                                                            </tbody>
                                                         </Table>
                                                     </Accordion.Body>
                                                 </Accordion.Item>

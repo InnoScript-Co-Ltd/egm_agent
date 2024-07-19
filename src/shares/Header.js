@@ -1,16 +1,31 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux"
 import { Profile } from "./Profile";
+import { useNavigate } from "react-router-dom";
+import { paths } from "../constants/paths";
+import { getData } from "../libs/localstorage";
+import { keys } from "../constants/config";
 
 export const Header = () => {
     const { user } = useSelector(state => state.account);
     const [profile, setProfile] = useState(null);
+    
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (user) {
             setProfile(user);
         }
     }, [user]);
+
+    useEffect(() => {
+        const token = getData(keys.API_TOKEN);
+
+        if(!token) {
+            navigate(paths.login);
+        }
+    },[navigate]);
+
     return (
         <>
             {profile && (

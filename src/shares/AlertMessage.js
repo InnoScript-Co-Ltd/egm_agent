@@ -15,7 +15,9 @@ export const AlertMessage = () => {
         <div className="alert-wrapper">
             {profile && profile.kyc_status === "CHECKING" && (
                 <div className="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong> KYC INFO! </strong> We are checking your account KYC and your account's kyc status is "CHECKING" state.
+                    <strong> KYC INFO! Some features are does not work.  </strong> 
+                    We are preview your account KYC and your account's kyc status is "CHECKING".
+                    We will take 24 hours for checking.
                 </div>
             )}
         </div>

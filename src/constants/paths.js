@@ -7,5 +7,7 @@ export const paths = {
     dashboard: "/dashboard",
     package: "/package",
     packageBuy: "/package/buy",
-    bankAccount: "/bank-account"
+    bankAccount: "/bank-account",
+    investor: "/investor",
+    investorVerification: "/investor/account/verification"
 }

@@ -7,5 +7,6 @@ export const endpoints = {
     verification: "verification",
     profile: "auth/profile",
     package: "package",
-    bankAccount: "bank-account"
+    bankAccount: "bank-account",
+    invsetor: "investor",
 }

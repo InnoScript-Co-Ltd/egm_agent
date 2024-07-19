@@ -21,7 +21,12 @@ export const Verification = () => {
     
     const registerHandler = async () => {
         setLoading(true);
-        const result = await accountServices.verification(payload, dispatch);
+
+        const updatePayload = { ...payload };
+        updatePayload.agent_id = account.id;
+
+        const result = await accountServices.verification(updatePayload, dispatch);
+        console.log(result);
         if(result.status === 200) {
             navigate(paths.login);
         }
@@ -31,10 +36,6 @@ export const Verification = () => {
     useEffect(() => {
         if(!account) {
             navigate(paths.resendCode);
-        } else {
-            const updatePayload = { ...payload};
-            updatePayload.agent_id = account.agent_id;
-            setPayload(updatePayload);
         }
     },[account, navigate]);
 
