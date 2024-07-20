@@ -106,6 +106,8 @@ body {
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+    padding-left:15px;
+    padding-right: 15px;
 }
 
 .menu {
@@ -198,20 +200,19 @@ body {
 .package-detail-card > .card-title {
     width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
-
-.package-detail-card > .card-title > .card-text,
+.package-detail-card > .card-title > div > span,
 .add-new-bank-account-card > .card-title > .card-text  {
     font-size: 20px;
     font-weight: 600;
 }
 
 .card-sub-text {
-    font-size: 14px;
-    font-weight: 400;
+    font-size: 14px!important;
+    font-weight: 300;
 }
 
 .image-preview {
@@ -246,4 +247,73 @@ body {
 
 .thead-tr > th {
     font-size: 14px; 
+}
+
+/** Investor Profile Page **/
+.investor-profile-card {
+    background-color: #fff;
+    color: #2e2e2e;
+    border-radius: 3px;
+}
+
+.investor-profile-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.investor-profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #ffc107;
+}
+
+.invetor-profile-info {
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border-right: 1px solid #d1d1d1;
+    flex-wrap: wrap;
+}
+
+.invetor-profile-info > span:first-child {
+    font-weight: 600;
+    font-size: 20px;
+    color:#1e1d1d;
+    margin-bottom: 20px;
+}
+
+.invetor-profile-info > span:first-child > .badge {
+    margin-left: 10px;
+    font-size: small;
+}
+
+.invetor-profile-info > span {
+    font-size: 14px;
+    color: #353333;
+}
+
+.invetor-profile-info > .btn-group {
+    margin-top: 20px;
+}
+
+.invetor-roi {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.invetor-roi {
+    font-size: small;
+    color: #000;
+    font-weight: 700;
 }

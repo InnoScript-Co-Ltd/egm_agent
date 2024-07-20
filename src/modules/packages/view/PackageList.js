@@ -40,7 +40,7 @@ export const PackageList = () => {
             <Header />
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col-sm-12 col-md-2 col-lg-2">
+                    <div className="col-sm-12 col-md-2 col-lg-2 g-0">
                         <SideMenu />
                     </div>
 

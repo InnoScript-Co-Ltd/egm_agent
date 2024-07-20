@@ -46,16 +46,10 @@ export const InvestorList = () => {
 
                         {user && user.kyc_status === 'FULL_KYC' && (
                             <>
-                                <div className="row mt-3 mb-3">
+                                <div className="row mb-3">
                                     <div className="col-12">
                                         <div className="d-flex flex-row justify-content-between align-item-center">
-                                            <Button
-                                                variant="outline-warning"
-                                                disabled={loading}
-                                                onClick={() => navigate(`${paths.investor}/new`)}
-                                            >
-                                                Create Investor Account
-                                            </Button>
+
                                         </div>
                                     </div>
                                 </div>
@@ -64,32 +58,25 @@ export const InvestorList = () => {
                                     <div className="col-12">
                                         <div className="card">
                                             <div className="card-title">
-                                                <div className="card-text investor-title"> Investor Account List </div>
+                                                <Button
+                                                    variant="warning"
+                                                    disabled={loading}
+                                                    onClick={() => navigate(`${paths.investor}/new`)}
+                                                >
+                                                    Create Investor Account
+                                                </Button>
                                             </div>
 
                                             <div className="card-body">
                                                 <div className="table-responsive">
                                                     <Table striped bordered hover>
-                                                        <thead>
-                                                            <tr className="thead-tr">
-                                                                <th> Name </th>
-                                                                <th> Email </th>
-                                                                <th> Phone </th>
-                                                                <th> NRC </th>
-                                                                <th> KYC Status </th>
-                                                                <th> Status </th>
-                                                                <th> Option </th>
-                                                            </tr>
-                                                        </thead>
-
                                                         <tbody>
                                                             {investors && investors.map((value, index) => {
                                                                 return (
                                                                     <tr key={`investor_id_${index}`} className="tr">
-                                                                        <td style={{ width: "200px"}}> {`${value.first_name} ${value.last_name}`} </td>
-                                                                        <td style={{ width: "200px"}}> {value.email} </td>
+                                                                        <td style={{ width: "200px" }}> {`${value.first_name} ${value.last_name}`} </td>
+                                                                        <td style={{ width: "200px" }}> {value.email} </td>
                                                                         <td> {value.phone} </td>
-                                                                        <td> {value.nrc} </td>
                                                                         <td> {value.kyc_status} </td>
                                                                         <td> {value.status} </td>
                                                                         <td>

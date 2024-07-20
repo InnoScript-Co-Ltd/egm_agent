@@ -1,14 +1,17 @@
 import { useCallback, useEffect, useState } from "react"
+import Form from 'react-bootstrap/Form';
+import Button from "react-bootstrap/esm/Button"
 import Table from 'react-bootstrap/Table';
 import { AlertMessage } from "../../../shares/AlertMessage"
 import { Header } from "../../../shares/Header"
 import { SideMenu } from "../../../shares/SideMenu"
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { packageServices } from "../packageServices"
 import Accordion from 'react-bootstrap/Accordion';
 import numeral from "numeral";
 import moment from "moment";
+// import { ValidationMessage } from "../../../shares/ValidationMessage";
 
 export const PackageBuy = () => {
 
@@ -17,9 +20,17 @@ export const PackageBuy = () => {
     const { packageDetail } = useSelector(state => state.package);
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const params = useParams();
+
+    const requestPackageBuy = async () => {
+        setLoading(true);
+        await packageServices.agentPackageBuy(dispatch, {
+            package_id : params.id
+        });
+        setLoading(false);   
+    }
 
     const initDataLoading = useCallback(async () => {
         setLoading(true);
@@ -58,7 +69,7 @@ export const PackageBuy = () => {
             <Header />
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col-sm-12 col-md-2 col-lg-2">
+                    <div className="col-sm-12 col-md-2 col-lg-2 g-0">
                         <SideMenu />
                     </div>
 
@@ -72,24 +83,25 @@ export const PackageBuy = () => {
                                 <div className="col-12">
                                     <div className="card package-detail-card">
                                         <div className="card-title">
-                                            <span className="card-text"> {packageDetail.name.toUpperCase()} (${numeral(packageDetail.deposit_rate).format('0,0')}) </span>
-                                            <span className="card-sub-text">
-                                                Duration - {packageDetail.duration} {packageDetail.duration > 1 ? "Years" : "Year"} |
-                                                Monthly ROI - ({packageDetail.roi_rate}%) |
-                                                Yearly ROI - ({packageDetail.roi_rate * 12}%)
-                                            </span>
+                                            <div className="d-flex flex-column justify-start align-items-start">
+                                                <span> {packageDetail.name.toUpperCase()} (${numeral(packageDetail.deposit_rate).format('0,0')})  </span>
+                                                <span className="card-sub-text">
+                                                    Duration - {packageDetail.duration} {packageDetail.duration > 1 ? "Years" : "Year"} |
+                                                    Monthly ROI - ({packageDetail.roi_rate}%) |
+                                                    Yearly ROI - ({packageDetail.roi_rate * 12}%)
+                                                </span>
+                                            </div>
+
+                                            <Button
+                                                variant="warning"
+                                                disabled={loading}
+                                                onClick={() => requestPackageBuy()}
+                                            >
+                                                Request Package Buy
+                                            </Button>
                                         </div>
 
                                         <div className="card-body">
-                                            <Accordion defaultActiveKey="1" className="mt-3">
-                                                <Accordion.Item eventKey="1">
-                                                    <Accordion.Header> <b> Package Buying Process  </b> </Accordion.Header>
-                                                    <Accordion.Body>
-
-                                                    </Accordion.Body>
-                                                </Accordion.Item>
-                                            </Accordion>
-
                                             <Accordion defaultActiveKey="0" className="mt-3">
                                                 <Accordion.Item eventKey="0">
                                                     <Accordion.Header> <b> Repayment Schedule  </b> </Accordion.Header>

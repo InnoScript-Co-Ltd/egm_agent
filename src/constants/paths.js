@@ -9,5 +9,5 @@ export const paths = {
     packageBuy: "/package/buy",
     bankAccount: "/bank-account",
     investor: "/investor",
-    investorVerification: "/investor/account/verification"
+    investorVerification: "/investor/account/verification",
 }
