@@ -10,12 +10,6 @@ export const packageServices = {
         await httpServiceHandler(dispatch, result);
 
         if(result.status === 200) {
-            dispatch(updateNotification( {
-                show: true,
-                summary: "Success",
-                severity: "success",
-                detail: result.message
-            }));
             dispatch(index(result.data));
         }
         return result;
@@ -32,6 +26,22 @@ export const packageServices = {
 
     agentPackageBuy: async (dispatch, payload) => {
         const result = await postRequest(endpoints.agentPackage, payload);
+        await httpServiceHandler(dispatch, result);
+
+        if(result.status === 200) {
+            dispatch(updateNotification( {
+                show: true,
+                summary: "Success",
+                severity: "success",
+                detail: result.message
+            }));
+        }
+
+        return result;
+    },
+
+    investorPackageBuy: async (dispatch, payload) => {
+        const result = await postRequest(endpoints.investorPackage, payload);
         await httpServiceHandler(dispatch, result);
 
         if(result.status === 200) {

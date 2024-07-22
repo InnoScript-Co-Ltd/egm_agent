@@ -9,5 +9,6 @@ export const endpoints = {
     package: "package",
     bankAccount: "bank-account",
     invsetor: "investor",
-    agentPackage: "agent-package"
+    agentPackage: "agent-package",
+    investorPackage: "investor-package"
 }

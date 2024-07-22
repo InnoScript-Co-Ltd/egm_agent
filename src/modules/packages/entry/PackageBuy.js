@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/esm/Button"
 import Table from 'react-bootstrap/Table';
@@ -11,12 +11,19 @@ import { packageServices } from "../packageServices"
 import Accordion from 'react-bootstrap/Accordion';
 import numeral from "numeral";
 import moment from "moment";
-// import { ValidationMessage } from "../../../shares/ValidationMessage";
+import { getRequest } from "../../../helpers/api";
+import { endpoints } from "../../../constants/endpoints";
+import { Notification } from "../../../shares/Notification";
+import { ValidationMessage } from "../../../shares/ValidationMessage";
 
 export const PackageBuy = () => {
 
     const [loading, setLoading] = useState(false);
     const [repayment, setRepayment] = useState([]);
+    const [investors, setInvestors] = useState([]);
+    
+    const selectedInvestor = useRef();
+
     const { packageDetail } = useSelector(state => state.package);
 
     const dispatch = useDispatch();
@@ -27,9 +34,19 @@ export const PackageBuy = () => {
     const requestPackageBuy = async () => {
         setLoading(true);
         await packageServices.agentPackageBuy(dispatch, {
-            package_id : params.id
+            package_id: params.id
         });
-        setLoading(false);   
+        setLoading(false);
+    }
+
+    const requestInvestorPackageBuy = async () => {
+        setLoading(true);
+
+        await packageServices.investorPackageBuy(dispatch, {
+            package_id: params.id,
+            investor_id: selectedInvestor.current
+        });
+        setLoading(false);
     }
 
     const initDataLoading = useCallback(async () => {
@@ -43,18 +60,28 @@ export const PackageBuy = () => {
             let repayments = [];
 
             for (let x = 0; x < 12; x++) {
+
                 const futureMonth = {
                     month: moment().add(x, 'M').format('DD-MM-YYYY'),
-                    roi_rate: packageDetail.roi_rate,
-                    roi_amount: (packageDetail.deposit_rate * packageDetail.roi_rate / 100)
+                    roi_rate: Number(packageDetail.roi_rate),
+                    roi_amount: (Number(packageDetail.deposit_rate) * Number(packageDetail.roi_rate) / 100)
                 };
-
                 repayments.push(futureMonth);
             }
 
             setRepayment(repayments);
         }
     }, [packageDetail]);
+
+    const investorListLoading = useCallback(async () => {
+        setLoading(true);
+        const result = await getRequest(`${endpoints.invsetor}?filter=kyc_status,status&value=FULL_KYC,ACTIVE`);
+
+        if (result.status === 200) {
+            setInvestors(result.data);
+        }
+        setLoading(false);
+    }, []);
 
     useEffect(() => {
         initDataLoading();
@@ -64,8 +91,13 @@ export const PackageBuy = () => {
         repaymentDataLoading();
     }, [repaymentDataLoading]);
 
+    useEffect(() => {
+        investorListLoading();
+    }, [investorListLoading])
+
     return (
         <>
+            <Notification />
             <Header />
             <div className="container-fluid">
                 <div className="row">
@@ -93,6 +125,7 @@ export const PackageBuy = () => {
                                             </div>
 
                                             <Button
+                                                style={{ fontWeight: "600" }}
                                                 variant="warning"
                                                 disabled={loading}
                                                 onClick={() => requestPackageBuy()}
@@ -102,6 +135,40 @@ export const PackageBuy = () => {
                                         </div>
 
                                         <div className="card-body">
+                                            <div className="row">
+                                                <div className="col-12">
+                                                    <h3 style={{ fontSize: "16px" }}> Request Package Buy For Investor </h3>
+                                                </div>
+
+                                                <div className="col-12 col-md-4 col-lg-4">
+                                                    <Form.Select
+                                                        onChange={(e) => {
+                                                            selectedInvestor.current = (e.target.value);
+                                                        }}
+                                                    >
+                                                        <option> Choose Investor </option>
+                                                        {investors && investors.map((value, index) => {
+                                                            return (
+                                                                <option key={`investor_id_${index}`} value={value.id}>  {`${value.first_name} ${value.last_name}`} </option>
+                                                            )
+                                                        })}
+                                                    </Form.Select>
+                                                    <ValidationMessage field="investor_id" />
+                                                </div>
+
+                                                <div className="col-12 col-md-4 col-lg-4">
+                                                    <Button
+                                                        style={{ fontWeight: "600" }}
+                                                        variant="warning"
+                                                        disabled={loading}
+                                                        onClick={() => requestInvestorPackageBuy()}
+                                                    >
+                                                        Request Package
+                                                    </Button>
+                                                </div>
+
+                                            </div>
+
                                             <Accordion defaultActiveKey="0" className="mt-3">
                                                 <Accordion.Item eventKey="0">
                                                     <Accordion.Header> <b> Repayment Schedule  </b> </Accordion.Header>
@@ -129,17 +196,17 @@ export const PackageBuy = () => {
                                                                 {repayment && repayment.length > 0 && (
                                                                     <>
                                                                         <tr>
-                                                                            <td colspan='2'> <b> Total ROI Amount </b></td>
+                                                                            <td colSpan={2}> <b> Total ROI Amount </b></td>
                                                                             <td> <b> ${numeral(repayment[0].roi_amount * 12).format('0,0')} </b> </td>
                                                                         </tr>
 
                                                                         <tr>
-                                                                            <td colspan='2'> <b> Disposit Amount </b></td>
+                                                                            <td colSpan={2}> <b> Disposit Amount </b></td>
                                                                             <td> <b> ${numeral(packageDetail.deposit_rate).format('0,0')} </b> </td>
                                                                         </tr>
 
                                                                         <tr>
-                                                                            <td colspan='2'> <b> Total ROI Amount + Disposit Amount </b></td>
+                                                                            <td colSpan={2}> <b> Total ROI Amount + Disposit Amount </b></td>
                                                                             <td> <b> ${numeral((repayment[0].roi_amount * 12) + Number(packageDetail.deposit_rate)).format('0,0')} </b> </td>
                                                                         </tr>
                                                                     </>

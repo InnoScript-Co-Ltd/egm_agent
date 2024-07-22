@@ -13,6 +13,8 @@ export const PackageList = () => {
     const [loading, setLoading] = useState(false);
 
     const { packages } = useSelector(state => state.package);
+    const { user } = useSelector(state => state.account);
+
     const [items, setItem] = useState([]);
 
     const dispatch = useDispatch();
@@ -85,13 +87,15 @@ export const PackageList = () => {
                                                 </div>
 
                                                 <div className="card-footer">
-                                                    <button
-                                                        className="btn btn-primary"
-                                                        disabled={loading}
-                                                        onClick={() => navigate(`${paths.packageBuy}/${value.id}`)}
-                                                    >
-                                                        BUY PACKAGE
-                                                    </button>
+                                                    {user.kyc_status === 'FULL_KYC' && (
+                                                        <button
+                                                            className="btn btn-primary"
+                                                            disabled={loading}
+                                                            onClick={() => navigate(`${paths.packageBuy}/${value.id}`)}
+                                                        >
+                                                            BUY PACKAGE
+                                                        </button>
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
