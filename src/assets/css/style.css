@@ -326,3 +326,8 @@ body {
     z-index: 1;
     top: 0px;
 }
+
+.note-description {
+    font-weight: 600;
+    padding: 10px;
+}

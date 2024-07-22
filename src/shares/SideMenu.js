@@ -28,7 +28,7 @@ export const SideMenu = () => {
         {
             icon: "",
             label: "Transaction",
-            url: ""
+            url: paths.transcation
         },
         {
             icon: "",

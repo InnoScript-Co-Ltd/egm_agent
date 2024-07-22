@@ -12,6 +12,7 @@ import { InvestorList } from "./modules/investor/view/InvestorList";
 import { CreateInvestor } from "./modules/investor/entry/CreateInvestor";
 import { EmailVerification } from "./modules/investor/entry/EmailVerification";
 import { InvestorDetail } from "./modules/investor/view/InvestorDetail";
+import { TranscationList } from "./modules/transcation/view/TranscationList";
 
 export const routers = createBrowserRouter([
     {
@@ -61,5 +62,9 @@ export const routers = createBrowserRouter([
     {
         path: `${paths.investor}/:id`,
         element: <InvestorDetail />
+    },
+    {
+        path: paths.transcation,
+        element: <TranscationList />
     }
 ])

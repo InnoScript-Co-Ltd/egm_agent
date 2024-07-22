@@ -5,6 +5,7 @@ import authSlice from "../modules/auth/authSlice";
 import packageSlice from "../modules/packages/packageSlice";
 import bankAccountSlice from "../modules/bankAccount/bankAccountSlice";
 import investorSlice from "../modules/investor/investorSlice";
+import transcationSlice from "../modules/transcation/transcationSlice";
 
 export const stores = configureStore({
    reducer: {
@@ -13,7 +14,8 @@ export const stores = configureStore({
       auth: authSlice,
       package: packageSlice,
       bankAccount: bankAccountSlice,
-      investor: investorSlice
+      investor: investorSlice,
+      transcation: transcationSlice
    },
    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
       serializableCheck: false
