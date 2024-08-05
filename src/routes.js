@@ -13,8 +13,17 @@ import { CreateInvestor } from "./modules/investor/entry/CreateInvestor";
 import { EmailVerification } from "./modules/investor/entry/EmailVerification";
 import { InvestorDetail } from "./modules/investor/view/InvestorDetail";
 import { TranscationList } from "./modules/transcation/view/TranscationList";
+import { TranscationDetail } from "./modules/transcation/view/TranscationDetail";
+import { CreateSubAgent } from "./modules/subAgent/entry/CreateInvestor";
+import { ChannelList } from "./modules/channel/view/ChannelList";
+import { ChannelDetail } from "./modules/channel/view/ChannelDetail";
+import { MainAgentRegister } from "./modules/account/entry/MainAgentRegister";
 
 export const routers = createBrowserRouter([
+    {
+        path: `${paths.mainAgentRegister}/:token`,
+        element: <MainAgentRegister />
+    },
     {
         path: paths.login,
         element: <Login />
@@ -66,5 +75,22 @@ export const routers = createBrowserRouter([
     {
         path: paths.transcation,
         element: <TranscationList />
+    },
+    {
+        path: `${paths.transcation}/:id`,
+        element: <TranscationDetail />
+    },
+    {
+        path: paths.subAgent,
+        element: <CreateSubAgent />
+    },
+    {
+        path: `${paths.channel}`,
+        element: <ChannelList />
+    },
+    {
+        path: `${paths.channel}/:id`,
+        element: <ChannelDetail />
     }
+
 ])

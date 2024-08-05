@@ -25,20 +25,20 @@ export const Login = () => {
     const loginHandler = async () => {
         setLoading(true);
         const result = await authServices.login(payload, dispatch);
-        if(result.status === 200) {
+        if (result.status === 200) {
             await accountServices.profile(dispatch);
             navigate(paths.dashboard);
-        } 
+        }
         setLoading(false);
     }
 
     useEffect(() => {
-        if(token) {
+        if (token) {
             navigate(paths.dashboard);
         }
-    },[token, navigate]);
+    }, [token, navigate]);
 
-    return(
+    return (
         <div className="login-content d-flex flex-column align-items-center justify-content-center">
             <div className='card login-form'>
                 <div className='card-body d-flex flex-column align-items-center justify-content-center'>
@@ -46,7 +46,7 @@ export const Login = () => {
                     <div className='card-text mb-3'> Evan Global Management Co., Ltd </div>
 
                     <Form.Group className="mt-3 w-full" controlId="login.email">
-                        <Form.Control 
+                        <Form.Control
                             type="email"
                             placeholder="Enter your email address"
                             disabled={loading}
@@ -58,7 +58,7 @@ export const Login = () => {
                     </Form.Group>
 
                     <Form.Group className="mt-3 w-full" controlId="login.password">
-                        <Form.Control 
+                        <Form.Control
                             type="password"
                             placeholder="Enter your password"
                             disabled={loading}
@@ -70,19 +70,19 @@ export const Login = () => {
                     </Form.Group>
 
                     <Form.Group className="mt-3 w-full" controlId="login.btn">
-                        <Button 
-                            className="w-full" 
-                            variant="outline-warning" 
+                        <Button
+                            className="w-full"
+                            variant="outline-warning"
                             disabled={loading}
                             onClick={() => loginHandler()}
-                        > 
-                            Login 
+                        >
+                            Login
                         </Button>
                     </Form.Group>
 
-                    <div className="card-title mt-3 mb-3"> 
-                        <span className="link-text" onClick={() => navigate(paths.register) }> Forgetpassword ? </span> | 
-                        <span className="link-text" onClick={() => navigate(paths.register)}> New Account? </span> 
+                    <div className="card-title mt-3 mb-3">
+                        <span className="link-text" onClick={() => navigate(paths.register)}> Forgetpassword ? </span> |
+                        <span className="link-text" onClick={() => navigate(paths.register)}> New Account? </span>
                     </div>
                 </div>
             </div>

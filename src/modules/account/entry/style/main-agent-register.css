@@ -1,0 +1,38 @@
+.left-side-body {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    height: 100vh;
+    color: #fff;
+}
+
+.left-side-body > .logo-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-side-body > .logo-wrapper > .logo {
+    width: 150px;
+    height: 150px;
+}
+
+.left-side-body > .logo-wrapper > p {
+    font-size: small;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.right-side-body {
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    color: #fff;
+    padding: 20px;
+}

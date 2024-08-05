@@ -1,7 +1,7 @@
 import Alert from 'react-bootstrap/Alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateNotification } from '../constants/shareSlice';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
 export const Notification = () => {
 

@@ -1,6 +1,7 @@
 export const paths = {
     login: "/auth/login",
-    register: "/account/new",
+    register: "/agent/register",
+    mainAgentRegister: "/agent/main/register",
     verification: "/account/verification",
     resendCode: "/account/resend",
     forget_password: "/auth/forget-password",
@@ -10,5 +11,7 @@ export const paths = {
     bankAccount: "/bank-account",
     investor: "/investor",
     investorVerification: "/investor/account/verification",
-    transcation: "/transcation"
+    transcation: "/transcation",
+    channel: "/channel",
+    subAgent: "/sub-agent"
 }

@@ -97,7 +97,7 @@ export const TranscationList = () => {
                                                                                         size="small"
                                                                                         variant="warning"
                                                                                         disabled={loading}
-                                                                                        onClick={() => navigate(`${paths.investor}/${value.id}`)}
+                                                                                        onClick={() => navigate(`${paths.transcation}/${value.id}`)}
                                                                                     >
                                                                                         Detail
                                                                                     </Button>
@@ -142,7 +142,6 @@ export const TranscationList = () => {
                                                             </Table>
                                                         </div>
                                                     </Tab>
-
                                                 </Tabs>
                                             </div>
                                         </div>

@@ -9,7 +9,6 @@ const http = axios.create({
 
 http.interceptors.request.use(
     (config) => {
-
         const token = getData(keys.API_TOKEN) ? getData(keys.API_TOKEN) : null;
 
         if (token) {

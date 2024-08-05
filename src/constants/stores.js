@@ -6,6 +6,8 @@ import packageSlice from "../modules/packages/packageSlice";
 import bankAccountSlice from "../modules/bankAccount/bankAccountSlice";
 import investorSlice from "../modules/investor/investorSlice";
 import transcationSlice from "../modules/transcation/transcationSlice";
+import subAgentSlice from "../modules/subAgent/subAgentSlice";
+import channelSlice from "../modules/channel/channelSlice";
 
 export const stores = configureStore({
    reducer: {
@@ -15,7 +17,9 @@ export const stores = configureStore({
       package: packageSlice,
       bankAccount: bankAccountSlice,
       investor: investorSlice,
-      transcation: transcationSlice
+      transcation: transcationSlice,
+      subAgent: subAgentSlice,
+      channel: channelSlice
    },
    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
       serializableCheck: false

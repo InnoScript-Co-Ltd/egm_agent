@@ -10,6 +10,7 @@ export const accountPayload = {
         nrc_back: "",
         address: "",
         password: "",
+        password_confirmation: ""
     },
     resendCode: {
         email: ""

@@ -36,13 +36,26 @@ export const httpErrorHandler = (error) => {
 
   const { status, data } = error.response;
 
-  if (status === 400 || status === 404 || status === 500 || status === 403) {
+  if (status === 400 || status === 404 || status === 403) {
     return {
       status: status,
       message: data.message,
       notification: {
         show: true,
         severity: "warning",
+        summary: "Error Message",
+        detail: data.message,
+      },
+    };
+  }
+
+  if(status === 500) {
+    return {
+      status: status,
+      message: data.message,
+      notification: {
+        show: true,
+        severity: "danger",
         summary: "Error Message",
         detail: data.message,
       },
@@ -57,7 +70,6 @@ export const httpErrorHandler = (error) => {
     removeData(keys.API_TOKEN);
     removeData(keys.ID);
     removeData(keys.USER);
-   // window.location.reload("/auth/login");
     return {
       status: status,
       error: data.message,

@@ -5,6 +5,21 @@ import { httpServiceHandler } from "../../helpers/handler";
 import { register, profile } from "./accountSlice";
 
 export const accountServices = {
+    mainAgentRegister: async (payload, token, dispatch) => {
+        const result = await postRequest(`${endpoints.mainAgentRegister}?reference=${token}`, payload);
+        await httpServiceHandler(dispatch, result);
+
+        if(result.status === 200) {
+            dispatch(updateNotification( {
+                show: true,
+                summary: "Success",
+                severity: "success",
+                detail: result.message
+            }));
+            dispatch(register(result.data));
+        }
+        return result;
+    },
     register: async (payload, dispatch) => {
         const result = await postRequest(endpoints.register, payload);
         await httpServiceHandler(dispatch, result);

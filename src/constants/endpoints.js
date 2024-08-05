@@ -1,6 +1,7 @@
 /** env[0] = Local | env[1] = Production */
 
 export const endpoints = {
+    mainAgentRegister: "main/register",
     login: "auth/login",
     register: "register",
     resendCode: "verification-code",
@@ -12,5 +13,7 @@ export const endpoints = {
     agentPackage: "agent-package",
     investorPackage: "investor-package",
     agentTranscation: "agent-transcation",
-    investorTranscation: "investor-transcation"
+    investorTranscation: "investor-transcation",
+    subAgent: "sub-agent",
+    channel: "channel"
 }

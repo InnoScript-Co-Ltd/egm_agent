@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { paths } from "../constants/paths";
 import { getData } from "../libs/localstorage";
 import { keys } from "../constants/config";
+import LOGO from "../assets/images/logo.png";
 
 export const Header = () => {
     const { user } = useSelector(state => state.account);
@@ -31,7 +32,10 @@ export const Header = () => {
             {profile && (
                 <nav className="navbar navbar-expand-lg bg-body-tertiary">
                     <div className="container-fluid">
-                        <div className="navbar-brand"> Agent Dashboard </div>
+                        <div className="navbar-brand">
+                            <img className="header-logo" src={LOGO} alt="Evan Global Management" title="Evan Global Management" />
+                            <span className="site-title"> Evan Global Management </span>
+                        </div>
                     </div>
 
                     <div className="d-flex">
