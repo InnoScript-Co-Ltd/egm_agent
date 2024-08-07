@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux"
-import { Profile } from "./Profile";
 import { useNavigate } from "react-router-dom";
 import { paths } from "../constants/paths";
 import { getData } from "../libs/localstorage";
 import { keys } from "../constants/config";
 import LOGO from "../assets/images/logo.png";
+import { HeaderProfile } from "./HeaderProfile/HeaderProfile";
 
 export const Header = () => {
     const { user } = useSelector(state => state.account);
@@ -40,7 +40,7 @@ export const Header = () => {
 
                     <div className="d-flex">
                         <div className="profile-wrapper">
-                            <Profile />
+                            <HeaderProfile />
                             <div className="profile-name">
                                 <span> {`${profile.first_name} ${profile.last_name}`} </span>
                                 <span> {profile.email}</span>

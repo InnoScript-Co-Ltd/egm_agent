@@ -48,7 +48,12 @@ export const RefrenceLink = () => {
         <div className="row">
             <div className="col-12 mt-3">
                 <h4> Generate Refrence Link </h4>
-                <p> Refrence link will expired within 6 months and you can generate refrence link anytime. </p>
+                <p> 
+                    Refrence link will expired within 6 months and you can generate refrence link anytime. 
+                    {user.kyc_status !== 'FULL_KYC' && (
+                        <span> Refrence link can not generate because your account's KYC is not verified. Please wait 24 hour for kyc status activiation. </span>
+                    )}
+                </p>
             </div>
 
             <div className="col-12 mt-3">

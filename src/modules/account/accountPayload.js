@@ -13,6 +13,24 @@ export const accountPayload = {
         password_confirmation: ""
     },
 
+    update: {
+        agent_id: "",
+        profile: "",
+        first_name: "",
+        last_name: "",
+        dob: "",
+        phone: "",
+        address: "",
+    },
+
+    kycUpdate: {
+        agent_id: "",
+        nrc_front: "",
+        nrc_back: "",
+        nrc: "",
+        dob: "",
+    },
+
     resendCode: {
         email: ""
     },
@@ -27,5 +45,10 @@ export const accountPayload = {
         old_password: "",
         password: "",
         password_confirmation: ""
+    },
+
+    accountUpdate: {
+        email: "",
+        phone: ""
     }
 }

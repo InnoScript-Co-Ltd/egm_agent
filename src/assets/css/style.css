@@ -60,25 +60,7 @@ body {
    justify-content: center;
 }
 
-.profile-image {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 5px;
-    width: 50px;
-    height: 50px;
-    background-color: #ffc107;
-    color: #fff;
-    border-radius: 50%;
-    margin-left: 10px;
-    margin-right: 10px;
-    border: 2px solid #fff;
-}
 
-.profile-image > h1 {
-    font-size: 30px;
-}
 .profile-name {
     display: flex;
     flex-direction: column;
@@ -87,7 +69,7 @@ body {
 }
 
 .profile-name > span {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .profile-name > span:last-child {

@@ -15,5 +15,5 @@ export const paths = {
     transcation: "/transcation",
     channel: "/channel",
     subAgent: "/sub-agent",
-    profile: "/profile"
+    profile: "/profile",
 }

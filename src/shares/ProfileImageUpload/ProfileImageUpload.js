@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DEFAULT_IMAGE from "../../assets/images/default_image.png";
-import "./profile-image-upload.css";
 import { useSelector } from "react-redux";
+import { endpoints } from "../../constants/endpoints";
+import "./profile-image-upload.css";
 
 export const ProfileImageUpload = ({onSelect}) => {
 
@@ -14,6 +15,12 @@ export const ProfileImageUpload = ({onSelect}) => {
         setPreview(objectUrl);
         onSelect(e.target.files[0]);
     }
+
+    useEffect(() => {
+        if(user && user.profile !== null) {
+            setPreview(`${endpoints.image}/${user.profile}`);
+        }
+    },[user]);
 
     return (
         <div className="profile-update-wrapper">

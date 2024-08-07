@@ -1,12 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import LOGO from "../../../assets/images/logo.png";
 import { useState } from "react";
 import { accountPayload } from "../accountPayload";
 import { payloadHandler } from "../../../helpers/handler";
 import { ValidationMessage } from "../../../shares/ValidationMessage";
 import { ImageUpload } from "../../../shares/ImageUpload";
-import Button from 'react-bootstrap/Button';
 import { formBuilder } from "../../../libs/formBuilder";
 import { accountServices } from "../accountServices";
 import { useDispatch } from "react-redux";
@@ -186,6 +186,7 @@ export const AgentRegister = () => {
                                         <ImageUpload
                                             id={"main_agent_nrc_front"}
                                             label="Uplaod NRC Front"
+                                            preview={null}
                                             disabled={loading}
                                             onSelect={(e) => payloadHandler(payload, e, "nrc_front", (updatePayload) => {
                                                 setPayload(updatePayload);
@@ -198,6 +199,7 @@ export const AgentRegister = () => {
                                         <ImageUpload
                                             id={"main_agent_nrc_back"}
                                             label="Uplaod NRC Back"
+                                            preview={null}
                                             disabled={loading}
                                             onSelect={(e) => payloadHandler(payload, e, "nrc_back", (updatePayload) => {
                                                 setPayload(updatePayload);

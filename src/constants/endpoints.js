@@ -1,5 +1,7 @@
 /** env[0] = Local | env[1] = Production */
 
+import { baseUrl } from "./config";
+
 export const endpoints = {
     mainAgentRegister: "main/register",
     mainAgentRefrenceLink: "main/reference-link",
@@ -11,6 +13,7 @@ export const endpoints = {
     resendCode: "resend",
     verification: "verify",
     profile: "auth/profile",
+    profileUpdate: "account",
     package: "package",
     bankAccount: "bank-account",
     invsetor: "investor",
@@ -19,5 +22,6 @@ export const endpoints = {
     agentTranscation: "agent-transcation",
     investorTranscation: "investor-transcation",
     subAgent: "sub-agent",
-    channel: "channel"
+    channel: "channel",
+    image: `${baseUrl}/storage/images`,
 }

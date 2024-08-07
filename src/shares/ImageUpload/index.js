@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DEFAULT_IMAGE from "../../assets/images/default_image.png";
+import { endpoints } from "../../constants/endpoints";
 import "./style.css";
 
-export const ImageUpload = ({ id, onSelect, label, loading }) => {
+export const ImageUpload = ({ id, onSelect, label, loading, preview }) => {
 
     const [src, setSrc] = useState(null);
     const selectedFile = (e) => {
@@ -11,6 +12,12 @@ export const ImageUpload = ({ id, onSelect, label, loading }) => {
         onSelect(e.target.files[0]);
     }
 
+    useEffect(() => {
+        if(preview) {
+            console.log(preview);
+            setSrc(`${endpoints.image}/${preview}`)
+        }
+    },[preview]);
     return (
         <div className="image-upload-wrapper mt-3">
             <img

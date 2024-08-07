@@ -17,6 +17,7 @@ export const accountServices = {
                 detail: result.message
             }));
         }
+
         return result;
     },
 
@@ -32,6 +33,7 @@ export const accountServices = {
                 detail: result.message
             }));
         }
+
         return result;
     },
 
@@ -64,6 +66,7 @@ export const accountServices = {
                 detail: result.message
             }));
         }
+
         return result;
     },
 
@@ -71,7 +74,7 @@ export const accountServices = {
         const result = await postRequest(endpoints.changePassword, payload);
         await httpServiceHandler(dispatch, result);
 
-        if(result.status === 200) {
+        if (result.status === 200) {
             dispatch(updateNotification({
                 show: true,
                 summary: "Success",
@@ -89,6 +92,7 @@ export const accountServices = {
         if (result.status === 200) {
             dispatch(profile(result.data));
         }
+
         return result;
     },
 
@@ -104,6 +108,7 @@ export const accountServices = {
                 detail: result.message
             }));
         }
+
         return result;
     },
 
@@ -119,6 +124,55 @@ export const accountServices = {
                 detail: result.message
             }));
         }
+
         return result;
-    } 
+    },
+
+    updateProfile: async (payload, id, dispatch) => {
+        const result = await postRequest(`${endpoints.profileUpdate}/${id}`, payload);
+        await httpServiceHandler(dispatch, result);
+
+        if (result.status === 200) {
+            dispatch(updateNotification({
+                show: true,
+                summary: "Success",
+                severity: "success",
+                detail: result.message
+            }));
+        }
+
+        return result;
+    },
+
+    updateKyc: async (payload, id, dispatch) => {
+        const result = await postRequest(`${endpoints.profileUpdate}/${id}/kyc-update`, payload);
+        await httpServiceHandler(dispatch, result);
+
+        if (result.status === 200) {
+            dispatch(updateNotification({
+                show: true,
+                summary: "Success",
+                severity: "success",
+                detail: result.message
+            }));
+        }
+
+        return result;
+    },
+
+    updateAccount: async (payload, id, dispatch) => {
+        const result = await postRequest(`${endpoints.profileUpdate}/${id}/account-update`, payload);
+        await httpServiceHandler(dispatch, result);
+
+        if (result.status === 200) {
+            dispatch(updateNotification({
+                show: true,
+                summary: "Success",
+                severity: "success",
+                detail: result.message
+            }));
+        }
+
+        return result;
+    }
 }

@@ -11,6 +11,8 @@ import { ChangePassword } from "../../entry/ChangePassword/ChangePassword"
 import "./profile.css";
 import { RefrenceLink } from "../RefrenceLink/RefrenceLink"
 import { ProfileUpdate } from "../../entry/ProfileUpdate/ProfileUpdate"
+import { KYCUpdate } from "../../entry/KYCUpdate/KYCUpdate"
+import { AccountUpdate } from "../../entry/AccountUpdate/AccountUpdate"
 
 export const Profile = () => {
     const { user } = useSelector(state => state.account);
@@ -26,17 +28,14 @@ export const Profile = () => {
                     <Notification />
 
                     <div className="col-sm-12 col-md-10 col-lg-10">
-                        <div className="row mt-3">
-                            <AlertMessage />
-                        </div>
-
-                        {user && user.kyc_status === 'FULL_KYC' && user.status === 'ACTIVE' && (
+                        {user && user.status === 'ACTIVE' && (
                             <>
                                 <div className="row mt-3">
                                     <div className="col-12">
                                         <div className="card">
                                             <div className="card-title">
                                                 <h5> Agent Account </h5>
+                                                <AlertMessage />
                                             </div>
 
                                             <div className="card-body">
@@ -48,8 +47,12 @@ export const Profile = () => {
                                                         <ProfileUpdate />
                                                     </Tab>
 
-                                                    <Tab eventKey="bankAccount" title="Bank Account ">
-                                                        Tab content for Home
+                                                    <Tab eventKey="kyc" title="KYC">
+                                                        <KYCUpdate />
+                                                    </Tab>
+
+                                                    <Tab eventKey="account" title="Account">
+                                                        <AccountUpdate />
                                                     </Tab>
 
                                                     <Tab eventKey="refrenceLink" title="Refrence Link">
