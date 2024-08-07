@@ -81,8 +81,7 @@ export const Login = () => {
                     </Form.Group>
 
                     <div className="card-title mt-3 mb-3">
-                        <span className="link-text" onClick={() => navigate(paths.register)}> Forgetpassword ? </span> |
-                        <span className="link-text" onClick={() => navigate(paths.register)}> New Account? </span>
+                        <span className="link-text" onClick={() => ""}> Forgetpassword ? </span>
                     </div>
                 </div>
             </div>

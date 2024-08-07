@@ -2,10 +2,14 @@
 
 export const endpoints = {
     mainAgentRegister: "main/register",
+    mainAgentRefrenceLink: "main/reference-link",
+    subAgentRefrenceLink: "sub/reference-link",
+    subAgentRegister: "sub/register",
+    changePassword: "auth/change-password",
     login: "auth/login",
     register: "register",
-    resendCode: "verification-code",
-    verification: "verification",
+    resendCode: "resend",
+    verification: "verify",
     profile: "auth/profile",
     package: "package",
     bankAccount: "bank-account",

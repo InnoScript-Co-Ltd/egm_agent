@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { paths } from "../constants/paths";
-import { Speedometer, Diagram3Fill, WindowPlus, CurrencyDollar, PeopleFill, Power } from 'react-bootstrap-icons';
+import { Speedometer, Diagram3Fill, WindowPlus, CurrencyDollar, PeopleFill, Power, PersonFill } from 'react-bootstrap-icons';
 import { useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
 import { removeAllData } from "../libs/localstorage";
@@ -49,6 +49,12 @@ export const SideMenu = () => {
                     icon: <PeopleFill size={16} />,
                     label: "Sub Agents",
                     url: paths.subAgent,
+                    show: true
+                },
+                {
+                    icon: <PersonFill size={16} />,
+                    label: "Profile",
+                    url: paths.profile,
                     show: true
                 },
                 // {

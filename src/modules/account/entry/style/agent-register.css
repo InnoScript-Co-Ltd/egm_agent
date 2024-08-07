@@ -36,3 +36,8 @@
     color: #fff;
     padding: 20px;
 }
+
+.resend-btn {
+    color: #ffc107;
+    cursor: pointer;
+}

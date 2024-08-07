@@ -17,12 +17,17 @@ import { TranscationDetail } from "./modules/transcation/view/TranscationDetail"
 import { CreateSubAgent } from "./modules/subAgent/entry/CreateInvestor";
 import { ChannelList } from "./modules/channel/view/ChannelList";
 import { ChannelDetail } from "./modules/channel/view/ChannelDetail";
-import { MainAgentRegister } from "./modules/account/entry/MainAgentRegister";
+import { AgentRegister } from "./modules/account/entry/AgentRegister";
+import { Profile } from "./modules/account/view/Profile/Profile";
 
 export const routers = createBrowserRouter([
     {
         path: `${paths.mainAgentRegister}/:token`,
-        element: <MainAgentRegister />
+        element: <AgentRegister />
+    },
+    {
+        path: `${paths.subAgentRegister}/:token`,
+        element: <AgentRegister />
     },
     {
         path: paths.login,
@@ -91,6 +96,10 @@ export const routers = createBrowserRouter([
     {
         path: `${paths.channel}/:id`,
         element: <ChannelDetail />
+    },
+    {
+        path: paths.profile,
+        element: <Profile />
     }
 
 ])

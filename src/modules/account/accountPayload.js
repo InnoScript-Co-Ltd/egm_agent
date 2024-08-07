@@ -12,11 +12,20 @@ export const accountPayload = {
         password: "",
         password_confirmation: ""
     },
+
     resendCode: {
         email: ""
     },
+
     verification: {
         agent_id: "",
         email_verify_code: ""
+    },
+
+    changePassword: {
+        agent_id: "",
+        old_password: "",
+        password: "",
+        password_confirmation: ""
     }
 }

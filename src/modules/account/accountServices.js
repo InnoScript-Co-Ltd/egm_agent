@@ -9,38 +9,38 @@ export const accountServices = {
         const result = await postRequest(`${endpoints.mainAgentRegister}?reference=${token}`, payload);
         await httpServiceHandler(dispatch, result);
 
-        if(result.status === 200) {
-            dispatch(updateNotification( {
+        if (result.status === 200) {
+            dispatch(updateNotification({
                 show: true,
                 summary: "Success",
                 severity: "success",
                 detail: result.message
             }));
-            dispatch(register(result.data));
         }
         return result;
     },
-    register: async (payload, dispatch) => {
-        const result = await postRequest(endpoints.register, payload);
+
+    subAgentRegister: async (payload, token, dispatch) => {
+        const result = await postRequest(`${endpoints.subAgentRegister}?reference=${token}`, payload);
         await httpServiceHandler(dispatch, result);
 
-        if(result.status === 200) {
-            dispatch(updateNotification( {
+        if (result.status === 200) {
+            dispatch(updateNotification({
                 show: true,
                 summary: "Success",
                 severity: "success",
                 detail: result.message
             }));
-            dispatch(register(result.data));
         }
         return result;
     },
+
     resendCode: async (payload, dispatch) => {
         const result = await postRequest(endpoints.resendCode, payload);
         await httpServiceHandler(dispatch, result);
 
-        if(result.status === 200) {
-            dispatch(updateNotification( {
+        if (result.status === 200) {
+            dispatch(updateNotification({
                 show: true,
                 summary: "Success",
                 severity: "success",
@@ -51,27 +51,74 @@ export const accountServices = {
 
         return result;
     },
+
     verification: async (payload, dispatch) => {
         const result = await postRequest(endpoints.verification, payload);
         await httpServiceHandler(dispatch, result);
 
-        if(result.status === 200) {
-            dispatch(updateNotification( {
+        if (result.status === 200) {
+            dispatch(updateNotification({
                 show: true,
                 summary: "Success",
                 severity: "success",
                 detail: result.message
             }));
-            dispatch(register(null));
         }
         return result;
     },
-    profile: async (dispatch) => {
-        const result  = await getRequest(endpoints.profile);
+
+    changePassword: async (payload, dispatch) => {
+        const result = await postRequest(endpoints.changePassword, payload);
         await httpServiceHandler(dispatch, result);
+
         if(result.status === 200) {
+            dispatch(updateNotification({
+                show: true,
+                summary: "Success",
+                severity: "success",
+                detail: result.message
+            }));
+        }
+
+        return result;
+    },
+
+    profile: async (dispatch) => {
+        const result = await getRequest(endpoints.profile);
+        await httpServiceHandler(dispatch, result);
+        if (result.status === 200) {
             dispatch(profile(result.data));
         }
         return result;
-    }
+    },
+
+    mainAgentGenerateLink: async (payload, dispatch) => {
+        const result = await postRequest(endpoints.mainAgentRefrenceLink, payload);
+        await httpServiceHandler(dispatch, result);
+
+        if (result.status === 200) {
+            dispatch(updateNotification({
+                show: true,
+                summary: "Success",
+                severity: "success",
+                detail: result.message
+            }));
+        }
+        return result;
+    },
+
+    subAgentGenerateLink: async (payload, dispatch) => {
+        const result = await postRequest(endpoints.subAgentRefrenceLink, payload);
+        await httpServiceHandler(dispatch, result);
+
+        if (result.status === 200) {
+            dispatch(updateNotification({
+                show: true,
+                summary: "Success",
+                severity: "success",
+                detail: result.message
+            }));
+        }
+        return result;
+    } 
 }

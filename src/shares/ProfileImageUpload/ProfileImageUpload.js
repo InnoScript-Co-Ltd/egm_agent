@@ -1,0 +1,39 @@
+import { useState } from "react";
+import DEFAULT_IMAGE from "../../assets/images/default_image.png";
+import "./profile-image-upload.css";
+import { useSelector } from "react-redux";
+
+export const ProfileImageUpload = ({onSelect}) => {
+
+    const { user } = useSelector(state => state.account);
+
+    const [preview, setPreview] = useState(user.profile);
+
+    const selectedFile = (e) => {
+        const objectUrl = URL.createObjectURL(e.target.files[0]);
+        setPreview(objectUrl);
+        onSelect(e.target.files[0]);
+    }
+
+    return (
+        <div className="profile-update-wrapper">
+            <img
+                className="preview-profile"
+                src={preview ? preview : DEFAULT_IMAGE}
+                alt="Evan Global Management"
+                title="Evan Global Management"
+                onClick={() => {
+                    document.getElementById("profile").click();
+                }}
+            />
+
+            <input
+                id="profile"
+                style={{ display: "none" }}
+                type="file"
+                accept="image/*"
+                onChange={(e) => selectedFile(e)}
+            />
+        </div>
+    )
+}
