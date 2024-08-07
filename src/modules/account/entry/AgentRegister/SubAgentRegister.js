@@ -1,20 +1,20 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import LOGO from "../../../assets/images/logo.png";
+import LOGO from "../../../../assets/images/logo.png";
 import { useState } from "react";
-import { accountPayload } from "../accountPayload";
-import { payloadHandler } from "../../../helpers/handler";
-import { ValidationMessage } from "../../../shares/ValidationMessage";
-import { ImageUpload } from "../../../shares/ImageUpload";
-import { formBuilder } from "../../../libs/formBuilder";
-import { accountServices } from "../accountServices";
+import { accountPayload } from "../../accountPayload";
+import { payloadHandler } from "../../../../helpers/handler";
+import { ValidationMessage } from "../../../../shares/ValidationMessage";
+import { ImageUpload } from "../../../../shares/ImageUpload";
+import { formBuilder } from "../../../../libs/formBuilder";
+import { accountServices } from "../../accountServices";
 import { useDispatch } from "react-redux";
-import { paths } from "../../../constants/paths";
-import { Notification } from "../../../shares/Notification";
-import "./style/agent-register.css";
+import { paths } from "../../../../constants/paths";
+import { Notification } from "../../../../shares/Notification";
+import "./agent-register.css";
 
-export const AgentRegister = () => {
+export const SubAgentRegister = () => {
 
     const [loading, setLoading] = useState(false);
     const [payload, setPayload] = useState(accountPayload.create);
@@ -32,7 +32,7 @@ export const AgentRegister = () => {
         setLoading(true);
 
         const formData = formBuilder(payload, accountPayload.create);
-        const result = await accountServices.mainAgentRegister(formData, params.token, dispatch);
+        const result = await accountServices.subAgentRegister(formData, params.token, dispatch);
 
         if (result.status === 200) {
             payloadHandler(verifyPayload, result.data.id, "agent_id", (updatePayload) => {

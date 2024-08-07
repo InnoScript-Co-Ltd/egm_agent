@@ -1,0 +1,61 @@
+.agent-table-col-short-description {
+    width: 100%;
+    font-size: 14px;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.badge-color {
+    color: #000!important;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 10px;
+}
+
+.agent-list-table-title > th,
+.agent-list-table-row > tr > td {
+    font-size: 14px;
+}
+
+.card-warning {
+    background-color: #ffc107!important;
+    color: #fff!important;
+}
+
+.card-success {
+    color: #fff!important;
+    background-color: #28a745!important;
+}
+
+.card-primary {
+    color: #fff!important;
+    background-color: #007bff!important;
+}
+
+.card-danger {
+    color: #fff!important;
+    background-color: #dc3545!important;
+}
+
+.count-wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.count-wrapper > span {
+    margin-left: 20px;
+    font-weight: 900;
+    font-size: 26px;
+}
+
+.count-label {
+    font-weight: 900;
+    font-size: 14px;
+}

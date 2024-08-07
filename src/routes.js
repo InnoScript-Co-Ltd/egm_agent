@@ -14,20 +14,19 @@ import { EmailVerification } from "./modules/investor/entry/EmailVerification";
 import { InvestorDetail } from "./modules/investor/view/InvestorDetail";
 import { TranscationList } from "./modules/transcation/view/TranscationList";
 import { TranscationDetail } from "./modules/transcation/view/TranscationDetail";
-import { CreateSubAgent } from "./modules/subAgent/entry/CreateInvestor";
-import { ChannelList } from "./modules/channel/view/ChannelList";
-import { ChannelDetail } from "./modules/channel/view/ChannelDetail";
-import { AgentRegister } from "./modules/account/entry/AgentRegister";
+import { MainAgentRegister } from "./modules/account/entry/AgentRegister/MainAgentRegister";
+import { SubAgentRegister} from "./modules/account/entry/AgentRegister/SubAgentRegister";
 import { Profile } from "./modules/account/view/Profile/Profile";
+import { AgentList } from "./modules/agent/view/AgentList/AgentList";
 
 export const routers = createBrowserRouter([
     {
         path: `${paths.mainAgentRegister}/:token`,
-        element: <AgentRegister />
+        element: <MainAgentRegister />
     },
     {
         path: `${paths.subAgentRegister}/:token`,
-        element: <AgentRegister />
+        element: <SubAgentRegister />
     },
     {
         path: paths.login,
@@ -86,16 +85,8 @@ export const routers = createBrowserRouter([
         element: <TranscationDetail />
     },
     {
-        path: paths.subAgent,
-        element: <CreateSubAgent />
-    },
-    {
-        path: `${paths.channel}`,
-        element: <ChannelList />
-    },
-    {
-        path: `${paths.channel}/:id`,
-        element: <ChannelDetail />
+        path: `${ paths.agent}/:level`,
+        element: <AgentList />
     },
     {
         path: paths.profile,

@@ -32,18 +32,17 @@ export const notificationOptions = {
 }
 
 export const statusOptions = [
-    { status: "ACTIVE", color: "chip-success" },
-    { status: "DISABLE", color: "chip-default" },
-    { status: "DELETED", color: "chip-info" },
-    { status: "PENDING", color: "chip-warn" },
-    { status: "BLOCK", color: "chip-danger" },
-    { status: "COMPLETE", color: "chip-success" },
-    { status: "MEMBER_WALLET", color: "chip-success" },
-    { status: "CASH", color: "chip-info" },
-    { status: "ONLINE_PAYMENT", color: "chip-warn" }
+    { status: "ACTIVE", color: "badge-success" },
+    { status: "DISABLE", color: "badge-danger" },
+    { status: "DELETED", color: "badge-dark" },
+    { status: "PENDING", color: "badge-warning" },
+    { status: "BLOCK", color: "badge-danger" },
+    { status: "COMPLETE", color: "badge-success" },
+    { status: "FULL_KYC", color: "badge-success" },
+    { status: "CHECKING", color: "badge-warning" },
 ];
 
-export const tooltipOptions = {
+export const tooltipOptions = { 
    position: 'top'
 }
 

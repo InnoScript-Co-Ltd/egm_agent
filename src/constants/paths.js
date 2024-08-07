@@ -14,6 +14,6 @@ export const paths = {
     investorVerification: "/investor/account/verification",
     transcation: "/transcation",
     channel: "/channel",
-    subAgent: "/sub-agent",
+    agent: "/agent",
     profile: "/profile",
 }

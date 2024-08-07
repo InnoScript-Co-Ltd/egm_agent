@@ -1,12 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const subAgentSlice = createSlice({
-  name: "subAgent",
+const agentSlice = createSlice({
+  name: "agent",
   initialState: {
     subAgents: [],
+    agents: [],
     subAgent: null,
   },
   reducers: {
+    setLevelAgents: (state, action) => {
+      state.agents = action.payload;
+    },
+
     setSubAgents: (state, action) => {
       state.subAgents = action.payload;
       return state;
@@ -20,6 +25,6 @@ const subAgentSlice = createSlice({
 });
 
 export const {
-  setSubAgent, setSubAgents
-} = subAgentSlice.actions;
-export default subAgentSlice.reducer;
+  setSubAgent, setSubAgents, setLevelAgents
+} = agentSlice.actions;
+export default agentSlice.reducer;

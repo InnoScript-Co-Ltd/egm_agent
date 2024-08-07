@@ -47,9 +47,27 @@ export const SideMenu = () => {
                 },
                 {
                     icon: <PeopleFill size={16} />,
-                    label: "Sub Agents",
-                    url: paths.subAgent,
-                    show: true
+                    label: "Agents (Level 1)",
+                    url: `${paths.agent}/level_one`,
+                    show: user.agent_type === "SUB_AGENT" ? true : false
+                },
+                {
+                    icon: <PeopleFill size={16} />,
+                    label: "Agents (Level 2)",
+                    url: `${paths.agent}/level_two`,
+                    show: user.agent_type === "SUB_AGENT" ? true : false
+                },
+                {
+                    icon: <PeopleFill size={16} />,
+                    label: "Agents (Level 3)",
+                    url: `${paths.agent}/level_three`,
+                    show: user.agent_type === "SUB_AGENT" ? true : false
+                },
+                {
+                    icon: <PeopleFill size={16} />,
+                    label: "Agents (Level 4)",
+                    url: `${paths.agent}/level_four`,
+                    show: user.agent_type === "SUB_AGENT" ? true : false
                 },
                 {
                     icon: <PersonFill size={16} />,

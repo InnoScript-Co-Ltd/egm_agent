@@ -174,5 +174,21 @@ export const accountServices = {
         }
 
         return result;
+    },
+
+    updatePaymentPassword: async (payload, dispatch) => {
+        const result = await postRequest(endpoints.paymentPassword, payload);
+        await httpServiceHandler(dispatch, result);
+
+        if (result.status === 200) {
+            dispatch(updateNotification({
+                show: true,
+                summary: "Success",
+                severity: "success",
+                detail: result.message
+            }));
+        }
+
+        return result;
     }
 }

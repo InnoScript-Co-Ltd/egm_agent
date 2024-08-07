@@ -3,16 +3,15 @@ import { AlertMessage } from "../../../../shares/AlertMessage"
 import { Header } from "../../../../shares/Header"
 import { Notification } from "../../../../shares/Notification"
 import { SideMenu } from "../../../../shares/SideMenu"
-import Button from "react-bootstrap/esm/Button";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import Table from 'react-bootstrap/Table';
 import { ChangePassword } from "../../entry/ChangePassword/ChangePassword"
-import "./profile.css";
 import { RefrenceLink } from "../RefrenceLink/RefrenceLink"
 import { ProfileUpdate } from "../../entry/ProfileUpdate/ProfileUpdate"
 import { KYCUpdate } from "../../entry/KYCUpdate/KYCUpdate"
 import { AccountUpdate } from "../../entry/AccountUpdate/AccountUpdate"
+import { PaymentPassword } from "../../entry/PaymentPassword/PaymentPassword"
+import "./profile.css";
 
 export const Profile = () => {
     const { user } = useSelector(state => state.account);
@@ -34,7 +33,7 @@ export const Profile = () => {
                                     <div className="col-12">
                                         <div className="card">
                                             <div className="card-title">
-                                                <h5> Agent Account </h5>
+                                                <h5> Agent Profile </h5>
                                                 <AlertMessage />
                                             </div>
 
@@ -61,6 +60,7 @@ export const Profile = () => {
 
                                                     <Tab eventKey="security" title="Security">
                                                         <ChangePassword />
+                                                        <PaymentPassword />
                                                     </Tab>
                                                 </Tabs>
                                             </div>

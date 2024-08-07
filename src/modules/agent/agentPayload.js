@@ -1,4 +1,4 @@
-export const subAgentPayload = {
+export const agentPayload = {
     create: {
         first_name: "",
         last_name: "",

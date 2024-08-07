@@ -14,7 +14,6 @@ export const accountPayload = {
     },
 
     update: {
-        agent_id: "",
         profile: "",
         first_name: "",
         last_name: "",
@@ -24,7 +23,6 @@ export const accountPayload = {
     },
 
     kycUpdate: {
-        agent_id: "",
         nrc_front: "",
         nrc_back: "",
         nrc: "",
@@ -50,5 +48,10 @@ export const accountPayload = {
     accountUpdate: {
         email: "",
         phone: ""
+    },
+
+    paymentPasswordUpdate: {
+        agent_id: "",
+        payment_password: ""
     }
 }

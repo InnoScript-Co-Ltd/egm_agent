@@ -22,7 +22,7 @@ export const RefrenceLink = () => {
             }, dispatch);
 
             if (result.status === 200) {
-                const generateRefrence = `${baseUrl}${paths.mainAgentRegister}/${result.data}`;
+                const generateRefrence = `${baseUrl}${paths.subAgentRegister}/${result.data}`;
                 setRefrenceLink(generateRefrence);
             }
         }
@@ -33,7 +33,7 @@ export const RefrenceLink = () => {
             }, dispatch);
 
             if (result.status === 200) {
-                const generateRefrence = `${baseUrl}/${paths.subAgentRegister}/${result.data}`;
+                const generateRefrence = `${baseUrl}${paths.subAgentRegister}/${result.data}`;
                 setRefrenceLink(generateRefrence);
             }
         }

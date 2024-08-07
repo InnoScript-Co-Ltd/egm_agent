@@ -11,7 +11,7 @@ import { ValidationMessage } from "../../../shares/ValidationMessage"
 import { subAgentPayload } from "../subAgentPayload";
 import { subAgentServices } from "../subAgentServices";
 import { useDispatch } from "react-redux";
-import { setSubAgents } from "../subAgentSlice";
+import { setSubAgents } from "../agentSlice";
 import { formBuilder } from "../../../libs/formBuilder";
 import { getData } from "../../../libs/localstorage";
 import { keys } from "../../../constants/config";
