@@ -35,14 +35,8 @@ export const SideMenu = () => {
                 },
                 {
                     icon: <WindowPlus size={16} />,
-                    label: "Investor",
-                    url: paths.investor,
-                    show: true
-                },
-                {
-                    icon: <CurrencyDollar size={16} />,
-                    label: "Packages",
-                    url: paths.package,
+                    label: "Deposit",
+                    url: paths.deposit,
                     show: true
                 },
                 {

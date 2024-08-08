@@ -96,8 +96,8 @@ export const accountServices = {
         return result;
     },
 
-    mainAgentGenerateLink: async (payload, dispatch) => {
-        const result = await postRequest(endpoints.mainAgentRefrenceLink, payload);
+    mainAgentGenerateLink: async (dispatch) => {
+        const result = await getRequest(endpoints.mainAgentRefrenceLink);
         await httpServiceHandler(dispatch, result);
 
         if (result.status === 200) {
@@ -112,8 +112,8 @@ export const accountServices = {
         return result;
     },
 
-    subAgentGenerateLink: async (payload, dispatch) => {
-        const result = await postRequest(endpoints.subAgentRefrenceLink, payload);
+    subAgentGenerateLink: async (dispatch) => {
+        const result = await getRequest(endpoints.subAgentRefrenceLink);
         await httpServiceHandler(dispatch, result);
 
         if (result.status === 200) {

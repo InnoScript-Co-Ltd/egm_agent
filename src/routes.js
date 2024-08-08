@@ -8,16 +8,13 @@ import { Dashboard } from "./modules/dashboard/view/Dashboard";
 import { PackageList } from "./modules/packages/view/PackageList";
 import { PackageBuy } from "./modules/packages/entry/PackageBuy";
 import { BankAccountList } from "./modules/bankAccount/view/BankAccountList";
-import { InvestorList } from "./modules/investor/view/InvestorList";
-import { CreateInvestor } from "./modules/investor/entry/CreateInvestor";
-import { EmailVerification } from "./modules/investor/entry/EmailVerification";
-import { InvestorDetail } from "./modules/investor/view/InvestorDetail";
 import { TranscationList } from "./modules/transcation/view/TranscationList";
 import { TranscationDetail } from "./modules/transcation/view/TranscationDetail";
 import { MainAgentRegister } from "./modules/account/entry/AgentRegister/MainAgentRegister";
 import { SubAgentRegister} from "./modules/account/entry/AgentRegister/SubAgentRegister";
 import { Profile } from "./modules/account/view/Profile/Profile";
 import { AgentList } from "./modules/agent/view/AgentList/AgentList";
+import { DepositForm } from "./modules/deposit/entry/DepositForm/DepositForm";
 
 export const routers = createBrowserRouter([
     {
@@ -61,20 +58,8 @@ export const routers = createBrowserRouter([
         element: <BankAccountList />
     },
     {
-        path: paths.investor,
-        element: <InvestorList />
-    },
-    {
-        path: `${paths.investor}/new`,
-        element: <CreateInvestor />
-    },
-    {
-        path: paths.investorVerification,
-        element: <EmailVerification />
-    },
-    {
-        path: `${paths.investor}/:id`,
-        element: <InvestorDetail />
+        path: paths.deposit,
+        element: <DepositForm />
     },
     {
         path: paths.transcation,

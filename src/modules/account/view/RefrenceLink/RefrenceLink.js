@@ -17,9 +17,7 @@ export const RefrenceLink = () => {
 
     const generateRefrenceLink = async () => {
         if (user.agent_type === "MAIN_AGENT") {
-            const result = await accountServices.mainAgentGenerateLink({
-                agent_id: user.id
-            }, dispatch);
+            const result = await accountServices.mainAgentGenerateLink(dispatch);
 
             if (result.status === 200) {
                 const generateRefrence = `${baseUrl}${paths.subAgentRegister}/${result.data}`;
@@ -28,9 +26,7 @@ export const RefrenceLink = () => {
         }
 
         if (user.agent_type === "SUB_AGENT") {
-            const result = await accountServices.subAgentGenerateLink({
-                agent_id: user.id
-            }, dispatch);
+            const result = await accountServices.subAgentGenerateLink(dispatch);
 
             if (result.status === 200) {
                 const generateRefrence = `${baseUrl}${paths.subAgentRegister}/${result.data}`;

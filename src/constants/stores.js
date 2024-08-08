@@ -4,7 +4,6 @@ import accountSlice from "../modules/account/accountSlice";
 import authSlice from "../modules/auth/authSlice";
 import packageSlice from "../modules/packages/packageSlice";
 import bankAccountSlice from "../modules/bankAccount/bankAccountSlice";
-import investorSlice from "../modules/investor/investorSlice";
 import transcationSlice from "../modules/transcation/transcationSlice";
 import agentSlice from "../modules/agent/agentSlice";
 
@@ -15,7 +14,6 @@ export const stores = configureStore({
       auth: authSlice,
       package: packageSlice,
       bankAccount: bankAccountSlice,
-      investor: investorSlice,
       transcation: transcationSlice,
       agent: agentSlice,
    },

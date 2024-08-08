@@ -1,7 +1,7 @@
-export const investorPayload = {
+export const depositPayload = {
     create: {
-        first_name: "",
-        last_name: "",
+        package_id: "",
+        deposit_amount: "",
         dob: "",
         email: "",
         phone: "",

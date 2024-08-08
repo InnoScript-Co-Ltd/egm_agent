@@ -10,7 +10,7 @@ export const paths = {
     package: "/package",
     packageBuy: "/package/buy",
     bankAccount: "/bank-account",
-    investor: "/investor",
+    deposit: "/deposit",
     investorVerification: "/investor/account/verification",
     transcation: "/transcation",
     channel: "/channel",

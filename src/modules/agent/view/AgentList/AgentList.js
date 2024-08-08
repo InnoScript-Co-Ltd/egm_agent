@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { Header } from "../../../../shares/Header"
 import { Notification } from "../../../../shares/Notification"
 import { SideMenu } from "../../../../shares/SideMenu"
@@ -21,9 +21,37 @@ export const AgentList = () => {
     const dispatch = useDispatch();
     const params = useParams();
 
+    const level = useRef();
+    const count = useRef({
+        agent: 0
+    });
+
     const initLoading = useCallback(async () => {
         setLoading(true);
-        await agentServices.levelAgentIndex(dispatch, params.level);
+
+        if (params.level === 'level_one') {
+            level.current = "Level One Agents";
+        }
+
+        if (params.level === 'level_two') {
+            level.current = "Level Two Agents";
+        }
+
+        if (params.level === 'level_three') {
+            level.current = "Level Three Agents";
+        }
+
+        if (params.level === 'level_four') {
+            level.current = "Level Four Agents";
+        }
+        const result = await agentServices.levelAgentIndex(dispatch, params.level);
+
+        if(result.status === 200) {
+            const updateCount = {...count.current};
+            updateCount.agent = result.data.length;
+            count.current = updateCount;
+        }
+
         setLoading(false);
 
     }, [dispatch, params.level]);
@@ -56,9 +84,9 @@ export const AgentList = () => {
                                     <div className="card-body">
                                         <div className="count-wrapper">
                                             <PeopleFill size={50} style={{ fontWeight: "bolder" }} />
-                                            <span> {numeral(1000).format("0,0")} </span>
+                                            <span> {numeral(count.current.agent).format("0,0")} </span>
                                         </div>
-                                        <span className="count-label"> Level One Agents </span>
+                                        <span className="count-label"> {level.current} </span>
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +160,7 @@ export const AgentList = () => {
                                     <tbody className="agent-list-table-row">
                                         {levelAgents.map((value, index) => {
                                             return (
-                                                <tr key={`level_agent_id_${index}`} style={{width: "100%"}}>
+                                                <tr key={`level_agent_id_${index}`} style={{ width: "100%" }}>
                                                     <td> {index + 1} </td>
                                                     <td>
                                                         <span> {`${value.first_name} ${value.last_name}`} </span>
