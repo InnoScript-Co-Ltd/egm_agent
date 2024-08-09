@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { depositPayload } from "../../depositPayload";
 import { payloadHandler } from "../../../../helpers/handler";
 import { ValidationMessage } from "../../../../shares/ValidationMessage";
+import { formBuilder } from "../../../../libs/formBuilder";
 import numeral from 'numeral';
 import moment from 'moment';
 import "./deposit-form.css";
@@ -48,7 +49,10 @@ export const DepositForm = () => {
     }
 
     const depositRequest = async () => {
-
+        setLoading(true);
+        const formData = formBuilder(payload, depositPayload.create);
+        await depositServices.store(formData, dispatch);
+        setLoading(false);
     }
 
     const initLoading = useCallback(async () => {
@@ -155,6 +159,19 @@ export const DepositForm = () => {
                                                         })}
                                                     </Form.Select>
                                                     <ValidationMessage field="deposit_amount" />
+                                                </Form.Group>
+                                            </div>
+
+                                            <div className="col-12 col-md-3 col-lg-3">
+                                                <Form.Group className="mt-3 w-full">
+                                                    <Form.Control
+                                                        type="file"
+                                                        disabled={loading}
+                                                        onChange={(e) => payloadHandler(payload, e.target.value, "transaction_screenshoot", (updatePayload) => {
+                                                            setPayload(updatePayload);
+                                                        })}
+                                                    />
+                                                    <ValidationMessage field="transaction_screenshoot" />
                                                 </Form.Group>
                                             </div>
 

@@ -1,10 +1,10 @@
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 import { useSelector } from "react-redux"
 import { AlertMessage } from "../../../../shares/AlertMessage"
 import { Header } from "../../../../shares/Header"
 import { Notification } from "../../../../shares/Notification"
 import { SideMenu } from "../../../../shares/SideMenu"
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
 import { ChangePassword } from "../../entry/ChangePassword/ChangePassword"
 import { RefrenceLink } from "../RefrenceLink/RefrenceLink"
 import { ProfileUpdate } from "../../entry/ProfileUpdate/ProfileUpdate"
@@ -12,6 +12,8 @@ import { KYCUpdate } from "../../entry/KYCUpdate/KYCUpdate"
 import { AccountUpdate } from "../../entry/AccountUpdate/AccountUpdate"
 import { PaymentPassword } from "../../entry/PaymentPassword/PaymentPassword"
 import "./profile.css";
+import { CreateBankAccount } from '../../entry/CreateBankAccount/CreateBankAccount';
+import { BankAccountList } from '../BankAccountList/BankAccountList';
 
 export const Profile = () => {
     const { user } = useSelector(state => state.account);
@@ -48,6 +50,11 @@ export const Profile = () => {
 
                                                     <Tab eventKey="kyc" title="KYC">
                                                         <KYCUpdate />
+                                                    </Tab>
+
+                                                    <Tab eventKey="bank" title="Bank Account">
+                                                        <CreateBankAccount />
+                                                        <BankAccountList />
                                                     </Tab>
 
                                                     <Tab eventKey="account" title="Account">

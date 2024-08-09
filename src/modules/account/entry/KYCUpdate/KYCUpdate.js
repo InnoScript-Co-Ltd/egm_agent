@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { useEffect, useState } from "react";
 import { accountPayload } from "../../accountPayload";
 import { useDispatch, useSelector } from "react-redux";
 import { payloadHandler } from "../../../../helpers/handler";
 import { ValidationMessage } from "../../../../shares/ValidationMessage";
-import moment from "moment";
 import { ImageUpload } from "../../../../shares/ImageUpload";
-import "./kycupdate.css";
 import { accountServices } from "../../accountServices";
 import { formBuilder } from "../../../../libs/formBuilder";
+import moment from "moment";
+import "./kycupdate.css";
 
 export const KYCUpdate = () => {
     const [loading, setLoading] = useState(false);

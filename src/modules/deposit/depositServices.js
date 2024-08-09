@@ -22,7 +22,7 @@ export const depositServices = {
     },
 
     store: async (payload, dispatch) => {
-        const result = await postRequest(endpoints.subAgent, payload);
+        const result = await postRequest(endpoints.package, payload);
         await httpServiceHandler(dispatch, result);
 
         if(result.status === 200) {

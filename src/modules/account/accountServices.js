@@ -1,8 +1,8 @@
 import { endpoints } from "../../constants/endpoints";
 import { updateNotification } from "../../constants/shareSlice";
-import { getRequest, postRequest } from "../../helpers/api";
+import { delRequest, getRequest, postRequest } from "../../helpers/api";
 import { httpServiceHandler } from "../../helpers/handler";
-import { register, profile } from "./accountSlice";
+import { register, profile, setBankAccount } from "./accountSlice";
 
 export const accountServices = {
     mainAgentRegister: async (payload, token, dispatch) => {
@@ -178,6 +178,55 @@ export const accountServices = {
 
     updatePaymentPassword: async (payload, dispatch) => {
         const result = await postRequest(endpoints.paymentPassword, payload);
+        await httpServiceHandler(dispatch, result);
+
+        if (result.status === 200) {
+            dispatch(updateNotification({
+                show: true,
+                summary: "Success",
+                severity: "success",
+                detail: result.message
+            }));
+        }
+
+        return result;
+    },
+
+    createBankAccount: async (payload, dispatch) => {
+        const result = await postRequest(endpoints.bankAccount, payload);
+        await httpServiceHandler(dispatch, result);
+
+        if (result.status === 200) {
+            dispatch(updateNotification({
+                show: true,
+                summary: "Success",
+                severity: "success",
+                detail: result.message
+            }));
+        }
+
+        return result;
+    },
+
+    bankAccountIndex: async (dispatch) => {
+        const result = await getRequest(endpoints.bankAccount);
+        await httpServiceHandler(dispatch, result);
+
+        if (result.status === 200) {
+            await dispatch(setBankAccount(result.data));
+        }
+
+        return result;
+    },
+
+    checkPaymemntPassword: async (payload, dispatch) => {
+        const result = await postRequest(endpoints.checkPaymentPassword, payload);
+        await httpServiceHandler(dispatch, result);
+        return result;
+    },
+
+    delBankAccount: async (id, dispatch) => {
+        const result = await delRequest(`${endpoints.bankAccount}/${id}`);
         await httpServiceHandler(dispatch, result);
 
         if (result.status === 200) {

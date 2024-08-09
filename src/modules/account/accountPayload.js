@@ -53,5 +53,17 @@ export const accountPayload = {
     paymentPasswordUpdate: {
         agent_id: "",
         payment_password: ""
+    },
+
+    createBankAccount: {
+        account_name: "",
+        account_number: "",
+        bank_type: "",
+        branch: "",
+        branch_address: ""
+    },
+
+    confirmPaymentPassword: {
+        payment_password: ""
     }
 }

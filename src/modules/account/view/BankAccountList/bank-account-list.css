@@ -1,0 +1,8 @@
+.option-icon {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.option-icon:hover {
+    color: #ffc107;
+}

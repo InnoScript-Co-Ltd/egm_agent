@@ -31,6 +31,15 @@ export const notificationOptions = {
     icon: "pi pi-info-circle",
 }
 
+export const bankTypes = [
+    { name: "KBZ Bank", icon: "" },
+    { name: "AYA Bank", icon: "" },
+    { name: "A Bank", icon: "" },
+    { name: "MCB Bank", icon: "" },
+    { name: "UAB Bank", icon: "" },
+    { name: "CB Bank", icon: "" }
+];
+
 export const statusOptions = [
     { status: "ACTIVE", color: "badge-success" },
     { status: "DISABLE", color: "badge-danger" },
