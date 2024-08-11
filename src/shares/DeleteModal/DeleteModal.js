@@ -4,10 +4,10 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { payloadHandler } from '../../helpers/handler';
 import { ValidationMessage } from '../ValidationMessage';
-import "./delete-modal.css";
 import { accountPayload } from '../../modules/account/accountPayload';
 import { accountServices } from '../../modules/account/accountServices';
 import { useDispatch } from 'react-redux';
+import "./delete-modal.css";
 
 export const DeleteModal = ({ title, body, show, onClose, delAction }) => {
 

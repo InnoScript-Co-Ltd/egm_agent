@@ -20,4 +20,5 @@ export const endpoints = {
     bankAccount: "bank-account",
     levelAgent: "level",
     image: `${baseUrl}/storage/images`,
+    deposit: "deposit"
 }

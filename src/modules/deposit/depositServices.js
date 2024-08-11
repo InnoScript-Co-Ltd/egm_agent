@@ -12,6 +12,12 @@ export const depositServices = {
         return result;
     },
 
+    bankAccount: async (dispatch) => {
+        const result = await getRequest(endpoints.bankAccount);
+        await httpServiceHandler(dispatch, result);
+        return result;
+    },
+
     show: async (id, dispatch) => {
         const result = await getRequest(`${endpoints.subAgent}/${id}`, dispatch);
         await httpServiceHandler(dispatch, result); 
@@ -22,7 +28,7 @@ export const depositServices = {
     },
 
     store: async (payload, dispatch) => {
-        const result = await postRequest(endpoints.package, payload);
+        const result = await postRequest(endpoints.deposit, payload);
         await httpServiceHandler(dispatch, result);
 
         if(result.status === 200) {

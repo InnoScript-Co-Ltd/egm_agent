@@ -2,6 +2,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import Alert from 'react-bootstrap/Alert';
 import { useCallback, useEffect, useState } from "react";
 import { Header } from "../../../../shares/Header";
 import { Notification } from "../../../../shares/Notification";
@@ -12,6 +13,9 @@ import { depositPayload } from "../../depositPayload";
 import { payloadHandler } from "../../../../helpers/handler";
 import { ValidationMessage } from "../../../../shares/ValidationMessage";
 import { formBuilder } from "../../../../libs/formBuilder";
+import { CheckPaymentPassword } from '../../../../shares/CheckPaymentPassword/CheckPaymentPassword';
+import { paths } from '../../../../constants/paths';
+import { useNavigate } from 'react-router-dom';
 import numeral from 'numeral';
 import moment from 'moment';
 import "./deposit-form.css";
@@ -24,13 +28,21 @@ export const DepositForm = () => {
     const [selectPackage, setSelectPackage] = useState(null);
     const [depositAmount, setDepositAmount] = useState([]);
     const [repayment, setRepayment] = useState([]);
+    const [bankAccounts, setBankAccount] = useState([]);
+    const [checkPaymentPassword, setCheckPaymentPassword] = useState(false);
+    const [showInfo, setShowInfo] = useState(false);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const packageChooseHander = (e) => {
         const choosePackage = packages.filter(value => Number(value.id) === Number(e.target.value))[0];
         setSelectPackage(choosePackage);
         setDepositAmount(choosePackage.deposit_amount);
+
+        payloadHandler(payload, choosePackage.deposit_amount[0], "deposit_amount", (updatePayload) => {
+            setPayload(updatePayload);
+        });
 
         let repaymentUpdate = [];
 
@@ -50,38 +62,56 @@ export const DepositForm = () => {
 
     const depositRequest = async () => {
         setLoading(true);
-        const formData = formBuilder(payload, depositPayload.create);
-        await depositServices.store(formData, dispatch);
+        const updatePayload = { ...payload };
+        updatePayload.merchant_account = "00000000000000";
+
+        const formData = formBuilder(updatePayload, depositPayload.create);
+        const result = await depositServices.store(formData, dispatch);
+
+        if (result.status === 200) {
+            setShowInfo(true);
+        }
+
         setLoading(false);
     }
 
     const initLoading = useCallback(async () => {
         setLoading(true);
-        const result = await depositServices.packages(dispatch);
+        const resultPackage = await depositServices.packages(dispatch);
 
-        if (result.status === 200 && result.data.length > 0) {
-            setPackages(result.data);
-            const updatePayload = {
-                package_id: result.data[0].id,
-                desposit_amount: result.data[0].deposit_amount[0]
-            }
-            setDepositAmount(result.data[0].deposit_amount);
-            setSelectPackage(result.data[0]);
+        let updatePayload = {
+            bank_account_id: "",
+            package_id: "",
+            deposit_amount: ""
+        };
+
+        if (resultPackage.status === 200 && resultPackage.data.length > 0) {
+            setPackages(resultPackage.data);
+            setSelectPackage(resultPackage.data[0]);
+            setDepositAmount(resultPackage.data[0].deposit_amount);
+
+            updatePayload.package_id = resultPackage.data[0].id;
+            updatePayload.deposit_amount = resultPackage.data[0]?.deposit_amount[0];
 
             let repaymentUpdate = [];
 
-            for (let x = 0; x < result.data[0].duration; x++) {
+            for (let x = 0; x < resultPackage.data[0].duration; x++) {
                 repaymentUpdate.push({
                     month: moment().add(x, 'M').format('DD-MM-YYYY'),
-                    roi_rate: result.data[0].roi_rate,
+                    roi_rate: resultPackage.data[0].roi_rate,
                 });
             }
-
             setRepayment(repaymentUpdate);
-
-            setPayload(updatePayload);
         };
 
+        const bankAccountResult = await depositServices.bankAccount(dispatch);
+
+        if (bankAccountResult.status === 200) {
+            setBankAccount(bankAccountResult.data);
+            updatePayload.bank_account_id = bankAccountResult.data[0].id;
+        }
+
+        setPayload(updatePayload);
         setLoading(false);
     }, [dispatch]);
 
@@ -164,10 +194,29 @@ export const DepositForm = () => {
 
                                             <div className="col-12 col-md-3 col-lg-3">
                                                 <Form.Group className="mt-3 w-full">
+                                                    <Form.Select
+                                                        disabled={loading}
+                                                        value={payload.bank_account_id}
+                                                        onChange={(e) => payloadHandler(payload, e.target.value, "bank_account_id", (updatePayload) => {
+                                                            setPayload(updatePayload);
+                                                        })}
+                                                    >
+                                                        {bankAccounts && bankAccounts.map((value, index) => {
+                                                            return (
+                                                                <option key={`bank_account_id_${index}`} value={value.id}> {`${value.bank_type} - ${value.account_number}`} </option>
+                                                            )
+                                                        })}
+                                                    </Form.Select>
+                                                    <ValidationMessage field="bank_account_id" />
+                                                </Form.Group>
+                                            </div>
+
+                                            <div className="col-12 col-md-3 col-lg-3">
+                                                <Form.Group className="mt-3 w-full">
                                                     <Form.Control
                                                         type="file"
                                                         disabled={loading}
-                                                        onChange={(e) => payloadHandler(payload, e.target.value, "transaction_screenshoot", (updatePayload) => {
+                                                        onChange={(e) => payloadHandler(payload, e.target.files[0], "transaction_screenshoot", (updatePayload) => {
                                                             setPayload(updatePayload);
                                                         })}
                                                     />
@@ -175,18 +224,38 @@ export const DepositForm = () => {
                                                 </Form.Group>
                                             </div>
 
-                                            <div className="col-12 col-md-2 col-lg-2">
-                                                <Form.Group className="mt-3 w-full">
-                                                    <Button
-                                                        className="w-full"
-                                                        variant="warning"
-                                                        disabled={loading}
-                                                        onClick={() => depositRequest()}
-                                                    >
-                                                        Deposit
-                                                    </Button>
-                                                </Form.Group>
+                                            <div className="col-12 col-md-12 col-lg-12">
+                                                <div className='d-flex flex-row justify-content-end align-items-center'>
+                                                    <Form.Group className="mt-3">
+                                                        <Button
+                                                            className="w-full"
+                                                            variant="warning"
+                                                            disabled={loading}
+                                                            onClick={() => setCheckPaymentPassword(true)}
+                                                        >
+                                                            Deposit
+                                                        </Button>
+                                                    </Form.Group>
+                                                </div>
                                             </div>
+
+                                            {showInfo && (
+                                                <div className="col-12 col-md-12 col-lg-12 mt-3">
+                                                    <Alert variant={"primary"}>
+                                                        <div className='d-flex flex-column justify-content-center align-items-start'>
+                                                            <p> We are checking your payment transcation. Payment transcation process will take 24 hours.  </p>
+                                                            <Button
+                                                                variant="warning"
+                                                                disabled={loading}
+                                                                onClick={() => navigate(paths.transcation)}
+                                                            >
+                                                                Check Payment Transcation
+                                                            </Button>
+                                                        </div>
+                                                    </Alert>
+                                                </div>
+                                            )}
+
                                         </div>
 
                                         {selectPackage && (
@@ -245,7 +314,13 @@ export const DepositForm = () => {
                         </div>
                     </div>
                 </div>
-            </div >
+            </div>
+
+            <CheckPaymentPassword
+                show={checkPaymentPassword}
+                onClose={(e) => setCheckPaymentPassword(e)}
+                callbackfn={() => depositRequest()}
+            />
         </>
     )
 }
