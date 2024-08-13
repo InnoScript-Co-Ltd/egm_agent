@@ -1,10 +1,10 @@
 import { getData } from "../libs/localstorage";
 
-export const env = 0;
+export const env = 1;
 
 export const baseUrl = [
     'http://localhost:8000',
-    'https://api.gscexport.com',
+    'https://api.evanglobalmanagement.com',
 ][env];
 
 export const keys = {
