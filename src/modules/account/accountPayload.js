@@ -59,8 +59,19 @@ export const accountPayload = {
         account_name: "",
         account_number: "",
         bank_type: "",
+        bank_type_label: "",
         branch: "",
         branch_address: ""
+    },
+
+    updateBankAccount: {
+        account_name: "",
+        account_number: "",
+        bank_type: "",
+        bank_type_label: "",
+        branch: "",
+        branch_address: "",
+        status: ""
     },
 
     confirmPaymentPassword: {

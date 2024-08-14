@@ -1,6 +1,6 @@
 import { getData } from "../libs/localstorage";
 
-export const env = 1;
+export const env = 0;
 
 export const baseUrl = [
     'http://localhost:8000',
@@ -32,12 +32,12 @@ export const notificationOptions = {
 }
 
 export const bankTypes = [
-    { name: "KBZ Bank", icon: "" },
-    { name: "AYA Bank", icon: "" },
-    { name: "A Bank", icon: "" },
-    { name: "MCB Bank", icon: "" },
-    { name: "UAB Bank", icon: "" },
-    { name: "CB Bank", icon: "" }
+    { name: "KBZ Bank", value: "kbz_bank", icon: "" },
+    { name: "AYA Bank", value: "aya_bank", icon: "" },
+    { name: "A Bank", value: "a_bank", icon: "" },
+    { name: "MCB Bank", value: "mcb_bank", icon: "" },
+    { name: "UAB Bank", value: "uab_bank", icon: "" },
+    { name: "CB Bank", value: "cb_bank", icon: "" }
 ];
 
 export const statusOptions = [

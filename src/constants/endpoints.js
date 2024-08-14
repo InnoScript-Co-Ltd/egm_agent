@@ -17,7 +17,8 @@ export const endpoints = {
     profile: "auth/profile",
     profileUpdate: "account",
     package: "package",
-    bankAccount: "bank-account",
+    bankAccount: "agent-bank-account",
+    merchantBankAccount: "merchant-bank-account",
     levelAgent: "level",
     image: `${baseUrl}/storage/images`,
     deposit: "deposit"

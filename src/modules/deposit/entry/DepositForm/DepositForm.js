@@ -31,6 +31,8 @@ export const DepositForm = () => {
     const [bankAccounts, setBankAccount] = useState([]);
     const [checkPaymentPassword, setCheckPaymentPassword] = useState(false);
     const [showInfo, setShowInfo] = useState(false);
+    const [merchantBankAccount, setMerchantBankAccount] = useState([]);
+    const [selectMerchantAccount, setSelectMerechantAccount] = useState(null);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -63,7 +65,8 @@ export const DepositForm = () => {
     const depositRequest = async () => {
         setLoading(true);
         const updatePayload = { ...payload };
-        updatePayload.merchant_account = "00000000000000";
+        updatePayload.merchant_account = selectMerchantAccount.account_number;
+        updatePayload.merchant_bank_type = selectMerchantAccount.bank_type;
 
         const formData = formBuilder(updatePayload, depositPayload.create);
         const result = await depositServices.store(formData, dispatch);
@@ -74,6 +77,14 @@ export const DepositForm = () => {
 
         setLoading(false);
     }
+
+    const initMerchantBankAccountLoading = useCallback(async () => {
+        const result = await depositServices.merchantBankAccount(dispatch);
+
+        if(result.status === 200) {
+            setMerchantBankAccount(result.data);
+        }
+    },[dispatch]);
 
     const initLoading = useCallback(async () => {
         setLoading(true);
@@ -119,6 +130,21 @@ export const DepositForm = () => {
         initLoading();
     }, [initLoading]);
 
+    useEffect(() => {
+        initMerchantBankAccountLoading();
+    },[initMerchantBankAccountLoading])
+
+    useEffect(() => {
+        if(merchantBankAccount.length > 0 && bankAccounts.length > 0) {
+            const bankAccount = merchantBankAccount.filter(value => value.bank_type_label === bankAccounts[0].bank_type_label);
+            if(bankAccount.length >  0) {
+                setSelectMerechantAccount(bankAccount[0]);
+            } else {
+                setSelectMerechantAccount(null);
+            }
+        }
+    },[merchantBankAccount, bankAccounts]);
+
     return (
         <>
             <Header />
@@ -155,6 +181,19 @@ export const DepositForm = () => {
                                                     </div>
                                                 )}
                                             </div>
+
+                                            {selectMerchantAccount && (
+                                                <div className="col-12 col-md-12 col-lg-12 mt-3">
+                                                    <Alert variant={"info"}>
+                                                        <div className='d-flex flex-column justify-content-center align-items-start'>
+                                                            <p> Bank Type - {selectMerchantAccount.bank_type} </p>
+                                                            <p> Account Hodlder Name - {selectMerchantAccount.holder_name} </p>
+                                                            <p> Account Number - {selectMerchantAccount.account_number} </p>
+                                                        </div>
+                                                    </Alert>
+                                                </div>
+                                            )}
+
 
                                             <div className="col-12 col-md-3 col-lg-3">
                                                 <Form.Group className="mt-3 w-full">

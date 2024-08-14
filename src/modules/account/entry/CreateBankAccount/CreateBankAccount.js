@@ -15,6 +15,16 @@ export const CreateBankAccount = () => {
 
     const dispatch = useDispatch();
 
+    const chooseBankHandler = (e) => {
+        const selectBank = bankTypes.filter(value => value.value === e)[0];
+
+        const updatePayload = {...payload};
+        updatePayload.bank_type_label = selectBank.value;
+        updatePayload.bank_type = selectBank.name;
+
+        setPayload(updatePayload);
+    }
+
     const banckAccountCreateHandler = async () => {
         setLoading(true);
         const result = await accountServices.createBankAccount(payload, dispatch);
@@ -59,13 +69,11 @@ export const CreateBankAccount = () => {
             <Form.Group className="mt-3 w-full">
                 <Form.Select
                     disabled={loading}
-                    onChange={(e) => payloadHandler(payload, e.target.value, "bank_type", (updatePayload) => {
-                        setPayload(updatePayload);
-                    })}
+                    onChange={(e) => chooseBankHandler(e.target.value)}
                 >
                     { bankTypes.map((bank, index) => {
                         return(
-                            <option key={`bank_type_id_${index}`} value={bank.name}> {bank.name} </option>
+                            <option key={`bank_type_id_${index}`} value={bank.value}> {bank.name} </option>
                         )
                     })}
                 </Form.Select>
