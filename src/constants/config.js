@@ -42,7 +42,9 @@ export const bankTypes = [
 
 export const statusOptions = [
     { status: "ACTIVE", color: "badge-success" },
+    { status: "PAYMENT_ACCEPTED", color: "badge-success" },
     { status: "DISABLE", color: "badge-danger" },
+    { status: "REJECT", color: "badge-danger" },
     { status: "DELETED", color: "badge-dark" },
     { status: "PENDING", color: "badge-warning" },
     { status: "BLOCK", color: "badge-danger" },

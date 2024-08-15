@@ -1,27 +1,17 @@
 import { endpoints } from "../../constants/endpoints";
 import { getRequest } from "../../helpers/api";
 import { httpServiceHandler } from "../../helpers/handler";
-import { agentTranscation, invetorTranscation } from "./transcationSlice";
+import { index } from "./transcationSlice";
 
 export const transcationServices = {
-    agent: async (dispatch) => {
-        const result = await getRequest(endpoints.agentPackage);
+    index: async (dispatch, transcationStatus) => {
+        const result = await getRequest(`${endpoints.deposit}?filter=status&value=${transcationStatus}`);
         await httpServiceHandler(dispatch, result);
 
         if(result.status === 200) {
-            dispatch(agentTranscation(result.data));
+            dispatch(index(result.data));
         }
-        return result;
-    },
-
-    investor: async (dispatch) => {
-        const result = await getRequest(endpoints.investorPackage);
-        await httpServiceHandler(dispatch, result);
-
-        if(result.status === 200) {
-            dispatch(invetorTranscation(result.data));
-        }
-
+        
         return result;
     },
 }

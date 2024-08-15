@@ -64,11 +64,7 @@ export const DepositForm = () => {
 
     const depositRequest = async () => {
         setLoading(true);
-        const updatePayload = { ...payload };
-        updatePayload.merchant_account = selectMerchantAccount.account_number;
-        updatePayload.merchant_bank_type = selectMerchantAccount.bank_type;
-
-        const formData = formBuilder(updatePayload, depositPayload.create);
+        const formData = formBuilder(payload, depositPayload.create);
         const result = await depositServices.store(formData, dispatch);
 
         if (result.status === 200) {
@@ -77,6 +73,24 @@ export const DepositForm = () => {
 
         setLoading(false);
     }
+
+    const chooseAgentBankAccount = async (e) => {
+        const selectAgentBankAccount = bankAccounts.filter(value => Number(value.id) === Number(e))[0];
+        const chooseMerchantBankAccount = merchantBankAccount.filter(value => value.bank_type_label === selectAgentBankAccount.bank_type_label);
+
+        const updatePayload = {...payload};
+        updatePayload.bank_account_id = selectAgentBankAccount.id;
+        updatePayload.bank_type = selectAgentBankAccount.bank_type;
+
+        if(chooseMerchantBankAccount.length > 0) {
+            setSelectMerechantAccount(chooseMerchantBankAccount[0]);
+            updatePayload.merchant_account_id = chooseMerchantBankAccount[0].id;
+        } else {
+            setSelectMerechantAccount(null);
+        }
+
+        setPayload(updatePayload);
+    }   
 
     const initMerchantBankAccountLoading = useCallback(async () => {
         const result = await depositServices.merchantBankAccount(dispatch);
@@ -93,7 +107,7 @@ export const DepositForm = () => {
         let updatePayload = {
             bank_account_id: "",
             package_id: "",
-            deposit_amount: ""
+            package_deposit_amount: ""
         };
 
         if (resultPackage.status === 200 && resultPackage.data.length > 0) {
@@ -102,7 +116,7 @@ export const DepositForm = () => {
             setDepositAmount(resultPackage.data[0].deposit_amount);
 
             updatePayload.package_id = resultPackage.data[0].id;
-            updatePayload.deposit_amount = resultPackage.data[0]?.deposit_amount[0];
+            updatePayload.package_deposit_amount = resultPackage.data[0]?.deposit_amount[0];
 
             let repaymentUpdate = [];
 
@@ -216,8 +230,8 @@ export const DepositForm = () => {
                                                 <Form.Group className="mt-3 w-full">
                                                     <Form.Select
                                                         disabled={loading}
-                                                        value={payload.deposit_amount}
-                                                        onChange={(e) => payloadHandler(payload, e.target.value, "deposit_amount", (updatePayload) => {
+                                                        value={payload.package_deposit_amount}
+                                                        onChange={(e) => payloadHandler(payload, e.target.value, "package_deposit_amount", (updatePayload) => {
                                                             setPayload(updatePayload);
                                                         })}
                                                     >
@@ -227,7 +241,7 @@ export const DepositForm = () => {
                                                             )
                                                         })}
                                                     </Form.Select>
-                                                    <ValidationMessage field="deposit_amount" />
+                                                    <ValidationMessage field="package_deposit_amount" />
                                                 </Form.Group>
                                             </div>
 
@@ -236,9 +250,7 @@ export const DepositForm = () => {
                                                     <Form.Select
                                                         disabled={loading}
                                                         value={payload.bank_account_id}
-                                                        onChange={(e) => payloadHandler(payload, e.target.value, "bank_account_id", (updatePayload) => {
-                                                            setPayload(updatePayload);
-                                                        })}
+                                                        onChange={(e) => chooseAgentBankAccount(e.target.value)}
                                                     >
                                                         {bankAccounts && bankAccounts.map((value, index) => {
                                                             return (

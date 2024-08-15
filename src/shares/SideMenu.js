@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { paths } from "../constants/paths";
-import { Speedometer, Diagram3Fill, WindowPlus, CurrencyDollar, PeopleFill, Power, PersonFill } from 'react-bootstrap-icons';
+import { Speedometer, WindowPlus, PeopleFill, Power, PersonFill, ListNested } from 'react-bootstrap-icons';
 import { useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
 import { removeAllData } from "../libs/localstorage";
@@ -28,15 +28,15 @@ export const SideMenu = () => {
                     show: true
                 },
                 {
-                    icon: <Diagram3Fill size={16} />,
-                    label: "Channel",
-                    url: paths.channel,
-                    show: user.agent_type === "MAIN_AGENT" ? true : false
-                },
-                {
                     icon: <WindowPlus size={16} />,
                     label: "Deposit",
                     url: paths.deposit,
+                    show: true
+                },
+                {
+                    icon: <ListNested size={16} />,
+                    label: "Transcations",
+                    url: paths.transcation,
                     show: true
                 },
                 {

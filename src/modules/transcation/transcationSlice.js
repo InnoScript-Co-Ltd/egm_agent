@@ -3,23 +3,24 @@ import { createSlice } from "@reduxjs/toolkit";
 const transcationSlice = createSlice({
   name: "transcation",
   initialState: {
-    agent_transcation: [],
-    investor_transcation: []
+    transcations: [],
+    transcation: null
   },
   reducers: {
-    agentTranscation: (state, action) => {
-      state.agent_transcation = action.payload
+    index: (state, action) => {
+      state.transcations = action.payload
       return state;
     },
-    invetorTranscation: (state, action) => {
-      state.investor_transcation = action.payload
+    
+    show: (state, action) => {
+      state.transcation = {...action.payload}
       return state;
     }
   },
 });
 
 export const {
-  agentTranscation,
-  invetorTranscation
+  index,
+  show
 } = transcationSlice.actions;
 export default transcationSlice.reducer;
