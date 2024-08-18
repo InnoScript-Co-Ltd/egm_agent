@@ -2,7 +2,7 @@ import { endpoints } from "../../constants/endpoints";
 import { updateNotification } from "../../constants/shareSlice";
 import { getRequest, postRequest } from "../../helpers/api";
 import { httpServiceHandler } from "../../helpers/handler";
-import { setSubAgents, setSubAgent, setLevelAgents } from "./agentSlice";
+import { setSubAgents, setLevelAgents, setAgent } from "./agentSlice";
 
 export const agentServices = {
     levelAgentIndex: async(dispatch, level) => {
@@ -12,6 +12,7 @@ export const agentServices = {
         if(result.status === 200) {
             dispatch(setLevelAgents(result.data));
         }
+        
         return result;
     },
 
@@ -24,11 +25,11 @@ export const agentServices = {
         return result;
     },
 
-    show: async (id, dispatch) => {
-        const result = await getRequest(`${endpoints.subAgent}/${id}`, dispatch);
+    show: async (dispatch, id) => {
+        const result = await getRequest(`${endpoints.agent}/${id}`, dispatch);
         await httpServiceHandler(dispatch, result); 
         if(result.status === 200) {
-            dispatch(setSubAgent(result.data));
+            dispatch(setAgent(result.data));
         }
         return result;
     },

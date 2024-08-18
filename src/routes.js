@@ -15,6 +15,7 @@ import { SubAgentRegister} from "./modules/account/entry/AgentRegister/SubAgentR
 import { Profile } from "./modules/account/view/Profile/Profile";
 import { AgentList } from "./modules/agent/view/AgentList/AgentList";
 import { DepositForm } from "./modules/deposit/entry/DepositForm/DepositForm";
+import { AgentDetail } from "./modules/agent/view/AgentDetail/AgentDetail";
 
 export const routers = createBrowserRouter([
     {
@@ -62,16 +63,20 @@ export const routers = createBrowserRouter([
         element: <DepositForm />
     },
     {
-        path: paths.transcation,
+        path: paths.transaction,
         element: <TranscationList />
     },
     {
-        path: `${paths.transcation}/:id`,
+        path: `${paths.transaction}/:id`,
         element: <TranscationDetail />
     },
     {
         path: `${ paths.agent}/:level`,
         element: <AgentList />
+    },
+    {
+        path: `${ paths.agent}/:level/:id`,
+        element: <AgentDetail />
     },
     {
         path: paths.profile,

@@ -6,6 +6,7 @@ const agentSlice = createSlice({
     subAgents: [],
     agents: [],
     subAgent: null,
+    agent: null
   },
   reducers: {
     setLevelAgents: (state, action) => {
@@ -20,11 +21,16 @@ const agentSlice = createSlice({
     setSubAgent: (state, action) => {
       state.subAgent = { ...action.payload };
       return state;
+    },
+
+    setAgent: (state, action) => {
+      state.agent = {...action.payload };
+      return state;
     }
   },
 });
 
 export const {
-  setSubAgent, setSubAgents, setLevelAgents
+  setSubAgent, setSubAgents, setLevelAgents, setAgent
 } = agentSlice.actions;
 export default agentSlice.reducer;

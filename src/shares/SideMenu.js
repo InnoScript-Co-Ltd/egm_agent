@@ -35,8 +35,8 @@ export const SideMenu = () => {
                 },
                 {
                     icon: <ListNested size={16} />,
-                    label: "Transcations",
-                    url: paths.transcation,
+                    label: "Transaction",
+                    url: paths.transaction,
                     show: true
                 },
                 {

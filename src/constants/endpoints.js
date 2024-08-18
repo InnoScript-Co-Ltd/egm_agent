@@ -21,5 +21,8 @@ export const endpoints = {
     merchantBankAccount: "merchant-bank-account",
     levelAgent: "level",
     image: `${baseUrl}/storage/images`,
-    deposit: "deposit"
+    deposit: "deposit",
+    transaction: "transaction",
+    dashboard: "dashboard",
+    agent: "profile"
 }

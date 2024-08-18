@@ -7,16 +7,19 @@ import { useCallback, useEffect, useState } from "react";
 import { transcationServices } from "../transcationServices";
 import { Status } from "../../../shares/Status/Status";
 import { Check2Circle, InfoCircle, StopCircle } from "react-bootstrap-icons";
+import { useNavigate } from "react-router-dom";
+import { paths } from "../../../constants/paths";
 import numeral from "numeral";
 
 export const TranscationList = () => {
     const { user } = useSelector(state => state.account);
-    const { transcations } = useSelector(state => state.transcation);
+    const { transactions } = useSelector(state => state.transaction);
 
-    const [transcationStatus, setTranscationStatus] = useState("PENDING");
+    const [transcationStatus, setTranscationStatus] = useState("DEPOSIT_PENDING");
     const [loading, setLoading] = useState(false);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const loadingTranscation = useCallback(async () => {
         setLoading(true);
@@ -50,7 +53,7 @@ export const TranscationList = () => {
                                             <Button
                                                 variant="warning"
                                                 disabled={loading}
-                                                onClick={() => setTranscationStatus("PENDING")}
+                                                onClick={() => setTranscationStatus("DEPOSIT_PENDING")}
                                             >
                                                 <InfoCircle size={16} /> TRANSCATIONS PENDING
                                             </Button>
@@ -59,7 +62,7 @@ export const TranscationList = () => {
                                                 style={{ marginLeft: "10px" }}
                                                 variant="danger"
                                                 disabled={loading}
-                                                onClick={() => setTranscationStatus("REJECT")}
+                                                onClick={() => setTranscationStatus("DEPOSIT_REJECT")}
                                             >
                                                 <StopCircle size={16} /> TRANSCATIONS REJECT
                                             </Button>
@@ -68,7 +71,7 @@ export const TranscationList = () => {
                                                 style={{ marginLeft: "10px" }}
                                                 variant="success"
                                                 disabled={loading}
-                                                onClick={() => setTranscationStatus("PAYMENT_ACCEPTED")}
+                                                onClick={() => setTranscationStatus("DEPOSIT_PAYMENT_ACCEPTED")}
                                             >
                                                 <Check2Circle size={16} /> TRANSCATIONS PAYMENT ACCEPTED
                                             </Button>
@@ -81,10 +84,7 @@ export const TranscationList = () => {
                                                 <thead>
                                                     <tr className="agent-list-table-title">
                                                         <th scope="col"> # </th>
-                                                        <th scope="col"> Account Name </th>
-                                                        <th scope="col"> AC Number </th>
-                                                        <th scope="col"> Merchant Name </th>
-                                                        <th scope="col"> Merchant AC Number </th>
+                                                        <th scope="col"> Transaction ID</th>
                                                         <th scope="col"> Deposit Amount <small> (Kyats)</small> </th>
                                                         <th scope="col"> Package Name </th>
                                                         <th scope="col"> Duration <small> (Kyats) </small> </th>
@@ -93,14 +93,17 @@ export const TranscationList = () => {
                                                 </thead>
 
                                                 <tbody className="agent-list-table-row">
-                                                    {transcations.map((value, index) => {
+                                                    {transactions && transactions.map((value, index) => {
                                                         return (
                                                             <tr key={`level_agent_id_${index}`} style={{ width: "100%" }}>
                                                                 <td> {index + 1} </td>
-                                                                <td> {value.agent_account_name} </td>
-                                                                <td> {value.agent_account_number} </td>
-                                                                <td> {value.merchant_account_name} </td>
-                                                                <td> {value.merchant_account_number} </td>
+                                                                <td 
+                                                                    style={{ 
+                                                                        textDecoration: "underline #d3d3d3", 
+                                                                        cursor: "pointer",
+                                                                    }}
+                                                                    onClick={() => navigate(`${paths.transaction}/${value.id}`)}
+                                                                > {value.id} </td>
                                                                 <td> {numeral(value.package_deposit_amount).format('0,0')} </td>
                                                                 <td> {value.package_name} </td>
                                                                 <td> {value.package_duration} Months </td>

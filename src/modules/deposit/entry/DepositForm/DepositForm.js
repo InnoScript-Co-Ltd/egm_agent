@@ -78,11 +78,11 @@ export const DepositForm = () => {
         const selectAgentBankAccount = bankAccounts.filter(value => Number(value.id) === Number(e))[0];
         const chooseMerchantBankAccount = merchantBankAccount.filter(value => value.bank_type_label === selectAgentBankAccount.bank_type_label);
 
-        const updatePayload = {...payload};
+        const updatePayload = { ...payload };
         updatePayload.bank_account_id = selectAgentBankAccount.id;
         updatePayload.bank_type = selectAgentBankAccount.bank_type;
 
-        if(chooseMerchantBankAccount.length > 0) {
+        if (chooseMerchantBankAccount.length > 0) {
             setSelectMerechantAccount(chooseMerchantBankAccount[0]);
             updatePayload.merchant_account_id = chooseMerchantBankAccount[0].id;
         } else {
@@ -90,15 +90,15 @@ export const DepositForm = () => {
         }
 
         setPayload(updatePayload);
-    }   
+    }
 
     const initMerchantBankAccountLoading = useCallback(async () => {
         const result = await depositServices.merchantBankAccount(dispatch);
 
-        if(result.status === 200) {
+        if (result.status === 200) {
             setMerchantBankAccount(result.data);
         }
-    },[dispatch]);
+    }, [dispatch]);
 
     const initLoading = useCallback(async () => {
         setLoading(true);
@@ -146,18 +146,18 @@ export const DepositForm = () => {
 
     useEffect(() => {
         initMerchantBankAccountLoading();
-    },[initMerchantBankAccountLoading])
+    }, [initMerchantBankAccountLoading])
 
     useEffect(() => {
-        if(merchantBankAccount.length > 0 && bankAccounts.length > 0) {
+        if (merchantBankAccount.length > 0 && bankAccounts.length > 0) {
             const bankAccount = merchantBankAccount.filter(value => value.bank_type_label === bankAccounts[0].bank_type_label);
-            if(bankAccount.length >  0) {
+            if (bankAccount.length > 0) {
                 setSelectMerechantAccount(bankAccount[0]);
             } else {
                 setSelectMerechantAccount(null);
             }
         }
-    },[merchantBankAccount, bankAccounts]);
+    }, [merchantBankAccount, bankAccounts]);
 
     return (
         <>
@@ -174,31 +174,16 @@ export const DepositForm = () => {
                     <div className="col-sm-12 col-md-10 col-lg-10 mt-3">
                         <div className="row">
                             <div className="col-12 col-md-12 mt-3">
-                                <div className="card">
+                                <div className="card" style={{ background: "#212529", color: "#fff" }}>
                                     <div className="card-body">
                                         <div className="row">
                                             <div className="col-12 mt-3">
                                                 <h4> Deposit Request </h4>
-
-                                                {selectPackage && (
-                                                    <div className="alert alert-warning" style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-start" }}>
-                                                        <span> Package Name - {selectPackage.name} </span>
-                                                        <span> Duration - {selectPackage.duration} Months </span>
-                                                        <span> ROI - {selectPackage.roi_rate} % </span>
-                                                        <span>
-                                                            {selectPackage.deposit_amount.map((value, index) => {
-                                                                return (
-                                                                    <label key={`deposit_id_${index}`} style={{ marginRight: "20px" }}> {numeral(value).format("0,0")} Kyats </label>
-                                                                )
-                                                            })}
-                                                        </span>
-                                                    </div>
-                                                )}
                                             </div>
 
                                             {selectMerchantAccount && (
                                                 <div className="col-12 col-md-12 col-lg-12 mt-3">
-                                                    <Alert variant={"info"}>
+                                                    <Alert variant={"warning"}>
                                                         <div className='d-flex flex-column justify-content-center align-items-start'>
                                                             <p> Bank Type - {selectMerchantAccount.bank_type} </p>
                                                             <p> Account Hodlder Name - {selectMerchantAccount.holder_name} </p>
@@ -294,13 +279,13 @@ export const DepositForm = () => {
                                                 <div className="col-12 col-md-12 col-lg-12 mt-3">
                                                     <Alert variant={"primary"}>
                                                         <div className='d-flex flex-column justify-content-center align-items-start'>
-                                                            <p> We are checking your payment transcation. Payment transcation process will take 24 hours.  </p>
+                                                            <p> We are checking your payment transaction. Payment transaction process will take 24 hours.  </p>
                                                             <Button
                                                                 variant="warning"
                                                                 disabled={loading}
-                                                                onClick={() => navigate(paths.transcation)}
+                                                                onClick={() => navigate(paths.transaction)}
                                                             >
-                                                                Check Payment Transcation
+                                                                Check Payment Transaction
                                                             </Button>
                                                         </div>
                                                     </Alert>
@@ -315,6 +300,7 @@ export const DepositForm = () => {
                                                     <Tabs
                                                         defaultActiveKey={`${selectPackage.id}_${selectPackage.deposit_amount[0]}`}
                                                         className="mb-3"
+                                                        style={{background: "#212529", color: "#fff"}}
                                                     >
                                                         {depositAmount.map((value, index) => {
                                                             return (

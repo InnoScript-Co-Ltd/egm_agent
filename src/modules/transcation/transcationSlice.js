@@ -3,17 +3,17 @@ import { createSlice } from "@reduxjs/toolkit";
 const transcationSlice = createSlice({
   name: "transcation",
   initialState: {
-    transcations: [],
-    transcation: null
+    transactions: [],
+    transaction: null
   },
   reducers: {
     index: (state, action) => {
-      state.transcations = action.payload
+      state.transactions = action.payload
       return state;
     },
     
     show: (state, action) => {
-      state.transcation = {...action.payload}
+      state.transaction = {...action.payload }
       return state;
     }
   },

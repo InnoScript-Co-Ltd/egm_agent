@@ -5,11 +5,13 @@ import { SideMenu } from "../../../../shares/SideMenu"
 import { useDispatch, useSelector } from "react-redux"
 import { agentServices } from "../../agentServices"
 import { useParams } from "react-router-dom";
-import moment from "moment"
-import numeral from "numeral"
-import "./agent-list.css";
 import { Status } from "../../../../shares/Status/Status"
 import { CurrencyDollar, PeopleFill } from "react-bootstrap-icons"
+import { useNavigate } from "react-router-dom"
+import moment from "moment"
+import numeral from "numeral"
+import { paths } from "../../../../constants/paths"
+import "./agent-list.css";
 
 export const AgentList = () => {
     const [loading, setLoading] = useState(false);
@@ -20,6 +22,7 @@ export const AgentList = () => {
 
     const dispatch = useDispatch();
     const params = useParams();
+    const navigator = useNavigate();
 
     const level = useRef();
     const count = useRef({
@@ -44,6 +47,7 @@ export const AgentList = () => {
         if (params.level === 'level_four') {
             level.current = "Level Four Agents";
         }
+
         const result = await agentServices.levelAgentIndex(dispatch, params.level);
 
         if(result.status === 200) {
@@ -138,7 +142,7 @@ export const AgentList = () => {
                             <span className="badge badge-light badge-color"> CmA = Comission Amount </span>
                         </div>
 
-                        {levelAgents.length > 0 && (
+                        {!loading && levelAgents.length > 0 && (
                             <div className="table-responsive">
                                 <table className="table table-sm table-dark">
                                     <thead>
@@ -163,7 +167,12 @@ export const AgentList = () => {
                                                 <tr key={`level_agent_id_${index}`} style={{ width: "100%" }}>
                                                     <td> {index + 1} </td>
                                                     <td>
-                                                        <span> {`${value.first_name} ${value.last_name}`} </span>
+                                                        <span 
+                                                            style={{cursor: "pointer"}} 
+                                                            onClick={() => navigator(`${paths.agent}/${params.level}/${value.id}`)}
+                                                        > 
+                                                            {`${value.first_name} ${value.last_name}`} 
+                                                        </span>
                                                     </td>
                                                     <td> {numeral(10000000).format("0,0")} </td>
                                                     <td> 6 Months </td>

@@ -14,7 +14,7 @@ export const stores = configureStore({
       auth: authSlice,
       package: packageSlice,
       bankAccount: bankAccountSlice,
-      transcation: transcationSlice,
+      transaction: transcationSlice,
       agent: agentSlice,
    },
    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
