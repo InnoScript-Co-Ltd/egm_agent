@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Header } from "../../../shares/Header";
 import { AlertMessage } from "../../../shares/AlertMessage";
 import { SideMenu } from "../../../shares/SideMenu";
-import { CurrencyDollar } from "react-bootstrap-icons";
+import { WalletFill } from "react-bootstrap-icons";
 import numeral from "numeral"
 import { dashboardService } from "../dashboardService";
 
@@ -53,7 +53,7 @@ export const Dashboard = () => {
                                     <div className="card card-primary">
                                         <div className="card-body">
                                             <div className="count-wrapper">
-                                                <CurrencyDollar size={50} style={{ fontWeight: "bolder" }} />
+                                                <WalletFill size={50} style={{ fontWeight: "bolder" }} />
                                                 { !loading && count && (
                                                     <span> {numeral(count.deposit_amount).format("0,0")} </span>
                                                 )}
@@ -68,7 +68,7 @@ export const Dashboard = () => {
                                     <div className="card card-success">
                                         <div className="card-body">
                                             <div className="count-wrapper">
-                                                <CurrencyDollar size={50} style={{ fontWeight: "bolder" }} />
+                                                <WalletFill size={50} style={{ fontWeight: "bolder" }} />
                                                 { !loading && count && (
                                                     <span> {numeral(count.roi_amount).format("0,0")} </span>
                                                 )}
@@ -84,7 +84,7 @@ export const Dashboard = () => {
                                     <div className="card card-warning">
                                         <div className="card-body">
                                             <div className="count-wrapper">
-                                                <CurrencyDollar size={50} style={{ fontWeight: "bolder" }} />
+                                                <WalletFill size={50} style={{ fontWeight: "bolder" }} />
                                                 { !loading && count && (
                                                     <span> {numeral(0).format("0,0")} </span>
                                                 )}
