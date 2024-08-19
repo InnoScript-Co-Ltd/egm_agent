@@ -437,3 +437,11 @@ input,select {
     color: #fff;
     border: 1px solid #656363
 }
+
+.nav-tabs > .nav-item {
+    margin-left: 5px;
+}
+
+.nav-tabs > .nav-item:first-child {
+    margin-left: 0px;
+}

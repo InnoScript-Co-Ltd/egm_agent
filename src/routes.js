@@ -5,7 +5,6 @@ import { Register } from "./modules/account/entry/Register";
 import { Verification } from "./modules/account/entry/Verification";
 import { ResendCode } from "./modules/account/entry/ResendCode";
 import { Dashboard } from "./modules/dashboard/view/Dashboard";
-import { PackageList } from "./modules/packages/view/PackageList";
 import { PackageBuy } from "./modules/packages/entry/PackageBuy";
 import { BankAccountList } from "./modules/bankAccount/view/BankAccountList";
 import { TranscationList } from "./modules/transcation/view/TranscationList";
@@ -16,6 +15,7 @@ import { Profile } from "./modules/account/view/Profile/Profile";
 import { AgentList } from "./modules/agent/view/AgentList/AgentList";
 import { DepositForm } from "./modules/deposit/entry/DepositForm/DepositForm";
 import { AgentDetail } from "./modules/agent/view/AgentDetail/AgentDetail";
+import { PackageDetail } from "./modules/packages/view/PackageDetail/PackageDetail";
 
 export const routers = createBrowserRouter([
     {
@@ -47,8 +47,8 @@ export const routers = createBrowserRouter([
         element: <Dashboard />
     },
     {
-        path: paths.package,
-        element: <PackageList />
+        path: `${paths.package}/:id`,
+        element: <PackageDetail />
     },
     {
         path: `${paths.packageBuy}/:id`,

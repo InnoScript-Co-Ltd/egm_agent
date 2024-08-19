@@ -1,22 +1,24 @@
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import Button from "react-bootstrap/esm/Button";
 import { useCallback, useEffect, useRef, useState } from "react"
 import { Header } from "../../../../shares/Header"
 import { Notification } from "../../../../shares/Notification"
 import { SideMenu } from "../../../../shares/SideMenu"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
-import { endpoints } from "../../../../constants/endpoints"
 import { agentServices } from "../../agentServices"
 import { Status } from "../../../../shares/Status/Status"
 import { WalletFill } from "react-bootstrap-icons"
 import { AmountFormat } from "../../../../shares/AmountFormat/AmountFormat"
-import Button from "react-bootstrap/esm/Button"
-import { paths } from "../../../../constants/paths"
+import { paths } from "../../../../constants/paths";
 import numeral from "numeral";
-import moment from "moment"
+import moment from "moment";
 
 export const AgentDetail = () => {
     const [loading, setLoading] = useState(false);
     const [deposits, setDeposit] = useState([]);
+    const [transactions, setTransactions] = useState([]);
 
     const { agent } = useSelector(state => state.agent);
 
@@ -43,6 +45,8 @@ export const AgentDetail = () => {
 
         if (result.status === 200) {
             setDeposit(result.data.deposit);
+            setTransactions(result.data.transactions);
+
             const updateCount = { ...count.current };
 
             result.data.deposit.map((value) => {
@@ -174,47 +178,87 @@ export const AgentDetail = () => {
 
                                     <div className="row">
                                         <div className="col-12 col-md-12 col-lg-12 mt-3">
-                                            <div className="table-responsive">
-                                                <table className="table table-sm table-dark">
-                                                    <thead>
-                                                        <tr className="agent-list-table-title">
-                                                            <th scope="col"> # </th>
-                                                            <th scope="col"> Deposit Amount <small> (kyats) </small> </th>
-                                                            <th scope="col"> ROI Amount <small> (kyats) </small> </th>
-                                                            <th scope="col"> Commission Amount <small> (kyats) </small> </th>
-                                                            <th scope="col"> Expired At </th>
-                                                            <th scope="col"> Created At </th>
-                                                            <th scope="col"> Option </th>
-                                                        </tr>
-                                                    </thead>
-
-                                                    <tbody>
-                                                        {deposits && deposits.length > 0 && deposits.map((value, index) => {
-                                                            return (
-                                                                <tr key={`deposit_id_${index}`} className="tr">
-                                                                    <td> {index + 1} </td>
-                                                                    <td> {numeral(value.deposit_amount).format('0,0')} </td>
-                                                                    <td> {numeral(value.roi_amount).format('0,0')} </td>
-                                                                    <td> {numeral(value.commission_amount).format('0,0')} </td>
-                                                                    <td> {moment(value.expired_at).format('DD/MM/YYYYY hh:mm:ss')} </td>
-                                                                    <td> {moment(value.created_at).format('DD/MM/YYYYY hh:mm:ss')} </td>
-                                                                    <td>
-                                                                        <Button
-                                                                            className="btn-small"
-                                                                            size="small"
-                                                                            variant="warning"
-                                                                            disabled={loading}
-                                                                            onClick={() => navigate(`${paths.investor}/${value.id}`)}
-                                                                        >
-                                                                            Detail
-                                                                        </Button>
-                                                                    </td>
+                                            <Tabs
+                                                defaultActiveKey="deposit"
+                                                className="mb-3"
+                                            >
+                                                <Tab eventKey="deposit" title="Deposits">
+                                                    <div className="table-responsive">
+                                                        <table className="table table-sm table-dark">
+                                                            <thead>
+                                                                <tr className="agent-list-table-title">
+                                                                    <th scope="col"> # </th>
+                                                                    <th scope="col"> Deposit Amount <small> (kyats) </small> </th>
+                                                                    <th scope="col"> ROI Amount <small> (kyats) </small> </th>
+                                                                    <th scope="col"> Commission Amount <small> (kyats) </small> </th>
+                                                                    <th scope="col"> Expired At </th>
+                                                                    <th scope="col"> Created At </th>
+                                                                    <th scope="col"> Status </th>
                                                                 </tr>
-                                                            )
-                                                        })}
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                            </thead>
+
+                                                            <tbody>
+                                                                {deposits && deposits.length > 0 && deposits.map((value, index) => {
+                                                                    return (
+                                                                        <tr key={`deposit_id_${index}`} className="tr">
+                                                                            <td> {index + 1} </td>
+                                                                            <td> {numeral(value.deposit_amount).format('0,0')} </td>
+                                                                            <td> {numeral(value.roi_amount).format('0,0')} </td>
+                                                                            <td> {numeral(value.commission_amount).format('0,0')} </td>
+                                                                            <td> {moment(value.expired_at).format('DD/MM/YYYY hh:mm:ss')} </td>
+                                                                            <td> {moment(value.created_at).format('DD/MM/YYYY hh:mm:ss')} </td>
+                                                                            <td> <Status status={value.status} /> </td>
+                                                                        </tr>
+                                                                    )
+                                                                })}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </Tab>
+
+                                                <Tab eventKey="transaction" title="Transactions" style={{ marginLeft: "5px" }}>
+                                                    <div className="table-responsive">
+                                                        <table className="table table-sm table-dark">
+                                                            <thead>
+                                                                <tr className="agent-list-table-title">
+                                                                    <th scope="col"> # </th>
+                                                                    <th scope="col"> Account Name</th>
+                                                                    <th scope="col"> Account Number </th>
+                                                                    <th scope="col"> Bank Type </th>
+                                                                    <th scope="col"> Deposit Amount </th>
+                                                                    <th scope="col"> Created At </th>
+                                                                    <th scope='col'> Transaction Type </th>
+                                                                    <th scope="col"> Status </th>
+                                                                </tr>
+                                                            </thead>
+
+                                                            <tbody>
+                                                                {transactions && transactions.length > 0 && transactions.map((value, index) => {
+                                                                    return (
+                                                                        <tr key={`deposit_id_${index}`} className="tr">
+                                                                            <td>
+                                                                                <span 
+                                                                                    style={{cursor: "pointer", textDecoration: "underline"}}
+                                                                                    onClick={() => navigate(`${paths.transaction}/${value.id}`)}
+                                                                                > 
+                                                                                    {value.id} 
+                                                                                </span>
+                                                                            </td>
+                                                                            <td> {value.agent_account_name} </td>
+                                                                            <td> {value.agent_account_number} </td>
+                                                                            <td> {value.bank_type} </td>
+                                                                            <td> {numeral(value.package_deposit_amount).format('0,0')} </td>
+                                                                            <td> {moment(value.created_at).format('DD/MM/YYYY hh:mm:ss')} </td>
+                                                                            <td> {value.transaction_type} </td>
+                                                                            <td> <Status status={value.status} /> </td>
+                                                                        </tr>
+                                                                    )
+                                                                })}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </Tab>
+                                            </Tabs>
                                         </div>
                                     </div>
                                 </div>

@@ -22,6 +22,8 @@ export const packageServices = {
         if(result.status === 200) {
             dispatch(show(result.data));
         }
+        
+        return result;
     },
 
     agentPackageBuy: async (dispatch, payload) => {
