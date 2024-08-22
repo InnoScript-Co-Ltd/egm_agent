@@ -3,6 +3,9 @@ import { getData } from './localstorage';
 import { baseUrl, keys } from '../constants/config';
 
 
+axios.defaults.headers.common['Content-Type'] = 'application/json';
+axios.defaults.headers.common['Accept'] = 'application/json';
+
 const http = axios.create({
     baseURL: `${baseUrl}/agent`
 });
