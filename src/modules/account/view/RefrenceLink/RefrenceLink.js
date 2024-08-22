@@ -4,7 +4,7 @@ import { accountServices } from '../../accountServices';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { paths } from '../../../../constants/paths';
-import { baseUrl } from '../../../../constants/config';
+import { appUrl, env } from '../../../../constants/config';
 import { Copy } from 'react-bootstrap-icons';
 import "./refrencelink.css";
 
@@ -20,7 +20,7 @@ export const RefrenceLink = () => {
             const result = await accountServices.mainAgentGenerateLink(dispatch);
 
             if (result.status === 200) {
-                const generateRefrence = `${baseUrl}${paths.subAgentRegister}/${result.data}`;
+                const generateRefrence = `${appUrl[env]}${paths.subAgentRegister}/${result.data}`;
                 setRefrenceLink(generateRefrence);
             }
         }
@@ -29,7 +29,7 @@ export const RefrenceLink = () => {
             const result = await accountServices.subAgentGenerateLink(dispatch);
 
             if (result.status === 200) {
-                const generateRefrence = `${baseUrl}${paths.subAgentRegister}/${result.data}`;
+                const generateRefrence = `${appUrl[env]}${paths.subAgentRegister}/${result.data}`;
                 setRefrenceLink(generateRefrence);
             }
         }

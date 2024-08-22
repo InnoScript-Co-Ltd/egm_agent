@@ -1,11 +1,16 @@
 import { getData } from "../libs/localstorage";
 
-export const env = 0;
+export const env = 1;
 
 export const baseUrl = [
     'http://localhost:8000',
     'https://api.evanglobalmanagement.com',
 ][env];
+
+export const appUrl = [
+    'http://localhost:3000',
+    'https://demo.evanglobalmanagement.com'
+];
 
 export const keys = {
     API_TOKEN: "TOKEN",
