@@ -47,12 +47,12 @@ export const CheckPaymentPassword = ({ show, onClose, callbackfn }) => {
 
     return(
         <Modal show={open} onHide={() => closeHandler()}>
-            <Modal.Header closeButton>
-                <Modal.Title> <span className='black-color'> Payment Password Confirmation </span> </Modal.Title>
+            <Modal.Header closeButton style={{ background: "#212529", color: "#fff" }}>
+                <Modal.Title> <span> Payment Password Confirmation </span> </Modal.Title>
             </Modal.Header>
 
-            <Modal.Body>
-                <p className='black-color'> Please enter your payment password. </p>
+            <Modal.Body style={{ background: "#212529", color: "#fff" }}>
+                <p> Please enter your payment password. </p>
                 <Form.Group className="mt-3 w-full">
                     <Form.Control
                         type="password"
@@ -66,7 +66,7 @@ export const CheckPaymentPassword = ({ show, onClose, callbackfn }) => {
                 </Form.Group>
             </Modal.Body>
 
-            <Modal.Footer>
+            <Modal.Footer style={{ background: "#212529", color: "#fff" }}>
                 <Button variant="primary" onClick={() => onSubmitHandler()}> Confirm </Button>
             </Modal.Footer>
         </Modal>

@@ -43,7 +43,7 @@ export const Login = () => {
             <div className='card login-form'>
                 <div className='card-body d-flex flex-column align-items-center justify-content-center'>
                     <img src={LOGO} title='Evan Global Management' alt='Evan Global Management' />
-                    <div className='card-text mb-3'> Evan Global Management Co., Ltd </div>
+                    <div className='card-text mb-3'> Evan Global Management </div>
 
                     <Form.Group className="mt-3 w-full" controlId="login.email">
                         <Form.Control

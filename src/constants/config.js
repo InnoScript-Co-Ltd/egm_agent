@@ -10,7 +10,7 @@ export const baseUrl = [
 export const appUrl = [
     'http://localhost:3000',
     'https://demo.evanglobalmanagement.com'
-];
+][env];
 
 export const keys = {
     API_TOKEN: "TOKEN",

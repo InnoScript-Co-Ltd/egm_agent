@@ -20,8 +20,9 @@ export const KYCUpdate = () => {
 
     const updateKycHandler = async () => {
         setLoading(true);
+
         const formData = formBuilder(payload, accountPayload.kycUpdate);
-        const result = await accountServices.updateKyc(formData, user.id, dispatch);
+        const result = await accountServices.updateKyc(formData, dispatch);
 
         if(result.status === 200) {
             await accountServices.profile(dispatch);
@@ -32,10 +33,13 @@ export const KYCUpdate = () => {
 
     useEffect(() => {
         if (user) {
-            const updateUser = { ...user };
-            updateUser.nrc_front = null;
-            updateUser.nrc_back = null;
-            setPayload(updateUser);
+            const updatePayload = {
+                nrc_front: null,
+                nrc_back: null,
+                nrc: user.nrc,
+                dob: user.dob
+            };
+            setPayload(updatePayload);
         }
     }, [user]);
 

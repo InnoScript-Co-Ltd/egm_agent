@@ -33,7 +33,7 @@ export const Profile = () => {
                             <>
                                 <div className="row mt-3">
                                     <div className="col-12">
-                                        <div className="card">
+                                        <div className="card" style={{ background: "#212529", color: "#fff" }}>
                                             <div className="card-title">
                                                 <h5> Agent Profile </h5>
                                                 <AlertMessage />
@@ -52,10 +52,12 @@ export const Profile = () => {
                                                         <KYCUpdate />
                                                     </Tab>
 
-                                                    <Tab eventKey="bank" title="Bank Account">
-                                                        <CreateBankAccount />
-                                                        <BankAccountList />
-                                                    </Tab>
+                                                    {user.kyc_status === "FULL_KYC" && (
+                                                        <Tab eventKey="bank" title="Bank Account">
+                                                            <CreateBankAccount />
+                                                            <BankAccountList />
+                                                        </Tab>
+                                                    )}
 
                                                     <Tab eventKey="account" title="Account">
                                                         <AccountUpdate />

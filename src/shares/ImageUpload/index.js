@@ -14,7 +14,6 @@ export const ImageUpload = ({ id, onSelect, label, loading, preview }) => {
 
     useEffect(() => {
         if(preview) {
-            console.log(preview);
             setSrc(`${endpoints.image}/${preview}`)
         }
     },[preview]);

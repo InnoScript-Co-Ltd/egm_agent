@@ -1,12 +1,12 @@
 import { endpoints } from "../../constants/endpoints";
 import { updateNotification } from "../../constants/shareSlice";
-import { delRequest, getRequest, postRequest } from "../../helpers/api";
+import { delRequest, getRequest, postRequest, updateRequest } from "../../helpers/api";
 import { httpServiceHandler } from "../../helpers/handler";
 import { register, profile, setBankAccount } from "./accountSlice";
 
 export const accountServices = {
     mainAgentRegister: async (payload, token, dispatch) => {
-        const result = await postRequest(`${endpoints.mainAgentRegister}?reference=${token}`, payload);
+        const result = await updateRequest(`${endpoints.mainAgentRegister}?reference=${token}`, payload);
         await httpServiceHandler(dispatch, result);
 
         if (result.status === 200) {
@@ -22,7 +22,7 @@ export const accountServices = {
     },
 
     subAgentRegister: async (payload, token, dispatch) => {
-        const result = await postRequest(`${endpoints.subAgentRegister}?reference=${token}`, payload);
+        const result = await updateRequest(`${endpoints.subAgentRegister}?reference=${token}`, payload);
         await httpServiceHandler(dispatch, result);
 
         if (result.status === 200) {
@@ -128,8 +128,9 @@ export const accountServices = {
         return result;
     },
 
-    updateProfile: async (payload, id, dispatch) => {
-        const result = await postRequest(`${endpoints.profileUpdate}/${id}`, payload);
+    updateProfile: async (payload, dispatch) => {
+
+        const result = await updateRequest(endpoints.profileUpdate, payload);
         await httpServiceHandler(dispatch, result);
 
         if (result.status === 200) {
@@ -144,8 +145,8 @@ export const accountServices = {
         return result;
     },
 
-    updateKyc: async (payload, id, dispatch) => {
-        const result = await postRequest(`${endpoints.profileUpdate}/${id}/kyc-update`, payload);
+    updateKyc: async (payload, dispatch) => {
+        const result = await updateRequest(`${endpoints.profileUpdate}/kyc`, payload);
         await httpServiceHandler(dispatch, result);
 
         if (result.status === 200) {
@@ -160,8 +161,8 @@ export const accountServices = {
         return result;
     },
 
-    updateAccount: async (payload, id, dispatch) => {
-        const result = await postRequest(`${endpoints.profileUpdate}/${id}/account-update`, payload);
+    updateAccount: async (payload, dispatch) => {
+        const result = await postRequest(`${endpoints.profileUpdate}/account-update`, payload);
         await httpServiceHandler(dispatch, result);
 
         if (result.status === 200) {
@@ -172,7 +173,6 @@ export const accountServices = {
                 detail: result.message
             }));
         }
-
         return result;
     },
 
@@ -220,7 +220,7 @@ export const accountServices = {
     },
 
     checkPaymemntPassword: async (payload, dispatch) => {
-        const result = await postRequest(endpoints.checkPaymentPassword, payload);
+        const result = await postRequest(endpoints.paymentPasswordCheck, payload);
         await httpServiceHandler(dispatch, result);
         return result;
     },

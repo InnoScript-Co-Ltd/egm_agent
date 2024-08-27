@@ -1,6 +1,6 @@
 import { endpoints } from "../../constants/endpoints";
 import { updateNotification } from "../../constants/shareSlice";
-import { getRequest, postRequest } from "../../helpers/api";
+import { getRequest, postRequest, updateRequest } from "../../helpers/api";
 import { httpServiceHandler } from "../../helpers/handler";
 
 export const depositServices = {
@@ -33,7 +33,7 @@ export const depositServices = {
     },
 
     store: async (payload, dispatch) => {
-        const result = await postRequest(endpoints.deposit, payload);
+        const result = await updateRequest(endpoints.deposit, payload);
         await httpServiceHandler(dispatch, result);
 
         if (result.status === 200) {

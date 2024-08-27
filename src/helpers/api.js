@@ -26,6 +26,25 @@ export const getRequest = async (path, params) => {
 }
 
 /**
+ * Http post method request for updating process include mutiple files or file
+ * @param {*} path 
+ * @param {*} payload 
+ * @returns 
+ */
+export const updateRequest = async (path, payload) => {
+    try {
+        const result = await http.post(path, payload, {
+            headers: {
+              "Content-Type": "multipart/form-data"
+            }
+          });
+        return httpResponseHandler(result);
+    } catch (error) {
+        return httpErrorHandler(error);
+    }
+}
+
+/**
  * Http post method request 
  * @param {*} path 
  * @param {*} payload 
@@ -66,5 +85,5 @@ export const delRequest = async (path) => {
         return httpResponseHandler(result);
     } catch (error) {
         return httpErrorHandler(error);
-    }  
+    }
 }

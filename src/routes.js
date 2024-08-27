@@ -19,6 +19,10 @@ import { PackageDetail } from "./modules/packages/view/PackageDetail/PackageDeta
 
 export const routers = createBrowserRouter([
     {
+        path: "/",
+        element: <Login />
+    },
+    {
         path: `${paths.mainAgentRegister}/:token`,
         element: <MainAgentRegister />
     },

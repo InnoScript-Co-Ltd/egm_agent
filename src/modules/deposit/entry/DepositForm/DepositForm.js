@@ -133,7 +133,7 @@ export const DepositForm = () => {
 
         if (bankAccountResult.status === 200) {
             setBankAccount(bankAccountResult.data);
-            updatePayload.bank_account_id = bankAccountResult.data[0].id;
+            updatePayload.bank_account_id = bankAccountResult.data.length > 0 ? bankAccountResult.data[0].id : "";
         }
 
         setPayload(updatePayload);
@@ -183,7 +183,8 @@ export const DepositForm = () => {
 
                                             {selectMerchantAccount && (
                                                 <div className="col-12 col-md-12 col-lg-12 mt-3">
-                                                    <Alert variant={"warning"}>
+                                                    <Alert
+                                                        variant={"warning"}>
                                                         <div className='d-flex flex-column justify-content-center align-items-start'>
                                                             <p> Bank Type - {selectMerchantAccount.bank_type} </p>
                                                             <p> Account Hodlder Name - {selectMerchantAccount.holder_name} </p>
@@ -300,7 +301,7 @@ export const DepositForm = () => {
                                                     <Tabs
                                                         defaultActiveKey={`${selectPackage.id}_${selectPackage.deposit_amount[0]}`}
                                                         className="mb-3"
-                                                        style={{background: "#212529", color: "#fff"}}
+                                                        style={{ background: "#212529", color: "#fff" }}
                                                     >
                                                         {depositAmount.map((value, index) => {
                                                             return (

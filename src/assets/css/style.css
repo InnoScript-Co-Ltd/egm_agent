@@ -432,10 +432,16 @@ input,select {
 }
 
 .form-select,
+.form-control,
+.form-control:focus,
 .form-control[type=file]:not(:disabled):not([readonly]) {
     background-color: #353434;
-    color: #fff;
+    color: #fff!important;
     border: 1px solid #656363
+}
+
+.form-control::placeholder {
+    color: #acacac!important;
 }
 
 .nav-tabs > .nav-item {
@@ -444,4 +450,11 @@ input,select {
 
 .nav-tabs > .nav-item:first-child {
     margin-left: 0px;
+}
+
+.modal-header, 
+.modal-body,
+.modal-footer
+ {
+    border: 0px;
 }

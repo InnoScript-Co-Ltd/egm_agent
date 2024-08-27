@@ -39,7 +39,6 @@ export const accountPayload = {
     },
 
     changePassword: {
-        agent_id: "",
         old_password: "",
         password: "",
         password_confirmation: ""
@@ -51,7 +50,6 @@ export const accountPayload = {
     },
 
     paymentPasswordUpdate: {
-        agent_id: "",
         payment_password: ""
     },
 

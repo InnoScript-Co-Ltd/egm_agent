@@ -21,9 +21,10 @@ export const ProfileUpdate = () => {
     const updateProfileHandler = async () => {
         setLoading(true);
         const fromData = formBuilder(payload, accountPayload.update);
-        const result = await accountServices.updateProfile(fromData, user.id, dispatch);
 
-        if(result.status === 200) {
+        const result = await accountServices.updateProfile(fromData, dispatch);
+
+        if (result.status === 200) {
             await accountServices.profile(dispatch);
         }
 
@@ -32,7 +33,7 @@ export const ProfileUpdate = () => {
 
     useEffect(() => {
         if (user) {
-            const updateUser = { ...user};
+            const updateUser = { ...user };
             updateUser.profile = null;
             setPayload(updateUser);
         }

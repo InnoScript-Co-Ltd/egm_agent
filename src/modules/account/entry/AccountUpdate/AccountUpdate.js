@@ -18,7 +18,7 @@ export const AccountUpdate = () => {
 
     const updateAccountHandler = async () => {
         setLoading(true);
-        const result = await accountServices.updateAccount(payload, user.id, dispatch);
+        const result = await accountServices.updateAccount(payload, dispatch);
 
         if(result.status === 200) {
             await accountServices.profile(dispatch);

@@ -20,7 +20,7 @@ export const RefrenceLink = () => {
             const result = await accountServices.mainAgentGenerateLink(dispatch);
 
             if (result.status === 200) {
-                const generateRefrence = `${appUrl[env]}${paths.subAgentRegister}/${result.data}`;
+                const generateRefrence = `${appUrl}${paths.subAgentRegister}/${result.data}`;
                 setRefrenceLink(generateRefrence);
             }
         }
@@ -29,7 +29,7 @@ export const RefrenceLink = () => {
             const result = await accountServices.subAgentGenerateLink(dispatch);
 
             if (result.status === 200) {
-                const generateRefrence = `${appUrl[env]}${paths.subAgentRegister}/${result.data}`;
+                const generateRefrence = `${appUrl}${paths.subAgentRegister}/${result.data}`;
                 setRefrenceLink(generateRefrence);
             }
         }
@@ -43,7 +43,7 @@ export const RefrenceLink = () => {
     return (
         <div className="row">
             <div className="col-12 mt-3">
-                <h4> Generate Refrence Link </h4>
+                <h4 style={{color: "#ffff"}}> Generate Refrence Link </h4>
                 <p> 
                     Refrence link will expired within 6 months and you can generate refrence link anytime. 
                     {user.kyc_status !== 'FULL_KYC' && (
