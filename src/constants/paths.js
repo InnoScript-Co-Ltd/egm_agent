@@ -1,8 +1,6 @@
 export const paths = {
     login: "/auth/login",
     register: "/agent/register",
-    mainAgentRegister: "/agent/main/register",
-    subAgentRegister: "/agent/sub/register",
     verification: "/account/verification",
     resendCode: "/account/resend",
     forget_password: "/auth/forget-password",

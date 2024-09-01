@@ -6,14 +6,14 @@ import { Header } from "../../../../shares/Header"
 import { Notification } from "../../../../shares/Notification"
 import { SideMenu } from "../../../../shares/SideMenu"
 import { ChangePassword } from "../../entry/ChangePassword/ChangePassword"
-import { RefrenceLink } from "../RefrenceLink/RefrenceLink"
+import { ReferralLink } from "../ReferralLink/ReferralLink"
 import { ProfileUpdate } from "../../entry/ProfileUpdate/ProfileUpdate"
 import { KYCUpdate } from "../../entry/KYCUpdate/KYCUpdate"
 import { AccountUpdate } from "../../entry/AccountUpdate/AccountUpdate"
 import { PaymentPassword } from "../../entry/PaymentPassword/PaymentPassword"
-import "./profile.css";
 import { CreateBankAccount } from '../../entry/CreateBankAccount/CreateBankAccount';
 import { BankAccountList } from '../BankAccountList/BankAccountList';
+import "./profile.css";
 
 export const Profile = () => {
     const { user } = useSelector(state => state.account);
@@ -63,8 +63,8 @@ export const Profile = () => {
                                                         <AccountUpdate />
                                                     </Tab>
 
-                                                    <Tab eventKey="refrenceLink" title="Refrence Link">
-                                                        <RefrenceLink />
+                                                    <Tab eventKey="referral" title="Rererral Link">
+                                                        <ReferralLink />
                                                     </Tab>
 
                                                     <Tab eventKey="security" title="Security">

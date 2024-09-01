@@ -5,24 +5,8 @@ import { httpServiceHandler } from "../../helpers/handler";
 import { register, profile, setBankAccount } from "./accountSlice";
 
 export const accountServices = {
-    mainAgentRegister: async (payload, token, dispatch) => {
-        const result = await updateRequest(`${endpoints.mainAgentRegister}?reference=${token}`, payload);
-        await httpServiceHandler(dispatch, result);
-
-        if (result.status === 200) {
-            dispatch(updateNotification({
-                show: true,
-                summary: "Success",
-                severity: "success",
-                detail: result.message
-            }));
-        }
-
-        return result;
-    },
-
-    subAgentRegister: async (payload, token, dispatch) => {
-        const result = await updateRequest(`${endpoints.subAgentRegister}?reference=${token}`, payload);
+    register: async (payload, dispatch) => {
+        const result = await updateRequest(endpoints.register, payload);
         await httpServiceHandler(dispatch, result);
 
         if (result.status === 200) {
@@ -96,24 +80,8 @@ export const accountServices = {
         return result;
     },
 
-    mainAgentGenerateLink: async (dispatch) => {
-        const result = await getRequest(endpoints.mainAgentRefrenceLink);
-        await httpServiceHandler(dispatch, result);
-
-        if (result.status === 200) {
-            dispatch(updateNotification({
-                show: true,
-                summary: "Success",
-                severity: "success",
-                detail: result.message
-            }));
-        }
-
-        return result;
-    },
-
-    subAgentGenerateLink: async (dispatch) => {
-        const result = await getRequest(endpoints.subAgentRefrenceLink);
+    generateReferralLink: async (dispatch) => {
+        const result = await getRequest(endpoints.generateLink);
         await httpServiceHandler(dispatch, result);
 
         if (result.status === 200) {

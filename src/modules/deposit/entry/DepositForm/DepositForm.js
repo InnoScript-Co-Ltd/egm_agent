@@ -19,10 +19,12 @@ import { useNavigate } from 'react-router-dom';
 import numeral from 'numeral';
 import moment from 'moment';
 import "./deposit-form.css";
+import { Copy } from 'react-bootstrap-icons';
 
 export const DepositForm = () => {
 
     const [loading, setLoading] = useState(false);
+    const [showMessage, setShowMessage] = useState(null);
     const [packages, setPackages] = useState([]);
     const [payload, setPayload] = useState(depositPayload.create);
     const [selectPackage, setSelectPackage] = useState(null);
@@ -37,29 +39,37 @@ export const DepositForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const copyReferralLink = () => {
+        const copyText = document.getElementById("merchant-bank-account").innerHTML;
+        navigator.clipboard.writeText(copyText);
+    }
+
     const packageChooseHander = (e) => {
-        const choosePackage = packages.filter(value => Number(value.id) === Number(e.target.value))[0];
-        setSelectPackage(choosePackage);
-        setDepositAmount(choosePackage.deposit_amount);
+        if (e.target.value !== "NA") {
+            const choosePackage = packages.filter(value => Number(value.id) === Number(e.target.value))[0];
+            console.log(choosePackage);
+            setSelectPackage(choosePackage);
+            setDepositAmount(choosePackage.deposit_amount);
 
-        payloadHandler(payload, choosePackage.deposit_amount[0], "deposit_amount", (updatePayload) => {
-            setPayload(updatePayload);
-        });
+            payloadHandler(payload, choosePackage.deposit_amount[0], "deposit_amount", (updatePayload) => {
+                setPayload(updatePayload);
+            });
 
-        let repaymentUpdate = [];
+            let repaymentUpdate = [];
 
-        for (let x = 0; x < choosePackage.duration; x++) {
-            repaymentUpdate.push({
-                month: moment().add(x, 'M').format('DD-MM-YYYY'),
-                roi_rate: selectPackage.roi_rate,
+            for (let x = 0; x < choosePackage.duration; x++) {
+                repaymentUpdate.push({
+                    month: moment().add(x, 'M').format('DD-MM-YYYY'),
+                    roi_rate: choosePackage.roi_rate,
+                });
+            }
+
+            setRepayment(repaymentUpdate);
+
+            payloadHandler(payload, e.target.value, "package_id", (updatePayload) => {
+                setPayload(updatePayload);
             });
         }
-
-        setRepayment(repaymentUpdate);
-
-        payloadHandler(payload, e.target.value, "package_id", (updatePayload) => {
-            setPayload(updatePayload);
-        });
     }
 
     const depositRequest = async () => {
@@ -104,39 +114,19 @@ export const DepositForm = () => {
         setLoading(true);
         const resultPackage = await depositServices.packages(dispatch);
 
-        let updatePayload = {
-            bank_account_id: "",
-            package_id: "",
-            package_deposit_amount: ""
-        };
-
-        if (resultPackage.status === 200 && resultPackage.data.length > 0) {
+        if (resultPackage.status === 200) {
             setPackages(resultPackage.data);
-            setSelectPackage(resultPackage.data[0]);
-            setDepositAmount(resultPackage.data[0].deposit_amount);
-
-            updatePayload.package_id = resultPackage.data[0].id;
-            updatePayload.package_deposit_amount = resultPackage.data[0]?.deposit_amount[0];
-
-            let repaymentUpdate = [];
-
-            for (let x = 0; x < resultPackage.data[0].duration; x++) {
-                repaymentUpdate.push({
-                    month: moment().add(x, 'M').format('DD-MM-YYYY'),
-                    roi_rate: resultPackage.data[0].roi_rate,
-                });
-            }
-            setRepayment(repaymentUpdate);
         };
 
         const bankAccountResult = await depositServices.bankAccount(dispatch);
 
         if (bankAccountResult.status === 200) {
             setBankAccount(bankAccountResult.data);
-            updatePayload.bank_account_id = bankAccountResult.data.length > 0 ? bankAccountResult.data[0].id : "";
         }
 
-        setPayload(updatePayload);
+        if (bankAccountResult.status === 200 && bankAccountResult.data.length === 0) {
+            setShowMessage("Deposit process need your bank account informaiton and please add bank account information from porfile setting.");
+        }
         setLoading(false);
     }, [dispatch]);
 
@@ -171,186 +161,203 @@ export const DepositForm = () => {
 
                     <Notification />
 
-                    <div className="col-sm-12 col-md-10 col-lg-10 mt-3">
-                        <div className="row">
-                            <div className="col-12 col-md-12 mt-3">
-                                <div className="card" style={{ background: "#212529", color: "#fff" }}>
-                                    <div className="card-body">
-                                        <div className="row">
-                                            <div className="col-12 mt-3">
-                                                <h4> Deposit Request </h4>
-                                            </div>
+                    {showMessage && (
+                        <div className='col-sm-12 col-md-10 col-lg-10 mt-3'>
+                            <Alert>
+                                <div className='d-flex flex-column'>
+                                    <p> {showMessage} </p>
+                                    <Button style={{ width: "200px" }} onClick={() => navigate(paths.profile)}> Add Bank Account </Button>
+                                </div>
+                            </Alert>
+                        </div>
+                    )}
 
-                                            {selectMerchantAccount && (
-                                                <div className="col-12 col-md-12 col-lg-12 mt-3">
-                                                    <Alert
-                                                        variant={"warning"}>
-                                                        <div className='d-flex flex-column justify-content-center align-items-start'>
-                                                            <p> Bank Type - {selectMerchantAccount.bank_type} </p>
-                                                            <p> Account Hodlder Name - {selectMerchantAccount.holder_name} </p>
-                                                            <p> Account Number - {selectMerchantAccount.account_number} </p>
-                                                        </div>
-                                                    </Alert>
+                    {showMessage === null && (
+                        <div className="col-sm-12 col-md-10 col-lg-10 mt-3">
+                            <div className="row">
+                                <div className="col-12 col-md-12 mt-3">
+                                    <div className="card" style={{ background: "#212529", color: "#fff" }}>
+                                        <div className="card-body">
+                                            <div className="row">
+                                                <div className="col-12 mt-3">
+                                                    <h4> Deposit Request </h4>
                                                 </div>
-                                            )}
+
+                                                {selectMerchantAccount && (
+                                                    <div className="col-12 col-md-12 col-lg-12 mt-3 mb-3">
+                                                        <h5> Merchant Bank Account Information </h5>
+                                                        <div className='d-flex flex-column justify-content-center align-items-start'>
+                                                            <small> Bank Type - {selectMerchantAccount.bank_type} </small>
+                                                            <small> Account Hodlder Name - {selectMerchantAccount.holder_name} </small>
+                                                            <span style={{fontSize: "18px", marginTop: "20px"}}> 
+                                                                <code id="merchant-bank-account"> {selectMerchantAccount.account_number} </code>  
+                                                                <Copy size={28} style={{marginLeft: "20px", cursor: "pointer"}} onClick={() => copyReferralLink()} />
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                )}
 
 
-                                            <div className="col-12 col-md-3 col-lg-3">
-                                                <Form.Group className="mt-3 w-full">
-                                                    <Form.Select
-                                                        disabled={loading}
-                                                        value={payload.package_id}
-                                                        onChange={(e) => packageChooseHander(e)}
-                                                    >
-                                                        {packages && packages.map((value, index) => {
-                                                            return (
-                                                                <option key={`package_id_${index}`} value={value.id}> {value.name} </option>
-                                                            )
-                                                        })}
-                                                    </Form.Select>
-                                                    <ValidationMessage field="package_id" />
-                                                </Form.Group>
-                                            </div>
-
-                                            <div className="col-12 col-md-3 col-lg-3">
-                                                <Form.Group className="mt-3 w-full">
-                                                    <Form.Select
-                                                        disabled={loading}
-                                                        value={payload.package_deposit_amount}
-                                                        onChange={(e) => payloadHandler(payload, e.target.value, "package_deposit_amount", (updatePayload) => {
-                                                            setPayload(updatePayload);
-                                                        })}
-                                                    >
-                                                        {depositAmount && depositAmount.map((value, index) => {
-                                                            return (
-                                                                <option key={`deposit_amount_id_${index}`} value={value}> {numeral(value).format('0,0')} </option>
-                                                            )
-                                                        })}
-                                                    </Form.Select>
-                                                    <ValidationMessage field="package_deposit_amount" />
-                                                </Form.Group>
-                                            </div>
-
-                                            <div className="col-12 col-md-3 col-lg-3">
-                                                <Form.Group className="mt-3 w-full">
-                                                    <Form.Select
-                                                        disabled={loading}
-                                                        value={payload.bank_account_id}
-                                                        onChange={(e) => chooseAgentBankAccount(e.target.value)}
-                                                    >
-                                                        {bankAccounts && bankAccounts.map((value, index) => {
-                                                            return (
-                                                                <option key={`bank_account_id_${index}`} value={value.id}> {`${value.bank_type} - ${value.account_number}`} </option>
-                                                            )
-                                                        })}
-                                                    </Form.Select>
-                                                    <ValidationMessage field="bank_account_id" />
-                                                </Form.Group>
-                                            </div>
-
-                                            <div className="col-12 col-md-3 col-lg-3">
-                                                <Form.Group className="mt-3 w-full">
-                                                    <Form.Control
-                                                        type="file"
-                                                        disabled={loading}
-                                                        onChange={(e) => payloadHandler(payload, e.target.files[0], "transaction_screenshoot", (updatePayload) => {
-                                                            setPayload(updatePayload);
-                                                        })}
-                                                    />
-                                                    <ValidationMessage field="transaction_screenshoot" />
-                                                </Form.Group>
-                                            </div>
-
-                                            <div className="col-12 col-md-12 col-lg-12">
-                                                <div className='d-flex flex-row justify-content-end align-items-center'>
-                                                    <Form.Group className="mt-3">
-                                                        <Button
-                                                            className="w-full"
-                                                            variant="warning"
+                                                <div className="col-12 col-md-3 col-lg-3">
+                                                    <Form.Group className="mt-3 w-full">
+                                                        <Form.Select
                                                             disabled={loading}
-                                                            onClick={() => setCheckPaymentPassword(true)}
+                                                            value={payload.package_id}
+                                                            onChange={(e) => packageChooseHander(e)}
                                                         >
-                                                            Deposit
-                                                        </Button>
+                                                            <option value={"NA"}> Choose Package </option>
+                                                            {packages && packages.map((value, index) => {
+                                                                return (
+                                                                    <option key={`package_id_${index}`} value={value.id}> {value.name} </option>
+                                                                )
+                                                            })}
+                                                        </Form.Select>
+                                                        <ValidationMessage field="package_id" />
                                                     </Form.Group>
                                                 </div>
-                                            </div>
 
-                                            {showInfo && (
-                                                <div className="col-12 col-md-12 col-lg-12 mt-3">
-                                                    <Alert variant={"primary"}>
-                                                        <div className='d-flex flex-column justify-content-center align-items-start'>
-                                                            <p> We are checking your payment transaction. Payment transaction process will take 24 hours.  </p>
+                                                <div className="col-12 col-md-3 col-lg-3">
+                                                    <Form.Group className="mt-3 w-full">
+                                                        <Form.Select
+                                                            disabled={loading}
+                                                            value={payload.package_deposit_amount}
+                                                            onChange={(e) => payloadHandler(payload, e.target.value, "package_deposit_amount", (updatePayload) => {
+                                                                setPayload(updatePayload);
+                                                            })}
+                                                        >
+                                                            <option value={"NA"}> Choose Deposit Amount </option>
+                                                            {depositAmount && depositAmount.map((value, index) => {
+                                                                return (
+                                                                    <option key={`deposit_amount_id_${index}`} value={value}> {numeral(value).format('0,0')} </option>
+                                                                )
+                                                            })}
+                                                        </Form.Select>
+                                                        <ValidationMessage field="package_deposit_amount" />
+                                                    </Form.Group>
+                                                </div>
+
+                                                <div className="col-12 col-md-3 col-lg-3">
+                                                    <Form.Group className="mt-3 w-full">
+                                                        <Form.Select
+                                                            disabled={loading}
+                                                            value={payload.bank_account_id}
+                                                            onChange={(e) => chooseAgentBankAccount(e.target.value)}
+                                                        >
+                                                            <option value={"NA"}> Choose Bank Account </option>
+                                                            {bankAccounts && bankAccounts.map((value, index) => {
+                                                                return (
+                                                                    <option key={`bank_account_id_${index}`} value={value.id}> {`${value.bank_type} - ${value.account_number}`} </option>
+                                                                )
+                                                            })}
+                                                        </Form.Select>
+                                                        <ValidationMessage field="bank_account_id" />
+                                                    </Form.Group>
+                                                </div>
+
+                                                <div className="col-12 col-md-3 col-lg-3">
+                                                    <Form.Group className="mt-3 w-full">
+                                                        <Form.Control
+                                                            type="file"
+                                                            disabled={loading}
+                                                            onChange={(e) => payloadHandler(payload, e.target.files[0], "transaction_screenshoot", (updatePayload) => {
+                                                                setPayload(updatePayload);
+                                                            })}
+                                                        />
+                                                        <ValidationMessage field="transaction_screenshoot" />
+                                                    </Form.Group>
+                                                </div>
+
+                                                <div className="col-12 col-md-12 col-lg-12">
+                                                    <div className='d-flex flex-row justify-content-end align-items-center'>
+                                                        <Form.Group className="mt-3">
                                                             <Button
+                                                                className="w-full"
                                                                 variant="warning"
                                                                 disabled={loading}
-                                                                onClick={() => navigate(paths.transaction)}
+                                                                onClick={() => setCheckPaymentPassword(true)}
                                                             >
-                                                                Check Payment Transaction
+                                                                Deposit
                                                             </Button>
-                                                        </div>
-                                                    </Alert>
+                                                        </Form.Group>
+                                                    </div>
+                                                </div>
+
+                                                {showInfo && (
+                                                    <div className="col-12 col-md-12 col-lg-12 mt-3">
+                                                        <Alert variant={"primary"}>
+                                                            <div className='d-flex flex-column justify-content-center align-items-start'>
+                                                                <p> We are checking your payment transaction. Payment transaction process will take 24 hours.  </p>
+                                                                <Button
+                                                                    variant="warning"
+                                                                    disabled={loading}
+                                                                    onClick={() => navigate(paths.transaction)}
+                                                                >
+                                                                    Check Payment Transaction
+                                                                </Button>
+                                                            </div>
+                                                        </Alert>
+                                                    </div>
+                                                )}
+
+                                            </div>
+
+                                            {selectPackage && (
+                                                <div className='row'>
+                                                    <div className='col-12 mt-3'>
+                                                        <Tabs
+                                                            defaultActiveKey={`${selectPackage.id}_${selectPackage.deposit_amount[0]}`}
+                                                            className="mb-3"
+                                                            style={{ background: "#212529", color: "#fff" }}
+                                                        >
+                                                            {depositAmount.map((value, index) => {
+                                                                return (
+                                                                    <Tab
+                                                                        key={`tab_id_${index}`}
+                                                                        eventKey={`${selectPackage.id}_${value}`}
+                                                                        title={`${selectPackage.name} / ${numeral(value).format('0,0')}`}
+                                                                    >
+                                                                        <div className="table-responsive">
+                                                                            <table className="table table-sm table-dark">
+                                                                                <thead>
+                                                                                    <tr className="agent-list-table-title">
+                                                                                        <th scope="col"> Month </th>
+                                                                                        <th scope="col"> ROI Rate (%) </th>
+                                                                                        <th scope="col"> Commission Rate (%) </th>
+                                                                                        <th scope="col"> Deposit Amount <small> (Kyats) </small> </th>
+                                                                                        <th scope="col"> ROI Amount <small> (Kyats) </small> </th>
+                                                                                        <th scope="col"> Commission Amount <small> (Kyats) </small> </th>
+                                                                                    </tr>
+                                                                                </thead>
+
+                                                                                <tbody className="agent-list-table-row">
+                                                                                    {repayment.map((repaymentValue, repaymentIndex) => {
+                                                                                        return (
+                                                                                            <tr key={`repayment_id_${repaymentIndex}`}>
+                                                                                                <td> {repaymentValue.month} </td>
+                                                                                                <td> {repaymentValue.roi_rate} </td>
+                                                                                                <td> 1 </td>
+                                                                                                <td> {numeral(value).format('0,0')} </td>
+                                                                                                <td> {numeral(value * repaymentValue.roi_rate / 100).format('0,0')} </td>
+                                                                                                <td> {numeral(value * 1 / 100).format('0,0')} </td>
+                                                                                            </tr>
+                                                                                        )
+                                                                                    })}
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </Tab>
+                                                                )
+                                                            })}
+                                                        </Tabs>
+                                                    </div>
                                                 </div>
                                             )}
-
                                         </div>
-
-                                        {selectPackage && (
-                                            <div className='row'>
-                                                <div className='col-12 mt-3'>
-                                                    <Tabs
-                                                        defaultActiveKey={`${selectPackage.id}_${selectPackage.deposit_amount[0]}`}
-                                                        className="mb-3"
-                                                        style={{ background: "#212529", color: "#fff" }}
-                                                    >
-                                                        {depositAmount.map((value, index) => {
-                                                            return (
-                                                                <Tab
-                                                                    key={`tab_id_${index}`}
-                                                                    eventKey={`${selectPackage.id}_${value}`}
-                                                                    title={`${selectPackage.name} / ${numeral(value).format('0,0')}`}
-                                                                >
-                                                                    <div className="table-responsive">
-                                                                        <table className="table table-sm table-dark">
-                                                                            <thead>
-                                                                                <tr className="agent-list-table-title">
-                                                                                    <th scope="col"> Month </th>
-                                                                                    <th scope="col"> ROI Rate (%) </th>
-                                                                                    <th scope="col"> Commission Rate (%) </th>
-                                                                                    <th scope="col"> Deposit Amount <small> (Kyats) </small> </th>
-                                                                                    <th scope="col"> ROI Amount <small> (Kyats) </small> </th>
-                                                                                    <th scope="col"> Commission Amount <small> (Kyats) </small> </th>
-                                                                                </tr>
-                                                                            </thead>
-
-                                                                            <tbody className="agent-list-table-row">
-                                                                                {repayment.map((repaymentValue, repaymentIndex) => {
-                                                                                    return (
-                                                                                        <tr key={`repayment_id_${repaymentIndex}`}>
-                                                                                            <td> {repaymentValue.month} </td>
-                                                                                            <td> {repaymentValue.roi_rate} </td>
-                                                                                            <td> 1 </td>
-                                                                                            <td> {numeral(value).format('0,0')} </td>
-                                                                                            <td> {numeral(value * repaymentValue.roi_rate / 100).format('0,0')} </td>
-                                                                                            <td> {numeral(value * 1 / 100).format('0,0')} </td>
-                                                                                        </tr>
-                                                                                    )
-                                                                                })}
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
-                                                                </Tab>
-                                                            )
-                                                        })}
-                                                    </Tabs>
-                                                </div>
-                                            </div>
-                                        )}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
 

@@ -12,9 +12,9 @@ import { accountServices } from "../../accountServices";
 import { useDispatch } from "react-redux";
 import { paths } from "../../../../constants/paths";
 import { Notification } from "../../../../shares/Notification";
-import "./agent-register.css";
+import "./register.css";
 
-export const SubAgentRegister = () => {
+export const Register = () => {
 
     const [loading, setLoading] = useState(false);
     const [payload, setPayload] = useState(accountPayload.create);
@@ -31,8 +31,11 @@ export const SubAgentRegister = () => {
     const mainRegisterHandler = async () => {
         setLoading(true);
 
-        const formData = formBuilder(payload, accountPayload.create);
-        const result = await accountServices.subAgentRegister(formData, params.token, dispatch);
+        const updatePayload = {...payload};
+        updatePayload.referral = params.referral; 
+
+        const formData = formBuilder(updatePayload, accountPayload.create);
+        const result = await accountServices.register(formData, dispatch);
 
         if (result.status === 200) {
             payloadHandler(verifyPayload, result.data.id, "agent_id", (updatePayload) => {
@@ -43,7 +46,6 @@ export const SubAgentRegister = () => {
                 setResendPayload(updatePayload);
             });
         }
-
         setLoading(false);
     }
 
@@ -258,7 +260,7 @@ export const SubAgentRegister = () => {
                                                 disabled={loading}
                                                 onClick={() => mainRegisterHandler()}
                                             >
-                                                Create Main Agent Account
+                                                Create Agent Account
                                             </Button>
                                         </Form.Group>
                                     </div>

@@ -7,7 +7,6 @@ import { useCallback, useEffect, useState } from "react";
 import { transcationServices } from "../transcationServices";
 import { useParams } from "react-router-dom"
 import { Status } from "../../../shares/Status/Status";
-import { endpoints } from "../../../constants/endpoints";
 import moment from "moment";
 import Button from "react-bootstrap/esm/Button";
 

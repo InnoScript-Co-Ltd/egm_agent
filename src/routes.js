@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Login } from "./modules/auth/entry/Login";
 import { paths } from "./constants/paths";
-import { Register } from "./modules/account/entry/Register";
 import { Verification } from "./modules/account/entry/Verification";
 import { ResendCode } from "./modules/account/entry/ResendCode";
 import { Dashboard } from "./modules/dashboard/view/Dashboard";
@@ -9,13 +8,12 @@ import { PackageBuy } from "./modules/packages/entry/PackageBuy";
 import { BankAccountList } from "./modules/bankAccount/view/BankAccountList";
 import { TranscationList } from "./modules/transcation/view/TranscationList";
 import { TranscationDetail } from "./modules/transcation/view/TranscationDetail";
-import { MainAgentRegister } from "./modules/account/entry/AgentRegister/MainAgentRegister";
-import { SubAgentRegister} from "./modules/account/entry/AgentRegister/SubAgentRegister";
 import { Profile } from "./modules/account/view/Profile/Profile";
 import { AgentList } from "./modules/agent/view/AgentList/AgentList";
 import { DepositForm } from "./modules/deposit/entry/DepositForm/DepositForm";
 import { AgentDetail } from "./modules/agent/view/AgentDetail/AgentDetail";
 import { PackageDetail } from "./modules/packages/view/PackageDetail/PackageDetail";
+import { Register } from "./modules/account/entry/Register/Register";
 
 export const routers = createBrowserRouter([
     {
@@ -23,12 +21,8 @@ export const routers = createBrowserRouter([
         element: <Login />
     },
     {
-        path: `${paths.mainAgentRegister}/:token`,
-        element: <MainAgentRegister />
-    },
-    {
-        path: `${paths.subAgentRegister}/:token`,
-        element: <SubAgentRegister />
+        path: `${paths.register}/:referral`,
+        element: <Register />
     },
     {
         path: paths.login,

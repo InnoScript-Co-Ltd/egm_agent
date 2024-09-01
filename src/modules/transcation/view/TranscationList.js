@@ -55,7 +55,7 @@ export const TranscationList = () => {
                                                 disabled={loading}
                                                 onClick={() => setTranscationStatus("DEPOSIT_PENDING")}
                                             >
-                                                <InfoCircle size={16} /> TRANSCATIONS PENDING
+                                                <InfoCircle size={16} /> PENDING
                                             </Button>
 
                                             <Button
@@ -64,7 +64,7 @@ export const TranscationList = () => {
                                                 disabled={loading}
                                                 onClick={() => setTranscationStatus("DEPOSIT_REJECT")}
                                             >
-                                                <StopCircle size={16} /> TRANSCATIONS REJECT
+                                                <StopCircle size={16} /> REJECT
                                             </Button>
 
                                             <Button
@@ -73,7 +73,7 @@ export const TranscationList = () => {
                                                 disabled={loading}
                                                 onClick={() => setTranscationStatus("DEPOSIT_PAYMENT_ACCEPTED")}
                                             >
-                                                <Check2Circle size={16} /> TRANSCATIONS PAYMENT ACCEPTED
+                                                <Check2Circle size={16} /> PAYMENT ACCEPTED
                                             </Button>
                                         </div>
                                     </div>

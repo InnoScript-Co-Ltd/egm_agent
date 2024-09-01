@@ -3,15 +3,12 @@
 import { baseUrl } from "./config";
 
 export const endpoints = {
-    mainAgentRegister: "main/register",
-    mainAgentRefrenceLink: "main/reference-link",
-    subAgentRefrenceLink: "sub/reference-link",
-    subAgentRegister: "sub/register",
     changePassword: "auth/change-password",
     paymentPassword: "auth/payment-password",
     paymentPasswordCheck: "auth/payment-password/check",
     login: "auth/login",
-    register: "register",
+    register: "account/create",
+    generateLink: "account/referral",
     resendCode: "resend",
     verification: "verify",
     profile: "auth/profile",
