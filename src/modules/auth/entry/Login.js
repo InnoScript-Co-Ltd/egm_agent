@@ -2,9 +2,9 @@ import LOGO from "../../../assets/images/logo.png";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { ValidationMessage } from "../../../shares/ValidationMessage";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { authServices } from "../../authServices";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { payloadHandler } from "../../../helpers/handler";
 import { useNavigate } from "react-router-dom";
 import { paths } from "../../../constants/paths";
@@ -16,8 +16,6 @@ export const Login = () => {
         email: "",
         password: ""
     })
-
-    const { token } = useSelector(state => state.auth);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -32,17 +30,16 @@ export const Login = () => {
         setLoading(false);
     }
 
-    useEffect(() => {
-        if (token) {
-            navigate(paths.dashboard);
-        }
-    }, [token, navigate]);
-
     return (
         <div className="login-content d-flex flex-column align-items-center justify-content-center">
             <div className='card login-form'>
                 <div className='card-body d-flex flex-column align-items-center justify-content-center'>
-                    <img src={LOGO} title='Evan Global Management' alt='Evan Global Management' />
+                    <img 
+                        style={{width: "100px", height: "100px"}}
+                        src={LOGO} 
+                        title='Evan Global Management' 
+                        alt='Evan Global Management' 
+                    />
                     <div className='card-text mb-3'> Evan Global Management </div>
 
                     <Form.Group className="mt-3 w-full" controlId="login.email">

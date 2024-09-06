@@ -1,5 +1,5 @@
 export const paths = {
-    login: "/auth/login",
+    agentLogin: "/auth/agent/login",
     register: "/agent/register",
     verification: "/account/verification",
     resendCode: "/account/resend",

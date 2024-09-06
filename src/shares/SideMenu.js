@@ -98,7 +98,7 @@ export const SideMenu = () => {
                 {sideMenuList.map((value, index) => {
                     return (
                         <li className="menu-item" key={`menu_id_${index}`} onClick={() => navigate(value.url)}>
-                            {value.icon}
+                            <span></span>
                             <span>  {value.label}  </span>
                         </li>
                     )

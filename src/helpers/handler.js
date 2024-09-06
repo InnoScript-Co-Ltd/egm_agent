@@ -1,4 +1,5 @@
-import { keys } from "../constants/config";
+import { appUrl, keys } from "../constants/config";
+import { paths } from "../constants/paths";
 import { updateError, updateNotification } from "../constants/shareSlice";
 import { removeData } from "../libs/localstorage";
 
@@ -70,6 +71,8 @@ export const httpErrorHandler = (error) => {
     removeData(keys.API_TOKEN);
     removeData(keys.ID);
     removeData(keys.USER);
+
+    window.location.replace(`${appUrl}${paths.agentLogin}`)
     return {
       status: status,
       error: data.message,

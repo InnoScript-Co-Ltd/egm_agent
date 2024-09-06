@@ -2,10 +2,9 @@ import { useSelector, useDispatch } from "react-redux"
 import { useCallback, useEffect, useState } from "react";
 import { Header } from "../../../shares/Header";
 import { AlertMessage } from "../../../shares/AlertMessage";
-import { SideMenu } from "../../../shares/SideMenu";
 import { WalletFill } from "react-bootstrap-icons";
-import numeral from "numeral"
 import { dashboardService } from "../dashboardService";
+import numeral from "numeral";
 
 export const Dashboard = () => {
     const { user } = useSelector(state => state.account);
@@ -17,11 +16,9 @@ export const Dashboard = () => {
     const initLoading = useCallback(async () => {
         setLoading(true);
         const result = await dashboardService.index(dispatch);
-
         if(result.status === 200) {
             setCount(result.data);
         }
-
         setLoading(false);
     },[dispatch]);
 
@@ -34,11 +31,7 @@ export const Dashboard = () => {
             <Header />
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col-sm-12 col-md-2 col-lg-2">
-                        <SideMenu />
-                    </div>
-
-                    <div className="col-sm-12 col-md-10 col-lg-10">
+                    <div className="col-sm-12">
                         <div className="row mt-3 mb-3">
                             <AlertMessage />
                         </div>
@@ -90,7 +83,7 @@ export const Dashboard = () => {
                                                 )}
                                                 
                                             </div>
-                                            <span className="count-label">  Commission (Kyats) </span>
+                                            <span className="count-label"> Commission (Kyats) </span>
                                         </div>
                                     </div>
                                 </div>

@@ -25,7 +25,7 @@ export const routers = createBrowserRouter([
         element: <Register />
     },
     {
-        path: paths.login,
+        path: paths.agentLogin,
         element: <Login />
     },
     {

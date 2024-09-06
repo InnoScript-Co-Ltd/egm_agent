@@ -5,11 +5,12 @@ import { RouterProvider } from 'react-router-dom';
 import { Provider, useDispatch } from 'react-redux'
 import { routers } from './routes';
 import { stores } from './constants/stores';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "./assets/css/style.css";
 import { accountServices } from './modules/account/accountServices';
 import { getData } from './libs/localstorage';
 import { keys } from './constants/config';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'primeicons/primeicons.css';
+import "./assets/css/style.css";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
