@@ -4,7 +4,6 @@ import { useSelector } from "react-redux"
 import { AlertMessage } from "../../../../shares/AlertMessage"
 import { Header } from "../../../../shares/Header"
 import { Notification } from "../../../../shares/Notification"
-import { SideMenu } from "../../../../shares/SideMenu"
 import { ChangePassword } from "../../entry/ChangePassword/ChangePassword"
 import { ReferralLink } from "../ReferralLink/ReferralLink"
 import { ProfileUpdate } from "../../entry/ProfileUpdate/ProfileUpdate"
@@ -22,13 +21,9 @@ export const Profile = () => {
             <Header />
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col-sm-12 col-md-2 col-lg-2">
-                        <SideMenu />
-                    </div>
-
                     <Notification />
 
-                    <div className="col-sm-12 col-md-10 col-lg-10">
+                    <div className="col-sm-12 col-md-12 col-lg-12">
                         {user && user.status === 'ACTIVE' && (
                             <>
                                 <div className="row mt-3">

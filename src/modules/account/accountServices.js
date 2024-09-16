@@ -2,7 +2,7 @@ import { endpoints } from "../../constants/endpoints";
 import { updateNotification } from "../../constants/shareSlice";
 import { delRequest, getRequest, postRequest, updateRequest } from "../../helpers/api";
 import { httpServiceHandler } from "../../helpers/handler";
-import { register, profile, setBankAccount } from "./accountSlice";
+import { register, profile, setBankAccount, setReferral } from "./accountSlice";
 
 export const accountServices = {
     register: async (payload, dispatch) => {
@@ -81,7 +81,7 @@ export const accountServices = {
     },
 
     generateReferralLink: async (dispatch) => {
-        const result = await getRequest(endpoints.generateLink);
+        const result = await postRequest(endpoints.referral);
         await httpServiceHandler(dispatch, result);
 
         if (result.status === 200) {
@@ -204,6 +204,17 @@ export const accountServices = {
                 severity: "success",
                 detail: result.message
             }));
+        }
+
+        return result;
+    },
+
+    referrals: async (dispatch) => {
+        const result = await getRequest(endpoints.referral);
+        await httpServiceHandler(dispatch, result);
+
+        if (result.status === 200) {
+            dispatch(setReferral(result.data));
         }
 
         return result;

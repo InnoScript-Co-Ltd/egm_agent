@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux"
 import Button from "react-bootstrap/esm/Button";
 import { AlertMessage } from "../../../shares/AlertMessage"
 import { Header } from "../../../shares/Header"
-import { SideMenu } from "../../../shares/SideMenu"
 import { useCallback, useEffect, useState } from "react";
 import { transcationServices } from "../transcationServices";
 import { Status } from "../../../shares/Status/Status";
@@ -36,11 +35,7 @@ export const TranscationList = () => {
             <Header />
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col-sm-12 col-md-2 col-lg-2">
-                        <SideMenu />
-                    </div>
-
-                    <div className="col-sm-12 col-md-10 col-lg-10">
+                    <div className="col-sm-12 col-md-12 col-lg-12">
                         <div className="row mt-3 mb-3">
                             <AlertMessage />
                         </div>

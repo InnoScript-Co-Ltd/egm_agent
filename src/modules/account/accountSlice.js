@@ -5,7 +5,8 @@ const accountSlice = createSlice({
   initialState: {
     account: null,
     user: null,
-    bankAccounts: []
+    bankAccounts: [],
+    referrals: []
   },
   reducers: {
     setBankAccount: (state, action) => {
@@ -14,13 +15,17 @@ const accountSlice = createSlice({
     },
 
     register: (state, action) => {
-      state.account = { ...action.payload}
+      state.account = { ...action.payload }
       return state;
     },
 
     profile: (state, action) => {
       state.user = {...action.payload }
       return state;
+    },
+
+    setReferral: (state, action) => {
+      state.referrals = action.payload;
     }
   },
 });
@@ -28,6 +33,7 @@ const accountSlice = createSlice({
 export const {
   register,
   profile,
-  setBankAccount
+  setBankAccount,
+  setReferral
 } = accountSlice.actions;
 export default accountSlice.reducer;

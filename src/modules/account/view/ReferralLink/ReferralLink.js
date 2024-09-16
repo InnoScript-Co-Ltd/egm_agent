@@ -2,19 +2,20 @@
 import Alert from 'react-bootstrap/Alert';
 import { accountServices } from '../../accountServices';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { paths } from '../../../../constants/paths';
 import { appUrl } from '../../../../constants/config';
 import { Copy } from 'react-bootstrap-icons';
+import moment from "moment";
 import "./referral.css";
 
 export const ReferralLink = () => {
 
-    const [referral, setReferral]= useState(null);
+    const [referral, setReferral] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const dispatch = useDispatch();
-    const { user } = useSelector(state => state.account);
+    const { user, referrals } = useSelector(state => state.account);
 
     const generateReferralLink = async () => {
         setLoading(true);
@@ -28,6 +29,16 @@ export const ReferralLink = () => {
         const copyText = document.getElementById("referral-link").innerHTML;
         navigator.clipboard.writeText(copyText);
     }
+
+    const initializeLoading = useCallback(async () => {
+        setLoading(true);
+        await accountServices.referrals(dispatch);
+        setLoading(false);
+    }, [dispatch]);
+
+    useEffect(() => {
+        initializeLoading();
+    }, [initializeLoading])
 
     return (
         <div className="row">
@@ -62,6 +73,34 @@ export const ReferralLink = () => {
                             <Copy size={28} className='copy-text' onClick={() => copyReferralLink()} />
                         </div>
                     </Alert>
+                </div>
+            )}
+
+            {loading === false && referrals && (
+                <div className="table-responsive mt-3">
+                    <table className="table table-sm table-dark">
+                        <thead>
+                            <tr className="agent-list-table-title">
+                                <th scope="col"> # </th>
+                                <th scope="col"> Link </th>
+                                <th scope="col"> Count </th>
+                                <th scope="col"> Expired Date </th>
+                            </tr>
+                        </thead>
+
+                        <tbody className="agent-list-table-row">
+                            {loading === false && referrals && referrals.map((value, index) => {
+                                return (
+                                    <tr key={`referral_id_${index}`}>
+                                        <td style={{ width: "50px" }}> {index + 1} </td>
+                                        <td style={{ width: "300px" }}> {`agent.evanglobalmanagement.com/agent/register/${value.link}`} </td>
+                                        <th style={{ width: "300px" }}> {value.count} </th>
+                                        <td style={{ width: "300px" }}> {moment(value.expired_at).format('DD/MM/YYYY')} </td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
                 </div>
             )}
         </div>

@@ -1,10 +1,8 @@
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import Button from "react-bootstrap/esm/Button";
 import { useCallback, useEffect, useRef, useState } from "react"
 import { Header } from "../../../../shares/Header"
 import { Notification } from "../../../../shares/Notification"
-import { SideMenu } from "../../../../shares/SideMenu"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import { agentServices } from "../../agentServices"
@@ -71,13 +69,8 @@ export const AgentDetail = () => {
             <Header />
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col-sm-12 col-md-2 col-lg-2">
-                        <SideMenu />
-                    </div>
-
                     <Notification />
-
-                    <div className="col-sm-12 col-md-10 col-lg-10 mt-3">
+                    <div className="col-sm-12 col-md-12 col-lg-12 mt-3">
                         {!loading && agent && (
                             <div className="card" style={{ background: "#212529", color: "#fff" }}>
                                 <div className="card-body">

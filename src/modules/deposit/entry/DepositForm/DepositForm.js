@@ -3,10 +3,9 @@ import Button from 'react-bootstrap/Button';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Alert from 'react-bootstrap/Alert';
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import { Header } from "../../../../shares/Header";
 import { Notification } from "../../../../shares/Notification";
-import { SideMenu } from "../../../../shares/SideMenu";
 import { depositServices } from "../../depositServices";
 import { useDispatch } from "react-redux";
 import { depositPayload } from "../../depositPayload";
@@ -16,10 +15,10 @@ import { formBuilder } from "../../../../libs/formBuilder";
 import { CheckPaymentPassword } from '../../../../shares/CheckPaymentPassword/CheckPaymentPassword';
 import { paths } from '../../../../constants/paths';
 import { useNavigate } from 'react-router-dom';
+import { Copy } from 'react-bootstrap-icons';
 import numeral from 'numeral';
 import moment from 'moment';
 import "./deposit-form.css";
-import { Copy } from 'react-bootstrap-icons';
 
 export const DepositForm = () => {
 
@@ -33,11 +32,12 @@ export const DepositForm = () => {
     const [bankAccounts, setBankAccount] = useState([]);
     const [checkPaymentPassword, setCheckPaymentPassword] = useState(false);
     const [showInfo, setShowInfo] = useState(false);
-    const [merchantBankAccount, setMerchantBankAccount] = useState([]);
     const [selectMerchantAccount, setSelectMerechantAccount] = useState(null);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const merchantBankAccount = useRef();
 
     const copyReferralLink = () => {
         const copyText = document.getElementById("merchant-bank-account").innerHTML;
@@ -47,7 +47,6 @@ export const DepositForm = () => {
     const packageChooseHander = (e) => {
         if (e.target.value !== "NA") {
             const choosePackage = packages.filter(value => Number(value.id) === Number(e.target.value))[0];
-            console.log(choosePackage);
             setSelectPackage(choosePackage);
             setDepositAmount(choosePackage.deposit_amount);
 
@@ -86,15 +85,15 @@ export const DepositForm = () => {
 
     const chooseAgentBankAccount = async (e) => {
         const selectAgentBankAccount = bankAccounts.filter(value => Number(value.id) === Number(e))[0];
-        const chooseMerchantBankAccount = merchantBankAccount.filter(value => value.bank_type_label === selectAgentBankAccount.bank_type_label);
+        const chooseMerchantBankAccount = merchantBankAccount.current.filter(value => value.bank_type_label === selectAgentBankAccount.bank_type_label)[0];
 
         const updatePayload = { ...payload };
         updatePayload.bank_account_id = selectAgentBankAccount.id;
         updatePayload.bank_type = selectAgentBankAccount.bank_type;
 
-        if (chooseMerchantBankAccount.length > 0) {
-            setSelectMerechantAccount(chooseMerchantBankAccount[0]);
-            updatePayload.merchant_account_id = chooseMerchantBankAccount[0].id;
+        if (chooseMerchantBankAccount) {
+            setSelectMerechantAccount(chooseMerchantBankAccount);
+            updatePayload.merchant_account_id = chooseMerchantBankAccount.id;
         } else {
             setSelectMerechantAccount(null);
         }
@@ -106,8 +105,10 @@ export const DepositForm = () => {
         const result = await depositServices.merchantBankAccount(dispatch);
 
         if (result.status === 200) {
-            setMerchantBankAccount(result.data);
+            console.log(result.data);
+            merchantBankAccount.current = result.data;
         }
+
     }, [dispatch]);
 
     const initLoading = useCallback(async () => {
@@ -155,14 +156,10 @@ export const DepositForm = () => {
 
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col-sm-12 col-md-2 col-lg-2">
-                        <SideMenu />
-                    </div>
-
                     <Notification />
 
                     {showMessage && (
-                        <div className='col-sm-12 col-md-10 col-lg-10 mt-3'>
+                        <div className='col-12 mt-3'>
                             <Alert>
                                 <div className='d-flex flex-column'>
                                     <p> {showMessage} </p>
@@ -173,7 +170,7 @@ export const DepositForm = () => {
                     )}
 
                     {showMessage === null && (
-                        <div className="col-sm-12 col-md-10 col-lg-10 mt-3">
+                        <div className="col-12 mt-3">
                             <div className="row">
                                 <div className="col-12 col-md-12 mt-3">
                                     <div className="card" style={{ background: "#212529", color: "#fff" }}>
@@ -251,6 +248,7 @@ export const DepositForm = () => {
                                                             })}
                                                         </Form.Select>
                                                         <ValidationMessage field="bank_account_id" />
+                                                        <ValidationMessage field="merchant_bank_account_id" />
                                                     </Form.Group>
                                                 </div>
 

@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { Header } from "../../../../shares/Header"
 import { Notification } from "../../../../shares/Notification"
-import { SideMenu } from "../../../../shares/SideMenu"
 import { useDispatch, useSelector } from "react-redux"
 import { agentServices } from "../../agentServices"
 import { useParams } from "react-router-dom";
@@ -98,14 +97,10 @@ export const AgentList = () => {
             <Header />
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col-sm-12 col-md-2 col-lg-2">
-                        <SideMenu />
-                    </div>
-
                     <Notification />
 
                     {user && user.kyc_status === 'FULL_KYC' && user.status === 'ACTIVE' && (
-                        <div className="col-sm-12 col-md-10 col-lg-10 mt-3">
+                        <div className="col-sm-12 col-md-12 col-lg-12 mt-3">
                             <div className="row">
                                 <div className="col-12 col-md-3 mt-3">
                                     <div className="card card-warning">

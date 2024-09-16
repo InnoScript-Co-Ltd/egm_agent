@@ -34,25 +34,13 @@ export const TranscationDetail = () => {
             <Header />
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col-sm-12 col-md-2 col-lg-2">
-                        <SideMenu />
-                    </div>
-
-                    <div className="col-sm-12 col-md-10 col-lg-10">
+                    <div className="col-sm-12 col-md-12 col-lg-12">
                         <div className="row mt-3 mb-3">
                             <AlertMessage />
                         </div>
 
-                        {user && user.kyc_status === 'FULL_KYC' && (
+                        {user && user.kyc_status === 'FULL_KYC' && user.status === 'ACTIVE' && (
                             <>
-                                <div className="row mb-3">
-                                    <div className="col-12">
-                                        <div className="d-flex flex-row justify-content-between align-item-center">
-
-                                        </div>
-                                    </div>
-                                </div>
-
                                 {!loading && transaction && (
                                     <div className="row mt-3 mb-3">
                                         <div className="col-12">
@@ -123,32 +111,32 @@ export const TranscationDetail = () => {
                                                             <h5 className="mb-3"> Agent's Bank Account </h5>
                                                             <div className="d-flex flex-row justify-content-between align-items-center mb-2">
                                                                 <small> Name </small>
-                                                                <small> {transaction.agent_name} </small>
+                                                                <small> {transaction.sender_name} </small>
                                                             </div>
 
                                                             <div className="d-flex flex-row justify-content-between align-items-center mb-2">
                                                                 <small> Phone </small>
-                                                                <small> {transaction.agent_phone} </small>
+                                                                <small> {transaction.sender_phone} </small>
                                                             </div>
 
                                                             <div className="d-flex flex-row justify-content-between align-items-center mb-2">
                                                                 <small> Email </small>
-                                                                <small> {transaction.agent_email} </small>
+                                                                <small> {transaction.sender_email} </small>
                                                             </div>
 
                                                             <div className="d-flex flex-row justify-content-between align-items-center mb-2">
                                                                 <small> NRC </small>
-                                                                <small> {transaction.agent_nrc} </small>
+                                                                <small> {transaction.sender_nrc} </small>
                                                             </div>
 
                                                             <div className="d-flex flex-row justify-content-between align-items-center mb-2">
                                                                 <small> Holder Name </small>
-                                                                <small> {transaction.agent_account_name} </small>
+                                                                <small> {transaction.sender_account_name} </small>
                                                             </div>
 
                                                             <div className="d-flex flex-row justify-content-between align-items-center mb-2">
                                                                 <small> Account Number </small>
-                                                                <small> {transaction.agent_account_number} </small>
+                                                                <small> {transaction.sender_account_number} </small>
                                                             </div>
 
                                                             <div className="d-flex flex-row justify-content-between align-items-center mb-2">
@@ -158,12 +146,12 @@ export const TranscationDetail = () => {
 
                                                             <div className="d-flex flex-row justify-content-between align-items-center mb-2">
                                                                 <small> Branch </small>
-                                                                <small> {transaction.agent_bank_branch} </small>
+                                                                <small> {transaction.sender_bank_branch} </small>
                                                             </div>
 
                                                             <div className="d-flex flex-row justify-content-between align-items-center mb-2">
                                                                 <small> Address </small>
-                                                                <small> {transaction.agent_bank_address} </small>
+                                                                <small> {transaction.sender_bank_address} </small>
                                                             </div>
                                                         </div>
 

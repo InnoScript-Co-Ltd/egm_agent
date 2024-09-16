@@ -1,6 +1,6 @@
 import { getData } from "../libs/localstorage";
 
-export const env = 1;
+export const env = 0;
 
 export const baseUrl = [
     'http://localhost:8000',
@@ -15,6 +15,7 @@ export const appUrl = [
 export const keys = {
     API_TOKEN: "TOKEN",
     ID: "ID",
+
     USER: "USER",
     PERMISSION: "PERMISSION",
     ROLE: "ROLE",
@@ -37,14 +38,49 @@ export const notificationOptions = {
 }
 
 export const bankTypes = [
-    { name: "KBZ Bank", value: "kbz_bank", icon: "" },
-    { name: "AYA Bank", value: "aya_bank", icon: "" },
-    { name: "A Bank", value: "a_bank", icon: "" },
-    { name: "MCB Bank", value: "mcb_bank", icon: "" },
-    { name: "UAB Bank", value: "uab_bank", icon: "" },
-    { name: "CB Bank", value: "cb_bank", icon: "" }
-];
+    {
+        name: "AYA BANK",
+        value: "aya_bank",
+        icon: ""
+    },
+    {
+        name: "CB BANK",
+        value: "cb_bank",
+        icon: ""
+    },
+    {
+        name: "UAB BANK",
+        value: "uab_bank",
+        icon: ""
+    },
+    {
+        name: "KBZ BANK SPECIAL ACC",
+        value: "kbz_bank_special",
+        icon: ""
+    },
+    {
+        name: "A BANK",
+        value: "a_bank",
+        icon: ""
+    },
+    {
+        name: "MCB BANK",
+        value: "mcb_bank",
+        icon: ""
+    },
 
+    {
+        name: "YOMA (Flexi every day)",
+        value: "yoma_bank_flexi",
+        icon: ""
+    },
+    {
+        name: "YOMA (Flexi saving)",
+        value: "yoma_bank_flexi_saving",
+        icon: ""
+    },
+
+]
 export const statusOptions = [
     { status: "ACTIVE", color: "badge-success" },
     { status: "DEPOSIT_PAYMENT_ACCEPTED", color: "badge-success" },

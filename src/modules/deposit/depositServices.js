@@ -1,6 +1,6 @@
 import { endpoints } from "../../constants/endpoints";
 import { updateNotification } from "../../constants/shareSlice";
-import { getRequest, postRequest, updateRequest } from "../../helpers/api";
+import { getRequest, updateRequest } from "../../helpers/api";
 import { httpServiceHandler } from "../../helpers/handler";
 
 export const depositServices = {
