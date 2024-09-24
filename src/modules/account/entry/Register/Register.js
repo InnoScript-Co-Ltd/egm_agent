@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import LOGO from "../../../../assets/images/logo.png";
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { accountPayload } from "../../accountPayload";
 import { payloadHandler } from "../../../../helpers/handler";
 import { ValidationMessage } from "../../../../shares/ValidationMessage";
@@ -12,7 +12,9 @@ import { accountServices } from "../../accountServices";
 import { useDispatch } from "react-redux";
 import { paths } from "../../../../constants/paths";
 import { Notification } from "../../../../shares/Notification";
+import { referralService } from "../../../referral/referralService";
 import "./register.css";
+import { ReferralLinkType } from "../../../../constants/config";
 
 export const Register = () => {
 
@@ -20,6 +22,8 @@ export const Register = () => {
     const [payload, setPayload] = useState(accountPayload.create);
     const [verifyStep, setVerifyStep] = useState(false);
     const [resendStep, setResendStep] = useState(false);
+    // const [isRegister, setIsRegister] = useState(false);
+    const [referral, setReferral] = useState(null);
 
     const [verifyPayload, setVerifyPayload] = useState(accountPayload.verification);
     const [resendPayload, setResendPayload] = useState(accountPayload.resendCode);
@@ -35,7 +39,23 @@ export const Register = () => {
         updatePayload.referral = params.referral; 
 
         const formData = formBuilder(updatePayload, accountPayload.create);
-        const result = await accountServices.register(formData, dispatch);
+
+        let result = null;
+
+        if(referral.referral_type === ReferralLinkType.COMMISSION_REFERRAL) {
+            result = await accountServices.commissionRegister(formData, dispatch);
+        }
+
+        if(referral.agent_type === 'MAIN_AGENT') {
+
+        }
+
+        if(referral.agent_type === 'SUB_AGENT') {
+
+        }
+
+        // const result = await accountServices.register(formData, dispatch);
+
 
         if (result.status === 200) {
             payloadHandler(verifyPayload, result.data.id, "agent_id", (updatePayload) => {
@@ -75,6 +95,21 @@ export const Register = () => {
         setLoading(false);
     }
 
+    const initilizeLoading = useCallback(async () => {
+        setLoading(true);
+        const result = await referralService.check(dispatch, params.referral);
+
+        if(result.status === 200) {
+            setReferral(result.data);
+        }
+
+        setLoading(false);
+    }, [params, dispatch]);
+
+    useEffect(() => {
+        initilizeLoading();
+    }, [initilizeLoading])
+
     return (
         <>
             <Notification />
@@ -93,7 +128,7 @@ export const Register = () => {
 
                     <div className="col-12 col-md-6 col-sm-6 g-0">
                         <div className="right-side-body">
-                            {verifyStep === false && (
+                            {verifyStep === false && referral && (
                                 <div className="row">
                                     <div className="col-12">
                                         <h3> Agent Account </h3>

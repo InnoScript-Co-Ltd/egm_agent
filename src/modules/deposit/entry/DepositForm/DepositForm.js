@@ -16,6 +16,7 @@ import { CheckPaymentPassword } from '../../../../shares/CheckPaymentPassword/Ch
 import { paths } from '../../../../constants/paths';
 import { useNavigate } from 'react-router-dom';
 import { Copy } from 'react-bootstrap-icons';
+import { transcationServices } from '../../../transcation/transcationServices';
 import numeral from 'numeral';
 import moment from 'moment';
 import "./deposit-form.css";
@@ -71,10 +72,11 @@ export const DepositForm = () => {
         }
     }
 
-    const depositRequest = async () => {
+    /** Deposit Transaction Request Handler */
+    const depositTransactionRequest = async () => {
         setLoading(true);
         const formData = formBuilder(payload, depositPayload.create);
-        const result = await depositServices.store(formData, dispatch);
+        const result = await transcationServices.store(dispatch, formData);
 
         if (result.status === 200) {
             setShowInfo(true);
@@ -362,7 +364,7 @@ export const DepositForm = () => {
             <CheckPaymentPassword
                 show={checkPaymentPassword}
                 onClose={(e) => setCheckPaymentPassword(e)}
-                callbackfn={() => depositRequest()}
+                callbackfn={() => depositTransactionRequest()}
             />
         </>
     )

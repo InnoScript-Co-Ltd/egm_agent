@@ -7,7 +7,7 @@ export const endpoints = {
     paymentPassword: "auth/payment-password",
     paymentPasswordCheck: "auth/payment-password/check",
     login: "auth/login",
-    register: "account/create",
+    register: "account",
     generateLink: "account/referral",
     referral: "referral",
     resendCode: "auth/resend",

@@ -5,6 +5,23 @@ import { httpServiceHandler } from "../../helpers/handler";
 import { register, profile, setBankAccount, setReferral } from "./accountSlice";
 
 export const accountServices = {
+
+    commissionRegister: async (payload, dispatch) => {
+        const result = await updateRequest(`${endpoints.register}/commission`, payload);
+        await httpServiceHandler(dispatch, result);
+
+        if (result.status === 200) {
+            dispatch(updateNotification({
+                show: true,
+                summary: "Success",
+                severity: "success",
+                detail: result.message
+            }));
+        }
+
+        return result;
+    },
+
     register: async (payload, dispatch) => {
         const result = await updateRequest(endpoints.register, payload);
         await httpServiceHandler(dispatch, result);
@@ -218,5 +235,5 @@ export const accountServices = {
         }
 
         return result;
-    }
+    },
 }
