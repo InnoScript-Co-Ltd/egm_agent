@@ -525,3 +525,35 @@ input,select {
 .nav-menu-item {
     background-color: #1e1d1d;
 }
+
+.deposit-amount-box {
+    min-width: 120px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 1px solid #656363;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: small;
+    margin-top: 10px;
+}
+
+.deposit-amount-box > label {
+    cursor: pointer;
+}
+
+.deposit-amount-box:first-child {
+    margin: 0px;
+    margin-top: 10px;
+}
+
+.active-deposit {
+    border-color: #ffc107;
+}
+
+.merchant-bank-account-info {
+    border: 1px solid #656363;
+    border-radius: 5px;
+    padding: 20px;
+}

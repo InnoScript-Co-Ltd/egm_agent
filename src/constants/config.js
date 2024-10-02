@@ -82,8 +82,8 @@ export const bankTypes = [
         value: "yoma_bank_flexi_saving",
         icon: ""
     },
-
 ]
+
 export const statusOptions = [
     { status: "ACTIVE", color: "badge-success" },
     { status: "DEPOSIT_PAYMENT_ACCEPTED", color: "badge-success" },
@@ -97,6 +97,15 @@ export const statusOptions = [
     { status: "FULL_KYC", color: "badge-success" },
     { status: "CHECKING", color: "badge-warning" },
 ];
+
+export const depositAmount = [
+   { label: "100L", value: 10000000 },
+   { label: "200L", value: 20000000},
+   { label: "300L", value: 30000000 },
+   { label: "500L", value: 50000000 },
+   { label: "1,000L", value: 100000000 },
+   { label: "5,000L", value: 100000000 },
+]
 
 export const tooltipOptions = { 
    position: 'top'
