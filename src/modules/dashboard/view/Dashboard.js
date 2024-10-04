@@ -52,10 +52,10 @@ export const Dashboard = () => {
                             <div className="row">
                                 <div className="col-12">
                                     <h4> Your Deposit </h4>
-                                    <p> RIO repayment date start from
+                                    <p> We will run repayment payment transactions for ROI in
                                         <code>
                                             {`${moment().format("MMMM")} ${daysArray.reverse().toString()}`}
-                                        </code>
+                                        </code>. 
                                     </p>
                                 </div>
 

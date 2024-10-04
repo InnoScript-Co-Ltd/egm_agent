@@ -2,6 +2,7 @@ import { endpoints } from "../../constants/endpoints";
 import { updateNotification } from "../../constants/shareSlice";
 import { getRequest, updateRequest } from "../../helpers/api";
 import { httpServiceHandler } from "../../helpers/handler";
+import { index } from "./depositSlice";
 
 export const depositServices = {
 
@@ -30,6 +31,15 @@ export const depositServices = {
             // dispatch(setSubAgent(result.data));
         }
         return result;
+    },
+
+    index: async (dispatch) => {
+        const result = await getRequest(`${endpoints.deposit}`);
+        await httpServiceHandler(dispatch, result);
+
+        if(result.status === 200) {
+            dispatch(index(result.data));
+        }
     },
 
     store: async (payload, dispatch) => {

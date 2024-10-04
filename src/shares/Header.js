@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { paths } from "../constants/paths";
 import { getData, removeAllData } from "../libs/localstorage";
 import { keys } from "../constants/config";
-import { Speedometer, WindowPlus, PeopleFill, PersonFill, ListNested, Power } from 'react-bootstrap-icons';
+import { Speedometer, PeopleFill, PersonFill, Power, CurrencyExchange, Receipt, ShareFill } from 'react-bootstrap-icons';
 import { logout } from "../modules/auth/authSlice";
 import LOGO from "../assets/images/logo.png";
 
@@ -29,22 +29,48 @@ export const Header = () => {
                     show: true
                 },
                 {
-                    icon: <WindowPlus size={16} />,
+                    icon: <CurrencyExchange size={16} />,
                     label: "Deposit",
-                    url: paths.deposit,
-                    show: true
+                    url: null,
+                    show: true,
+                    children: [
+                        {
+                            label: "Your Deposit",
+                            url: `${paths.deposit}/list`,
+                            show: true,
+                        },
+                        {
+                            label: "Request",
+                            url: `${paths.deposit}`,
+                            show: true,
+                        }
+                    ]
                 },
                 {
-                    icon: <ListNested size={16} />,
-                    label: "Transaction",
-                    url: paths.transaction,
-                    show: true
+                    icon: <Receipt size={16} />,
+                    label: "Transactions",
+                    url: null,
+                    show: true,
+                    children: [
+                        {
+                            icon: <Receipt size={16} />,
+                            label: "Deposit",
+                            url: `${paths.transaction}/deposit`,
+                            show: true,
+                        }
+                    ]
                 },
                 {
                     icon: <PeopleFill size={16} />,
                     label: "Agents",
                     url: `${paths.agent}`,
                     show: user.agent_type === "MAIN_AGENT" ? true : false
+                },
+                {
+                    icon: <ShareFill size={16} />,
+                    label: "Referral",
+                    url: `${paths.referral}`,
+                    show: true
                 },
                 {
                     icon: <PeopleFill size={16} />,

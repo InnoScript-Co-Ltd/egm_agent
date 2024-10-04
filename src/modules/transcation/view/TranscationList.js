@@ -46,7 +46,7 @@ export const TranscationList = () => {
                                 {transcationStatus === "DEPOSIT_PENDING" && (
                                     <div className="col-12">
                                         <div className="alert alert-warning alert-dismissible fade show" role="alert">
-                                            We are checking your deposit transaction and deposit amount is transfering to investment trade account within 24 hours.
+                                            We are checking your deposit transaction and deposit amount will transfer to investment trade account within 24 hours.
                                         </div>
                                     </div>
                                 )}

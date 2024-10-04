@@ -22,5 +22,6 @@ export const endpoints = {
     deposit: "deposit",
     transaction: "transaction",
     dashboard: "dashboard",
-    agent: "profile"
+    agent: "profile",
+    repayment: "repayment"
 }

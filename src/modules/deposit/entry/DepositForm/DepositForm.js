@@ -45,9 +45,9 @@ export const DepositForm = () => {
     /** Deposit Transaction Request Handler */
     const depositTransactionRequest = async () => {
         setLoading(true);
-        const updatePayload = {...payload};
+        const updatePayload = { ...payload };
         updatePayload.package_deposit_amount = selectedDepositAmount.value;
-        
+
         const formData = formBuilder(updatePayload, depositPayload.create);
         const result = await transcationServices.store(dispatch, formData);
 
@@ -148,6 +148,7 @@ export const DepositForm = () => {
                                     <div className="card" style={{ background: "#212529", color: "#fff" }}>
                                         <div className="card-body">
                                             <div className="row">
+
                                                 <div className="col-12 mt-3">
                                                     <h4> Deposit Request </h4>
                                                 </div>
@@ -243,6 +244,46 @@ export const DepositForm = () => {
 
                                                             </div>
                                                         )}
+                                                    </div>
+
+                                                    <div className='col-12 mt-3'>
+                                                        <h4> Risk Warning </h4>
+                                                        <p>
+                                                            <small>
+                                                                Trading on financial markets carries risks. Contracts for Difference (‘CFDs’) are
+                                                                complex financial products that are traded on margin. Trading CFDs carries a high level of risk
+                                                                since leverage can work both to your advantage and disadvantage. As a result, CFDs may not be
+                                                                suitable for all investors because you may lose all your invested capital. You should not risk
+                                                                more than you are prepared to lose. Before deciding to trade, you need to ensure that you
+                                                                understand the risks involved and take into account your investment objectives and level of
+                                                                experience. Click here for our full Risk Disclosure.
+                                                            </small>
+                                                        </p>
+                                                    </div>
+
+                                                    <div className='col-12 mt-3'>
+                                                        <h4> Brokers - Lite Finance (Myanmar) </h4>
+                                                        <p>
+                                                            <small>
+                                                                LiteFinance (ex. LiteForex) is a high-tech reliable ECN broker with a strong reputation. Our
+                                                                clients can exploit a safe user-friendly online platform for high-speed trading available in
+                                                                15 global languages and providing access to a great deal of in-built tools for price chart
+                                                                analysis. The fans of the most popular trading platform MetaTrader 4/5 can use it as well.
+                                                            </small>
+                                                            <a href="https://www.litefinance.org/" target='blank'> https://www.litefinance.org/ </a>
+                                                        </p>
+                                                    </div>
+
+                                                    <div className='col-12 mt-3'>
+                                                        <h4> Trading Platform - Meta Trader 5 </h4>
+                                                        <p>
+                                                            <small>
+                                                                Established in 2000, MetaQuotes has been developing B2B software for financial markets. MetaQuotes
+                                                                is internationally known as a leader in the financial software market. The company's representative
+                                                                offices are located all around the world.
+                                                            </small>
+                                                            <a href="https://www.metatrader5.com/" target='blank'> https://www.metatrader5.com/ </a>
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>

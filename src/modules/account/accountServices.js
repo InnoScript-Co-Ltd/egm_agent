@@ -2,6 +2,8 @@ import { endpoints } from "../../constants/endpoints";
 import { updateNotification } from "../../constants/shareSlice";
 import { delRequest, getRequest, postRequest, updateRequest } from "../../helpers/api";
 import { httpServiceHandler } from "../../helpers/handler";
+import { setBankIndex } from "../bankAccount/bankAccountSlice";
+import { setDepositIndex } from "../deposit/depositSlice";
 import { profile, register, setBankAccount, setReferral } from "./accountSlice";
 
 export const accountServices = {
@@ -92,6 +94,8 @@ export const accountServices = {
         await httpServiceHandler(dispatch, result);
         if (result.status === 200) {
             dispatch(profile(result.data));
+            dispatch(setBankIndex(result.data.bank_accounts ? result.data.bank_accounts : []));
+            dispatch(setDepositIndex(result.data.deposits ? result.data.deposits : []));
         }
 
         return result;

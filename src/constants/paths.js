@@ -14,4 +14,5 @@ export const paths = {
     channel: "/channel",
     agent: "/agent",
     profile: "/profile",
+    repayment: "/repayment"
 }

@@ -14,6 +14,9 @@ import { DepositForm } from "./modules/deposit/entry/DepositForm/DepositForm";
 import { AgentDetail } from "./modules/agent/view/AgentDetail/AgentDetail";
 import { PackageDetail } from "./modules/packages/view/PackageDetail/PackageDetail";
 import { Register } from "./modules/account/entry/Register/Register";
+import { DepositList } from "./modules/deposit/view/DepositList";
+import { RepaymentList } from "./modules/repayment/view/RepaymentList";
+import { RepaymentDetail } from "./modules/repayment/view/RepaymentDetail";
 
 export const routers = createBrowserRouter([
     {
@@ -61,7 +64,11 @@ export const routers = createBrowserRouter([
         element: <DepositForm />
     },
     {
-        path: paths.transaction,
+        path: `${paths.deposit}/list`,
+        element: <DepositList />
+    },
+    {
+        path: `${paths.transaction}/deposit`,
         element: <TranscationList />
     },
     {
@@ -79,6 +86,14 @@ export const routers = createBrowserRouter([
     {
         path: paths.profile,
         element: <Profile />
+    },
+    {
+        path: `${paths.repayment}/deposit/:deposit_id`,
+        element: <RepaymentList />
+    },
+    {
+        path: `${paths.repayment}/:id`,
+        element: <RepaymentDetail />
     },
 
 ])

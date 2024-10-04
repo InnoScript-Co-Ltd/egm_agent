@@ -1,14 +1,14 @@
 import { useSelector } from "react-redux";
 import { AlertMessage } from "../../../shares/AlertMessage";
 import { Header } from "../../../shares/Header"
-import { SideMenu } from "../../../shares/SideMenu";
 import { useDispatch } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
 import { transcationServices } from "../transcationServices";
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { Status } from "../../../shares/Status/Status";
-import moment from "moment";
 import Button from "react-bootstrap/esm/Button";
+import { paths } from "../../../constants/paths";
+import moment from "moment";
 
 export const TranscationDetail = () => {
 
@@ -19,6 +19,7 @@ export const TranscationDetail = () => {
 
     const dispatch = useDispatch();
     const params = useParams();
+    const navigate = useNavigate();
 
     const initLoading = useCallback(async () => {
         setLoading(true);
@@ -144,6 +145,14 @@ export const TranscationDetail = () => {
                                                                 <small> Bank Type </small>
                                                                 <small> {transaction.bank_type} </small>
                                                             </div>
+
+                                                            {transaction.deposit && (
+                                                                <Button className="mt-3" onClick={() => {
+                                                                    navigate(`${paths.repayment}/deposit/${transaction.deposit.id}`)
+                                                                }}>
+                                                                    View Deposit Repayment
+                                                                </Button>
+                                                            )}
                                                         </div>
                                                     </div>
                                                 </div>
