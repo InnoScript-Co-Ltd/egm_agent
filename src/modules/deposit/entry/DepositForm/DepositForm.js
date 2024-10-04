@@ -1,13 +1,11 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
 import Alert from 'react-bootstrap/Alert';
 import { useCallback, useEffect, useState, useRef } from "react";
 import { Header } from "../../../../shares/Header";
 import { Notification } from "../../../../shares/Notification";
 import { depositServices } from "../../depositServices";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { depositPayload } from "../../depositPayload";
 import { payloadHandler } from "../../../../helpers/handler";
 import { ValidationMessage } from "../../../../shares/ValidationMessage";
@@ -18,23 +16,19 @@ import { useNavigate } from 'react-router-dom';
 import { Copy } from 'react-bootstrap-icons';
 import { transcationServices } from '../../../transcation/transcationServices';
 import { depositAmount } from '../../../../constants/config';
-import numeral from 'numeral';
-import moment from 'moment';
 import "./deposit-form.css";
 
 export const DepositForm = () => {
 
     const [loading, setLoading] = useState(false);
     const [showMessage, setShowMessage] = useState(null);
-    const [packages, setPackages] = useState([]);
     const [payload, setPayload] = useState(depositPayload.create);
-    const [selectPackage, setSelectPackage] = useState(null);
-    const [repayment, setRepayment] = useState([]);
     const [bankAccounts, setBankAccount] = useState([]);
     const [checkPaymentPassword, setCheckPaymentPassword] = useState(false);
-    const [showInfo, setShowInfo] = useState(false);
     const [selectMerchantAccount, setSelectMerechantAccount] = useState(null);
     const [selectedDepositAmount, setSelectedDepositAmount] = useState(null);
+
+    const { user } = useSelector(state => state.account);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -51,16 +45,20 @@ export const DepositForm = () => {
     /** Deposit Transaction Request Handler */
     const depositTransactionRequest = async () => {
         setLoading(true);
-        const formData = formBuilder(payload, depositPayload.create);
+        const updatePayload = {...payload};
+        updatePayload.package_deposit_amount = selectedDepositAmount.value;
+        
+        const formData = formBuilder(updatePayload, depositPayload.create);
         const result = await transcationServices.store(dispatch, formData);
 
         if (result.status === 200) {
-            setShowInfo(true);
+            navigate(paths.transaction);
         }
 
         setLoading(false);
     }
 
+    /** Choose Agent Bank Account Handler */
     const chooseAgentBankAccount = async (e) => {
         const selectAgentBankAccount = bankAccounts.filter(value => Number(value.id) === Number(e))[0];
         const chooseMerchantBankAccount = merchantBankAccount.current.filter(value => value.bank_type_label === selectAgentBankAccount.bank_type_label)[0];
@@ -79,6 +77,7 @@ export const DepositForm = () => {
         setPayload(updatePayload);
     }
 
+    /** Initialization Merchant Bank Account Loading */
     const initMerchantBankAccountLoading = useCallback(async () => {
         const result = await depositServices.merchantBankAccount(dispatch);
 
@@ -88,14 +87,9 @@ export const DepositForm = () => {
 
     }, [dispatch]);
 
+    /** Initialization Agent Bank Account  */
     const initLoading = useCallback(async () => {
         setLoading(true);
-        const resultPackage = await depositServices.packages(dispatch);
-
-        if (resultPackage.status === 200) {
-            setPackages(resultPackage.data);
-        };
-
         const bankAccountResult = await depositServices.bankAccount(dispatch);
 
         if (bankAccountResult.status === 200) {
@@ -119,6 +113,7 @@ export const DepositForm = () => {
     useEffect(() => {
         if (merchantBankAccount.length > 0 && bankAccounts.length > 0) {
             const bankAccount = merchantBankAccount.filter(value => value.bank_type_label === bankAccounts[0].bank_type_label);
+
             if (bankAccount.length > 0) {
                 setSelectMerechantAccount(bankAccount[0]);
             } else {
@@ -146,7 +141,7 @@ export const DepositForm = () => {
                         </div>
                     )}
 
-                    {showMessage === null && (
+                    {user && user.allow_deposit && (
                         <div className="col-12 mt-3">
                             <div className="row">
                                 <div className="col-12 col-md-12 mt-3">
@@ -171,6 +166,7 @@ export const DepositForm = () => {
                                                                     </div>
                                                                 )
                                                             })}
+                                                            <ValidationMessage field="package_deposit_amount" />
                                                         </div>
 
                                                         <div className='row mt-3'>
@@ -249,24 +245,6 @@ export const DepositForm = () => {
                                                         )}
                                                     </div>
                                                 </div>
-
-
-                                                {showInfo && (
-                                                    <div className="col-12 col-md-12 col-lg-12 mt-3">
-                                                        <Alert variant={"primary"}>
-                                                            <div className='d-flex flex-column justify-content-center align-items-start'>
-                                                                <p> We are checking your payment transaction. Payment transaction process will take 24 hours.  </p>
-                                                                <Button
-                                                                    variant="warning"
-                                                                    disabled={loading}
-                                                                    onClick={() => navigate(paths.transaction)}
-                                                                >
-                                                                    Check Payment Transaction
-                                                                </Button>
-                                                            </div>
-                                                        </Alert>
-                                                    </div>
-                                                )}
                                             </div>
                                         </div>
                                     </div>

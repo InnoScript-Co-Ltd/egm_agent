@@ -69,18 +69,8 @@ export const TranscationDetail = () => {
                                                                 <small> {moment(transaction.updated_at).format("DD/MM/YYYY hh:mm:ss")} </small>
                                                             </div>
 
-                                                            <Button
-                                                                className="w-full"
-
-                                                            >
-                                                                View Transaction Screenshoot
-                                                            </Button>
-                                                        </div>
-
-                                                        <div className="col-12 col-md-6 col-lg-6 mb-3">
-                                                            <h5 className="mb-3"> Package </h5>
                                                             <div className="d-flex flex-row justify-content-between align-items-center mb-2">
-                                                                <small> Package Name </small>
+                                                                <small> Package Type </small>
                                                                 <small> {transaction.package_name} </small>
                                                             </div>
 
@@ -89,26 +79,8 @@ export const TranscationDetail = () => {
                                                                 <small> {transaction.package_duration} Months </small>
                                                             </div>
 
-                                                            <div className="d-flex flex-row justify-content-between align-items-center mb-2">
-                                                                <small> ROI Rate </small>
-                                                                <small> {transaction.package_roi_rate} % </small>
-                                                            </div>
+                                                            <h5 className="mb-3"> Bank Account Informaiton </h5>
 
-                                                            <div className="d-flex flex-row justify-content-between align-items-center mb-2">
-                                                                <small> Commission </small>
-                                                                <small> 1 % </small>
-                                                            </div>
-
-                                                            <Button
-                                                                className="w-full"
-
-                                                            >
-                                                                View Package Detail
-                                                            </Button>
-                                                        </div>
-
-                                                        <div className="col-12 col-md-6 col-lg-6 mb-3">
-                                                            <h5 className="mb-3"> Agent's Bank Account </h5>
                                                             <div className="d-flex flex-row justify-content-between align-items-center mb-2">
                                                                 <small> Name </small>
                                                                 <small> {transaction.sender_name} </small>
@@ -153,6 +125,7 @@ export const TranscationDetail = () => {
                                                                 <small> Address </small>
                                                                 <small> {transaction.sender_bank_address} </small>
                                                             </div>
+
                                                         </div>
 
                                                         <div className="col-12 col-md-6 col-lg-6 mb-3">

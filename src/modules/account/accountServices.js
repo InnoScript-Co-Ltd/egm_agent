@@ -2,7 +2,7 @@ import { endpoints } from "../../constants/endpoints";
 import { updateNotification } from "../../constants/shareSlice";
 import { delRequest, getRequest, postRequest, updateRequest } from "../../helpers/api";
 import { httpServiceHandler } from "../../helpers/handler";
-import { register, profile, setBankAccount, setReferral } from "./accountSlice";
+import { profile, register, setBankAccount, setReferral } from "./accountSlice";
 
 export const accountServices = {
 

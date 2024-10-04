@@ -24,7 +24,7 @@ const InitLoading = () => {
   },[dispatch]);
 
   useEffect(() => {
-    loadingData()
+    loadingData();
   },[loadingData]);
 }
 
