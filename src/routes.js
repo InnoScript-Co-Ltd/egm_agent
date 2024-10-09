@@ -11,7 +11,7 @@ import { TranscationDetail } from "./modules/transcation/view/TranscationDetail"
 import { Profile } from "./modules/account/view/Profile/Profile";
 import { AgentList } from "./modules/agent/view/AgentList/AgentList";
 import { DepositForm } from "./modules/deposit/entry/DepositForm/DepositForm";
-import { AgentDetail } from "./modules/agent/view/AgentDetail/AgentDetail";
+// import { AgentDetail } from "./modules/agent/view/AgentDetail/AgentDetail";
 import { PackageDetail } from "./modules/packages/view/PackageDetail/PackageDetail";
 import { Register } from "./modules/account/entry/Register/Register";
 import { DepositList } from "./modules/deposit/view/DepositList";
@@ -104,5 +104,4 @@ export const routers = createBrowserRouter([
         path: paths.agent,
         element: <AgentList />
     }
-
-])
+]);

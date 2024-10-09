@@ -64,7 +64,7 @@ export const Header = () => {
                     icon: <PeopleFill size={16} />,
                     label: "Agents",
                     url: `${paths.agent}`,
-                    show: user.agent_type === "MAIN_AGENT" ? true : false
+                    show: true
                 },
                 {
                     icon: <ShareFill size={16} />,

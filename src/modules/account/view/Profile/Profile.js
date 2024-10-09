@@ -5,7 +5,6 @@ import { AlertMessage } from "../../../../shares/AlertMessage"
 import { Header } from "../../../../shares/Header"
 import { Notification } from "../../../../shares/Notification"
 import { ChangePassword } from "../../entry/ChangePassword/ChangePassword"
-import { ReferralLink } from "../ReferralLink/ReferralLink"
 import { ProfileUpdate } from "../../entry/ProfileUpdate/ProfileUpdate"
 import { KYCUpdate } from "../../entry/KYCUpdate/KYCUpdate"
 import { AccountUpdate } from "../../entry/AccountUpdate/AccountUpdate"
@@ -56,10 +55,6 @@ export const Profile = () => {
 
                                                     <Tab eventKey="account" title="Account">
                                                         <AccountUpdate />
-                                                    </Tab>
-
-                                                    <Tab eventKey="referral" title="Rererral Link">
-                                                        <ReferralLink />
                                                     </Tab>
 
                                                     <Tab eventKey="security" title="Security">
