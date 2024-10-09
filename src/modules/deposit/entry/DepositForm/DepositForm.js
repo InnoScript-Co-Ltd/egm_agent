@@ -52,7 +52,7 @@ export const DepositForm = () => {
         const result = await transcationServices.store(dispatch, formData);
 
         if (result.status === 200) {
-            navigate(paths.transaction);
+            navigate(`${paths.transaction}/deposit`);
         }
 
         setLoading(false);

@@ -8,6 +8,7 @@ import transcationSlice from "../modules/transcation/transcationSlice";
 import agentSlice from "../modules/agent/agentSlice";
 import depositSlice from "../modules/deposit/depositSlice";
 import repaymentSlice from "../modules/repayment/repaymentSlice";
+import referralSlice from "../modules/referral/referralSlice";
 
 export const stores = configureStore({
    reducer: {
@@ -19,7 +20,8 @@ export const stores = configureStore({
       transaction: transcationSlice,
       agent: agentSlice,
       deposit: depositSlice,
-      repayment: repaymentSlice
+      repayment: repaymentSlice,
+      referral: referralSlice
    },
    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
       serializableCheck: false

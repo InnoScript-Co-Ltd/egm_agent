@@ -17,6 +17,7 @@ import { Register } from "./modules/account/entry/Register/Register";
 import { DepositList } from "./modules/deposit/view/DepositList";
 import { RepaymentList } from "./modules/repayment/view/RepaymentList";
 import { RepaymentDetail } from "./modules/repayment/view/RepaymentDetail";
+import { ReferralList } from "./modules/referral/view/ReferralList";
 
 export const routers = createBrowserRouter([
     {
@@ -75,14 +76,14 @@ export const routers = createBrowserRouter([
         path: `${paths.transaction}/:id`,
         element: <TranscationDetail />
     },
-    {
-        path: `${ paths.agent}/:level`,
-        element: <AgentList />
-    },
-    {
-        path: `${ paths.agent}/:level/:id`,
-        element: <AgentDetail />
-    },
+    // {
+    //     path: `${ paths.agent}/:level`,
+    //     element: <AgentList />
+    // },
+    // {
+    //     path: `${ paths.agent}/:level/:id`,
+    //     element: <AgentDetail />
+    // },
     {
         path: paths.profile,
         element: <Profile />
@@ -95,5 +96,13 @@ export const routers = createBrowserRouter([
         path: `${paths.repayment}/:id`,
         element: <RepaymentDetail />
     },
+    {
+        path: paths.referral,
+        element: <ReferralList />
+    },
+    {
+        path: paths.agent,
+        element: <AgentList />
+    }
 
 ])
