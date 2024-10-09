@@ -7,6 +7,8 @@ import { referralService } from "../referralService"
 import { paths } from "../../../constants/paths"
 import { useNavigate } from "react-router-dom"
 import moment from "moment"
+import { Copy } from "react-bootstrap-icons"
+import { appUrl } from "../../../constants/config"
 
 export const ReferralList = () => {
 
@@ -17,6 +19,12 @@ export const ReferralList = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    /** Copy Referral Link */
+    const copyReferralLink = (id) => {
+        const copyText = document.getElementById(id).innerHTML;
+        navigator.clipboard.writeText(`${appUrl}/agent/register/${copyText}`);
+    }
 
     /** Loading Referral Data */
     const mount = useCallback(async () => {
@@ -69,14 +77,19 @@ export const ReferralList = () => {
                                                                 {!loading && referrals && referrals.map((referral, index) => {
                                                                     return (
                                                                         <tr key={`referral_id_${index}`} style={{ width: "100%" }}>
-                                                                            <td
-                                                                                style={{
-                                                                                    textDecoration: "underline #d3d3d3",
-                                                                                    cursor: "pointer",
-                                                                                }}
-                                                                                onClick={() => navigate(`${paths.referral}/${referral.id}`)}
-                                                                            >
-                                                                                {referral.id}
+                                                                            <td>
+                                                                                <span
+                                                                                    id="referral_link"
+                                                                                    style={{
+                                                                                        textDecoration: "underline #d3d3d3",
+                                                                                        cursor: "pointer",
+                                                                                        marginRight: "10px"
+                                                                                    }}
+                                                                                    onClick={() => navigate(`${paths.referral}/${referral.id}`)}
+                                                                                > 
+                                                                                    {referral.link} 
+                                                                                </span>
+                                                                                <Copy style={{cursor: "pointer"}} onClick={() => copyReferralLink('referral_link')} />
                                                                             </td>
                                                                             <td> {referral.count} </td>
                                                                             <td> {referral.commission} </td>

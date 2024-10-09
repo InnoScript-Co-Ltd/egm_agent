@@ -21,7 +21,6 @@ export const referralService = {
         await httpServiceHandler(dispatch, result);
 
         if(result.status === 200) {
-            console.log(result);
             dispatch(setReferralIndex(result.data.data ? result.data.data : result.data));
         }
 

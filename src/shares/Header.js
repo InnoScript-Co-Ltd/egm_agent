@@ -70,39 +70,7 @@ export const Header = () => {
                     icon: <ShareFill size={16} />,
                     label: "Referral",
                     url: `${paths.referral}`,
-                    show: true
-                },
-                {
-                    icon: <PeopleFill size={16} />,
-                    label: "Agents",
-                    url: null,
-                    show: user.agent_type === "SUB_AGENT" ? true : false,
-                    children: [
-                        {
-                            icon: <PeopleFill size={16} />,
-                            label: "Agents (Level 1)",
-                            url: `${paths.agent}/level_one`,
-                            show: user.agent_type === "SUB_AGENT" ? true : false
-                        },
-                        {
-                            icon: <PeopleFill size={16} />,
-                            label: "Agents (Level 2)",
-                            url: `${paths.agent}/level_two`,
-                            show: user.agent_type === "SUB_AGENT" ? true : false
-                        },
-                        {
-                            icon: <PeopleFill size={16} />,
-                            label: "Agents (Level 3)",
-                            url: `${paths.agent}/level_three`,
-                            show: user.agent_type === "SUB_AGENT" ? true : false
-                        },
-                        {
-                            icon: <PeopleFill size={16} />,
-                            label: "Agents (Level 4)",
-                            url: `${paths.agent}/level_four`,
-                            show: user.agent_type === "SUB_AGENT" ? true : false
-                        },
-                    ]
+                    show: user.agent_type === "MAIN_AGENT" ? true : false
                 },
                 {
                     icon: <PersonFill size={16} />,
